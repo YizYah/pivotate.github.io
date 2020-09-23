@@ -31,7 +31,7 @@ import { keyframes } from 'styled-components';
 // ns__start_section stylingSection
 const Form = styled.div`
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: styling
-  margin: 0.8rem 0 0.5rem 3.8rem;
+  margin: 0.8rem 0 0.5rem 0.8rem;
   border: none;
   border-radius: 5px;
 
@@ -99,13 +99,13 @@ const CalloutBox = styled.div`
   :after{
     background-color: #F3E196;
     position: absolute;
-    width: 30px;
-    height: 10px;
+    width: 27px;
+    height: 8px;
     border-top: 0px solid #F3E196;
     border-right: 2px solid #F3E196;
     border-left: 0px solid #F3E196;
     border-bottom: 2px solid #F3E196;
-    left: 93%;
+    left: 75px;
     
     content: '';
     transform: rotate(45deg);
@@ -163,7 +163,9 @@ function ScreenCreationForm({
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Screen name ${label ? `for ${label}` : ''}`;
+    callOutText = `What is the Screen name ${
+      screenValue ? `for ${screenValue} ?` : ''
+    }`;
   }
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beginning
 
@@ -219,17 +221,20 @@ function ScreenCreationForm({
   const showCallout = () => {
     setCallout(!callout);
   };
+  const handleClickShow = () => setCallout(!callout);
+
   return (
     <Form>
       <Label htmlFor='screen-value'>
         <TextField
           className={styles.textField}
-          label={callOutText}
+          label='New Screen'
           value={screenValue}
           onChange={(e) => {
             handleChange(e);
             onChange(e.target.value);
           }}
+          autoFocus
           onKeyPress={handleKeyPress}
           disabled={disabled || loading}
           variant='outlined'
@@ -238,14 +243,14 @@ function ScreenCreationForm({
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  onClick={showCallout}
+                  onClick={handleClickShow}
                 />
               </InputAdornment>
             ),
           }}
         />
       </Label>
-      {showCalloutBox ? (
+      {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />

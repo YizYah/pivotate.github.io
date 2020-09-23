@@ -46,7 +46,7 @@ const UserTypeStyleWrapper = styled.div(
   border-radius: 10px;
   border: 1px solid black;
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+    (isDeleting && 'tomato') || (selected && 'white') || ''
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -135,15 +135,15 @@ function UserType({
   // ns__custom_start unit: appSpec, comp: UserType, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: UserType, loc: beforeReturn
 
-  // ns__start_section notSelected
-  if (!selected) {
-    return (
-      <UserTypeStyleWrapper onClick={() => onSelect(userType.id)}>
-        {userTypeValue}
-      </UserTypeStyleWrapper>
-    );
-  }
-  // ns__end_section notSelected
+  // ns__start_replacement notSelected
+  // if (!selected) {
+  //   return (
+  //     <UserTypeStyleWrapper onClick={() => onSelect(userType.id)}>
+  //       {userTypeValue}
+  //     </UserTypeStyleWrapper>
+  //   );
+  // }
+  // ns__end_replacement notSelected
 
   // ns__start_section change
   function handleUserTypeValueChange(e) {

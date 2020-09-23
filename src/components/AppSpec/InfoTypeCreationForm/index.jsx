@@ -33,7 +33,7 @@ import { keyframes } from 'styled-components';
 const Form = styled.div`
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: styling
   // change styling here
-  margin: 0.8rem 0 0 11%;
+  margin: 0.8rem 0 0.5rem 0.8rem;
   border: none;
   border-radius: 5px;
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: styling
@@ -86,13 +86,13 @@ const CalloutBox = styled.div`
   :after{
     background-color: #F3E196;
     position: absolute;
-    width: 30px;
-    height: 10px;
+    width: 27px;
+    height: 8px;
     border-top: 0px solid #F3E196;
     border-right: 2px solid #F3E196;
     border-left: 0px solid #F3E196;
     border-bottom: 2px solid #F3E196;
-    left: 91%;
+    left: 75px;
     
     content: '';
     transform: rotate(45deg);
@@ -149,7 +149,9 @@ function InfoTypeCreationForm({
   if (infoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Info Type ${label ? `for ${label}` : ''}`;
+    callOutText = `What is a Info Type ${
+      infoTypeValue ? `for ${infoTypeValue}` : ''
+    }`;
   }
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
 
@@ -206,6 +208,8 @@ function InfoTypeCreationForm({
   const showCallout = () => {
     setCallout(!callout);
   };
+  const handleClickShow = () => setCallout(!callout);
+
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beforeReturn
 
   // ns__start_replacement return
@@ -215,7 +219,7 @@ function InfoTypeCreationForm({
       <Label htmlFor='infoType-value'>
         <TextField
           className={styles.textField}
-          label={callOutText}
+          label='New Info Type'
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           value={infoTypeValue}
@@ -226,7 +230,7 @@ function InfoTypeCreationForm({
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  onClick={showCallout}
+                  onClick={handleClickShow}
                 />
               </InputAdornment>
             ),
@@ -234,7 +238,7 @@ function InfoTypeCreationForm({
         />
       </Label>
 
-      {showCalloutBox ? (
+      {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />

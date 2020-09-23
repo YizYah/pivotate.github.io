@@ -70,7 +70,7 @@ const CalloutBox = styled.div`
   padding: 1rem;
   animation: ${fadeInDown} 1.5s;
   background-color: #F3E196;
-  width: 100%;
+  width: inherit;
   border-radius: 10px;  
   position: relative;
   margin: .5rem;
@@ -81,13 +81,13 @@ const CalloutBox = styled.div`
   :after{
     background-color: #F3E196;
     position: absolute;
-    width: 30px;
-    height: 10px;
+    width: 27px;
+    height: 8px;
     border-top: 0px solid #F3E196;
     border-right: 2px solid #F3E196;
     border-left: 0px solid #F3E196;
     border-bottom: 2px solid #F3E196;
-    left: 60%;
+    left: 75px;
     
     content: '';
     transform: rotate(45deg);
@@ -141,12 +141,11 @@ function UserTypeCreationForm({
   // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: beginning
   const styles = useStyles();
   const [callout, setCallout] = useState(false);
-  const showCalloutBox = callout || validateUserTypes === 0;
   let callOutText = '';
   if (userTypeCreationCount < 4) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the User Type ${label ? `for ${label}` : ''}`;
+    callOutText = `What is a User Type ${userTypeValue ? `for ${userTypeValue} ?` : ''}`;
   }
   // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: beginning
 
@@ -194,7 +193,7 @@ function UserTypeCreationForm({
     // if (e.charCode === 13) {
     //   handleSubmit(e);
     // }
-    if (e.key === 'Enter') {
+    if ( e.key === 'Enter'  ) {
       handleSubmit(e);
     }
     // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: insideHandleKeyPress
@@ -210,34 +209,38 @@ function UserTypeCreationForm({
 
   // ns__start_replacement return
 
+  const handleClickShow = () => setCallout(!callout);
+
   return (
     <Container className={styles.customContainer} maxWidth='sm'>
       {/* ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: insideReturn */}
       <Label htmlFor='userType-value'>
         <TextField
           className={styles.textField}
-          label={callOutText}
+          label='User Type '
           value={userTypeValue}
           onChange={(e) => {
             handleChange(e);
             onChange(e.target.value);
           }}
           onKeyPress={handleKeyPress}
+          placeholder='User Type for Local Hands'
           disabled={loading || disabled}
           variant='outlined'
+          noWrap
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  onClick={showCallout}
+                  onClick={handleClickShow}
                 />
               </InputAdornment>
             ),
           }}
         />
       </Label>
-      {showCalloutBox ? (
+      {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />

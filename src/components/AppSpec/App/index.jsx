@@ -228,13 +228,15 @@ function App({
         title={appValue}
         description={descriptions[0] && descriptions[0].value}
         userTypes={userTypes}
+        updateButton={() => updateIsEditMode(true)}
+        deleteButton={() => updateIsDeleteMode(true)}
       />
-      <Button type='button' onClick={() => updateIsEditMode(true)}>
+      {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
         &#9998;
       </Button>
       <Button type='button' onClick={() => updateIsDeleteMode(true)}>
         &#128465;
-      </Button>
+      </Button> */}
 
       <UserTypes
         userTypes={userTypes}

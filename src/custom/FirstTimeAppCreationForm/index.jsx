@@ -251,7 +251,7 @@ function AppCreationForm({
             label='Application Name'
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position='start'>
                   <HelpOutlineIcon
                     className={styles.helpIcon}
                     onClick={showCallout}

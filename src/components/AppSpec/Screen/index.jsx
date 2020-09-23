@@ -40,12 +40,12 @@ const ScreenStyleWrapper = styled.div(
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
   margin: 2rem 0 .5rem 1rem;
-  padding: ${selected ? '0' : '1.5rem'};
+  // padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
   
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+    (isDeleting && 'tomato') || (selected && 'white') || ''
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -147,15 +147,15 @@ function Screen({
   // ns__custom_start unit: appSpec, comp: Screen, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: Screen, loc: beforeReturn
 
-  // ns__start_section notSelected
-  if (!selected) {
-    return (
-      <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
-        {screenValue}
-      </ScreenStyleWrapper>
-    );
-  }
-  // ns__end_section notSelected
+  // ns__start_replacement notSelected
+  // if (!selected) {
+  //   return (
+  //     <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
+  //       {screenValue}
+  //     </ScreenStyleWrapper>
+  //   );
+  // }
+  // ns__end_replacement notSelected
 
   // ns__start_section change
   function handleScreenValueChange(e) {

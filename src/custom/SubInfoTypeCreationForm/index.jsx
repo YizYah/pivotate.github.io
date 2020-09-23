@@ -123,7 +123,7 @@ const SubInfoTypeCreationForm = ({
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the sub Info Type ${label ? `for ${label}` : ''}`;
+    callOutText = `What is the sub Info Type ${subInfoValue ? `for ${subInfoValue}?` : ''}`;
   }
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   function handleChange(e) {
@@ -188,31 +188,33 @@ const SubInfoTypeCreationForm = ({
   const showCallout = () => {
     setCallout(!callout);
   };
+  const handleClickShow = () => setCallout(!callout);
+
   return (
     <Form>
       {/* // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
         <TextField
           className={styles.textField}
-          label={`New Sub Info Type  ${label ? `for ${label}` : ''}`}
+          label={`New Sub Info Type`}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           value={subInfoValue}
-          disabled={loading || disabled}
+          disabled={disabled || loading}
           variant='outlined'
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  onClick={showCallout}
+                  onClick={handleClickShow}
                 />
               </InputAdornment>
             ),
           }}
         />
       </Label>
-      {showCalloutBox ? (
+      {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />

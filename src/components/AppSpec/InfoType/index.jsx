@@ -100,6 +100,7 @@ const Button = styled.button`
 
 // ns__custom_start unit: appSpec, comp: InfoType, loc: beforeFunction
 const TitleWrapper = styled.div`
+  margin-top: 8px;
   background: #d2ecef;
   padding: 25px;
   border-radius: 10px;

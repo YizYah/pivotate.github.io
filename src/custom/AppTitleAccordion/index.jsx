@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
-import { Button, Container, AccordionActions } from '@material-ui/core';
+import { Container, AccordionActions } from '@material-ui/core';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
@@ -18,8 +18,35 @@ const CustomWrapper = styled.div`
 const CustomAccordion = styled(Container)`
   margin-bottom: 1rem;
 `;
+const Button = styled.button`
+  // ns__custom_start unit: appSpec, comp: App, loc: buttonStyling
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0;
+  color: #bbbbbb;
+  transition: color 0.5s ease;
+  &:hover {
+    color: ${(props) => props.hoverColor || '#000000'};
+  }
+  // ns__custom_end unit: appSpec, comp: App, loc: buttonStyling
+`;
+const CustomButtonWrapper = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
 
-function AppTitleAccordion({ title, description, children, userTypes }) {
+`;
+
+function AppTitleAccordion({
+  title,
+  description,
+  children,
+  userTypes,
+  updateButton,
+  deleteButton,
+}) {
   const styles = useStyles();
   const [expanded, setExpanded] = useState('panel1');
   const [openEdit, setOpenEdit] = useState(false);
@@ -75,8 +102,6 @@ function AppTitleAccordion({ title, description, children, userTypes }) {
           {/* <AccordionActions className={styles.accordionButtonsWrapper}> */}
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls='panel1bh-content'
-            id='panel1bh-header'
             Container
             classes={{
               content: styles.accordionSummary,
@@ -91,6 +116,7 @@ function AppTitleAccordion({ title, description, children, userTypes }) {
               </Typography>
             </div>
           </AccordionSummary>
+
           {/* {userCount >=2 ? (
                <Button
                className={styles.accordionButton}
@@ -102,10 +128,18 @@ function AppTitleAccordion({ title, description, children, userTypes }) {
 
             ) : null} */}
           {/* </AccordionActions> */}
-
+          <CustomButtonWrapper>
           <AccordionDetails>
             <Typography>{description}</Typography>
           </AccordionDetails>
+          <div>
+            <Button onClick={updateButton}>&#9998;</Button>
+            <Button onClick={deleteButton}>&#128465;</Button>
+          </div>
+
+          </CustomButtonWrapper>
+
+     
         </Accordion>
         {children}
         {getStepModal(activeStep)}
