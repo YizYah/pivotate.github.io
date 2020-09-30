@@ -125,7 +125,6 @@ class Apps extends Component {
           if (error) {
             return `Error: ${error.graphQLErrors}`;
           }
-          console.log('helllll',data);
 
           const apps = data.unitData.map((el) => flattenData(el));
 
@@ -156,9 +155,7 @@ class Apps extends Component {
                 />
               ) : (
                 <AppsStyleWrapper
-                  ref={this.wrapperRef}
                   onClick={this.handleClick}
-                  show
                 >
                   <Container maxWidth='sm'>
                   {apps &&
@@ -169,7 +166,6 @@ class Apps extends Component {
                         app={app}
                         selected={app.id === selectedAppId}
                         refetchQueries={refetchQueries}
-                        onSelect={this.handleSelect}
                         // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForChildren
                         // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForChildren
                       />

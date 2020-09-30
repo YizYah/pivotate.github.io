@@ -36,18 +36,18 @@ import SubInfoComponent from '../../../custom/SubInfoTypesRecursive';
 // ns__custom_end unit: appSpec, comp: InfoType, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
 const InfoTypeStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 1rem;
-  padding: ${selected ? '0' : '1.5rem'};
+  margin: 2rem 0 .5rem 2rem;
+  // padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
   
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+    (isDeleting && 'tomato') || (selected && 'white') || ''
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -74,12 +74,12 @@ const InfoTypeStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -32px ;
-    height: ${(selected && '94px') || '71px'}; 
+    height: ${(selected && '94px') || '120%'}; 
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
 );
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_section button
 const Button = styled.button`

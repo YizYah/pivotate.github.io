@@ -19,6 +19,55 @@ import {
 
 // ns__custom_start unit: appSpec, comp: Sub_Info_TypeCreationForm, loc: styling
 // change styling here
+
+const SubInfoStyleWrapper = styled.div(
+    ({ selected, isDeleting }) => `
+    // ns__custom_start unit: appSpec, comp: Screen, loc: styling
+    // add styling here
+    margin: 2rem 0 .2rem 7.9rem;
+    // @media (max-width: 480px) {
+    //   margin: 2rem 0 .2rem 2rem;
+  
+  
+    // }
+    // padding: ${selected ? '0' : '1.5rem'};
+    
+    border-radius: 10px;
+    
+    background-color: ${
+      (isDeleting && 'tomato') || (selected && 'white') || ''
+    };
+    cursor: ${selected ? 'auto' : 'pointer'};
+    position: relative;
+  
+    &:before {
+      content: "";
+      position: absolute;
+      top: -31px;
+      left: -29px;
+      border-left: 2px dashed #a2a5b5;
+      width: 1px;
+      height: ${(selected && '109%') || '138%'}; 
+     
+    }
+  
+   
+    &:after {
+      content: "";
+      position: absolute;
+      border-top: 2px dashed #a2a5b5;
+      top: ${(selected && '57px') || '44px'};
+      left: -30px;
+      width: ${(selected && '30px') || '29px'}; 
+    }
+  
+    &:last-child:before {
+      top: -33px ;
+      height: ${(selected && '90px') || '77px'}; 
+    }
+    // ns__custom_end unit: appSpec, comp: Screen, loc: styling
+  `
+  );
 const Form = styled.div`
   margin: 2em;
   border: none;
@@ -191,7 +240,7 @@ const SubInfoTypeCreationForm = ({
   const handleClickShow = () => setCallout(!callout);
 
   return (
-    <Form>
+    <SubInfoStyleWrapper>
       {/* // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
         <TextField
@@ -221,7 +270,7 @@ const SubInfoTypeCreationForm = ({
         </CalloutBox>
       ) : null}
       {/* // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
-    </Form>
+    </SubInfoStyleWrapper>
   );
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beforeReturn*/
 

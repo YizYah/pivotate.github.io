@@ -26,13 +26,16 @@ import {
 
 import EditInstanceForm from '../../EditInstanceForm';
 import DeleteInstanceMenu from '../../DeleteInstanceMenu';
-
 import UserTypes from '../UserTypes';
 import Descriptions from '../Descriptions';
 
 // ns__custom_start unit: appSpec, comp: App, loc: addedImports
+
 import { Container } from '@material-ui/core';
 import AppTitleAccordion from '../../../custom/AppTitleAccordion';
+import ItemEditFormModal from '../../../custom/ItemEditFormModal';
+import { UPDATE_DESCRIPTION_FOR_APP_SPEC_ACTION_ID } from '../../../config';
+
 // ns__custom_end unit: appSpec, comp: App, loc: addedImports
 // ns__end_section imports
 
@@ -114,6 +117,12 @@ function App({
   const descriptions = descriptionData ? descriptionData.instances : [];
 
   // ns__custom_start unit: appSpec, comp: App, loc: beforeReturn
+
+  const [descValue, updateDescValue] = useState(
+    descriptions[0] && descriptions[0].value
+  );
+
+  let descriptionId = descriptions[0] && descriptions[0].id;
   // ns__custom_end unit: appSpec, comp: App, loc: beforeReturn
 
   // ns__start_replacement notSelected
@@ -126,14 +135,18 @@ function App({
   // }
   // ns__end_replacement notSelected
 
-  // ns__start_section change
+  // ns__start_replacement change
   function handleAppValueChange(e) {
     updateAppValue(e.target.value);
   }
 
-  // ns__end_section change
+  function handleDescValue(e) {
+    updateDescValue(e.target.value);
+  }
 
-  // ns__start_section save
+  // ns__end_replacement change
+
+  // ns__start_replacement save
   async function handleAppValueSave() {
     updateIsSaving(true);
 
@@ -148,10 +161,21 @@ function App({
       refetchQueries,
     });
 
+    await updateInstance({
+      variables: {
+        actionId: UPDATE_DESCRIPTION_FOR_APP_SPEC_ACTION_ID,
+        executionParameters: JSON.stringify({
+          value: descValue,
+          instanceId: descriptionId,
+        }),
+      },
+      refetchQueries,
+    });
+
     updateIsEditMode(false);
     updateIsSaving(false);
   }
-  // ns__end_section save
+  // ns__end_replacement save
 
   // ns__start_section cancel
   function handleCancelEdit() {
@@ -160,23 +184,33 @@ function App({
   // ns__end_section cancel
 
   // ns__start_replacement isEdit
-  if (isEditMode) {
-    return (
-      <AppStyleWrapper>
-        <EditInstanceForm
-          id={app.id}
-          label={`What's the preferred title ${
-            appValue ? `for ${appValue}?` : `off you App?`
-          }`}
-          value={appValue}
-          onChange={handleAppValueChange}
-          onSave={handleAppValueSave}
-          onCancel={handleCancelEdit}
-          disabled={isSaving}
-        />
-      </AppStyleWrapper>
-    );
-  }
+  // if (isEditMode) {
+  //   return (
+  //     // <AppStyleWrapper>
+  //     //   <EditInstanceForm
+  //     //     id={app.id}
+  //     //     label={`What's the preferred title ${
+  //     //       appValue ? `for ${appValue}?` : `off you App?`
+  //     //     }`}
+  //     //     value={appValue}
+  //     //     onChange={handleAppValueChange}
+  //     //     onSave={handleAppValueSave}
+  //     //     onCancel={handleCancelEdit}
+  //     //     disabled={isSaving}
+  //     //   />
+  //     // </AppStyleWrapper>
+  //     <ItemEditFormModal
+  //     id={app.id}
+  //         label={`What's the preferred title ${
+  //           appValue ? `for ${appValue}?` : `off you App?`
+  //         }`}
+  //         value={appValue}
+  //         onChange={handleAppValueChange}
+  //         handleClose={() => updateIsEditMode(false)}
+
+  //     />
+  //   );
+  // }
   // ns__end_replacement isEdit
 
   // ns__start_section delete
@@ -198,6 +232,7 @@ function App({
       updateIsDeleting(false);
     }
   }
+
   // ns__end_section delete
 
   // ns__start_section cancelDelete
@@ -230,6 +265,21 @@ function App({
         userTypes={userTypes}
         updateButton={() => updateIsEditMode(true)}
         deleteButton={() => updateIsDeleteMode(true)}
+      />
+      <ItemEditFormModal
+        open={isEditMode}
+        value={appValue}
+        descValue={descValue}
+        desc='Description Value'
+        handleClose={() => updateIsEditMode(false)}
+        label={`What's the preferred title ${
+          appValue ? `for ${appValue}?` : `off you App?`
+        }`}
+        handleAppValueSave={handleAppValueSave}
+        handleCancelEdit={handleCancelEdit}
+        handleAppValueChange={handleAppValueChange}
+        handleDescValue={handleDescValue}
+        isSaving={isSaving}
       />
       {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
         &#9998;

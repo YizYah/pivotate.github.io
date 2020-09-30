@@ -126,7 +126,7 @@ class UserTypes extends Component {
             />
           ))}
           {/* ns__custom_start unit: appSpec, comp: UserTypes, loc: renderEnding */}
-
+        
           {/* ns__custom_end unit: appSpec, comp: UserTypes, loc: renderEnding */}
         </UserTypesStyleWrapper>
         <UserTypeCreationForm
@@ -138,7 +138,7 @@ class UserTypes extends Component {
           label={label}
           // ns__custom_start unit: appSpec, comp: UserTypes, loc: addedPropsForCreationForm
         />
-        {userTypeCreationCount >= 3 ? (
+        {userTypeCreationCount >= 10 ? (
           <ScreenCreationForm
             disabled
             validateScreens={0}
@@ -146,7 +146,7 @@ class UserTypes extends Component {
             userTypeCreationCount={userTypeCreationCount}
             label={label}
           />
-        ) : null}
+         ) : null}
       </>
     );
 

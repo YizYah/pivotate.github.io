@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import Icons from '../../images/confetti.svg';
 import styled from 'styled-components';
-import './style.scss';
 
 const useStyles = makeStyles((theme) => ({
   customDialog: {
@@ -39,7 +38,7 @@ const CustomTitle = styled(DialogTitle)`
   text-align: center;
 `;
 
-function ApplicationModal({
+function CongratulationsModal({
   title,
   content,
   buttonLabel,
@@ -68,38 +67,15 @@ function ApplicationModal({
         <DialogContentText className='context-text'>
           {content}
         </DialogContentText>
-        <DialogContentText className='dialog-content-text '>
-          <h6>Look over your initial app details.</h6>
-          <div className='span-wrapper'>
-            <div>
-              <span>&#42; </span> Do you have all of your types of users
-              entered?
-            </div>
-            <div>
-              <span>&#42; </span> Any other screens you think you'll need?
-            </div>
-            <span>&#42; </span> Did you show all of the types of info that you
-            know you'll need?<div></div>
-          </div>
-        </DialogContentText>
       </DialogContent>
-      <DialogActions className='button-wrapper mobile-ver'>
-        <Button
-          className='button-back  '
-          onClick={handleButton}
-          variant='outlined'
-        >
-          
-          {buttonBack}
-        </Button>
-
-        <Button
-          className='button-next  '
+      <DialogActions className='button-wrapper'>
+      <Button
+          className='button-next-schedule  '
           onClick={handleButton}
           variant='contained'
         >
-          
-          {buttonLabel}
+          {' '}
+          {buttonLabel}{' '}
         </Button>
       </DialogActions>
       <DialogActions className='contact-us'>
@@ -109,4 +85,4 @@ function ApplicationModal({
   );
 }
 
-export default ApplicationModal;
+export default CongratulationsModal;

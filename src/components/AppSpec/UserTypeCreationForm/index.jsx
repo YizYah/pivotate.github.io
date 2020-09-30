@@ -21,7 +21,7 @@ import { CREATE_USER_TYPE_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
 import { keyframes } from 'styled-components';
-import {  makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { TextField, InputAdornment, Container } from '@material-ui/core';
@@ -41,7 +41,8 @@ const Form = styled.div`
   flex-direction: column;
   // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: styling
 `;
-// ns__end_section stylingSection
+// ns__end_section  stylingSection
+
 
 // ns__start_replacement button
 // ns__end_replacement button
@@ -65,6 +66,24 @@ const fadeInDown = keyframes`
   
 }
 `;
+const UserTypeStyleWrapper = styled.div(
+  ({ selected, isDeleting }) => `
+  // ns__custom_start unit: appSpec, comp: UserType, loc: styling
+  // add styling here
+  // margin: 2rem 0 2rem 1rem;
+  padding: ${selected ? '12px' : '1.5em'};
+  
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
+  cursor: ${selected ? 'auto' : 'pointer'};
+  position: relative;
+  width: inherit; 
+
+  // ns__custom_end unit: appSpec, comp: UserType, loc: styling
+`
+);
+
 
 const CalloutBox = styled.div`
   padding: 1rem;
@@ -117,8 +136,8 @@ const useStyles = makeStyles({
     width: '100%',
   },
   customContainer: {
-    marginTop: '1rem'
-  }
+    marginTop: '1rem',
+  },
 });
 // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: beforeFunction
 
@@ -142,10 +161,12 @@ function UserTypeCreationForm({
   const styles = useStyles();
   const [callout, setCallout] = useState(false);
   let callOutText = '';
-  if (userTypeCreationCount < 4) {
+  if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is a User Type ${userTypeValue ? `for ${userTypeValue} ?` : ''}`;
+    callOutText = `What is a User Type ${
+      userTypeValue ? `for ${userTypeValue} ?` : ''
+    }`;
   }
   // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: beginning
 
@@ -193,10 +214,14 @@ function UserTypeCreationForm({
     // if (e.charCode === 13) {
     //   handleSubmit(e);
     // }
-    if ( e.key === 'Enter'  ) {
+    if (e.key === 'Enter') {
       handleSubmit(e);
     }
     // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: insideHandleKeyPress
+  }
+
+  function handleKeyMouse(e) {
+    handleSubmit(e);
   }
 
   // ns__end_replacement handleKeyPress
@@ -214,17 +239,18 @@ function UserTypeCreationForm({
   return (
     <Container className={styles.customContainer} maxWidth='sm'>
       {/* ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: insideReturn */}
-      <Label htmlFor='userType-value'>
+      <UserTypeStyleWrapper htmlFor='userType-value'>
         <TextField
           className={styles.textField}
-          label='User Type '
+          label='User Type'
           value={userTypeValue}
           onChange={(e) => {
             handleChange(e);
             onChange(e.target.value);
           }}
+          onMouseUp={handleKeyMouse}
           onKeyPress={handleKeyPress}
-          placeholder='User Type for Local Hands'
+          // placeholder='User Type for Local Hands'
           disabled={loading || disabled}
           variant='outlined'
           noWrap
@@ -239,7 +265,7 @@ function UserTypeCreationForm({
             ),
           }}
         />
-      </Label>
+      </UserTypeStyleWrapper>
       {callout ? (
         <CalloutBox>
           {callOutText}

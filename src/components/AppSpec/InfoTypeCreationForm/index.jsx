@@ -29,7 +29,61 @@ import { keyframes } from 'styled-components';
 // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
+
+const InfoTypeStyleWrapper = styled.div(
+  ({ selected, isDeleting }) => `
+  // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
+  // add styling here
+  margin: 2rem 0 .2rem 24%;
+  right: 18px;
+  left: -33px;
+  // @media (max-width: 480px) {
+  //   margin: 2rem 0 .2rem 5rem;
+
+
+  // }
+  // @media (min-width: 300px) {
+  //   margin: 2rem 0 .2rem 5.7rem;
+
+
+  // }
+
+  
+  
+  border-radius: 10px;
+  
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
+  cursor: ${selected ? 'auto' : 'pointer'};
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    border-left: 2px dashed #a2a5b5;
+    width: 1px;
+    height: ${(selected && '116%') || '128%'}; 
+  }
+
+ 
+  &:after {
+    content: "";
+    position: absolute;
+    border-top: 2px dashed #a2a5b5;
+    top: ${(selected && '62px') || '37px'};
+    left: -30px;
+    width: ${(selected && '30px') || '29px'}; 
+  }
+
+  &:last-child:before {
+    top: -32px ;
+    height: ${(selected && '94px') || '71px'}; 
+  }
+  // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
+`
+);
 const Form = styled.div`
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: styling
   // change styling here
@@ -38,7 +92,7 @@ const Form = styled.div`
   border-radius: 5px;
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: styling
 `;
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_replacement button
 
@@ -202,6 +256,10 @@ function InfoTypeCreationForm({
     }
   }
 
+  function handleKeyMouse(e) {
+    handleSubmit(e);
+  }
+
   // ns__end_replacement handleKeyPress
 
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: beforeReturn
@@ -215,13 +273,14 @@ function InfoTypeCreationForm({
   // ns__start_replacement return
 
   return (
-    <Form>
+    <InfoTypeStyleWrapper>
       <Label htmlFor='infoType-value'>
         <TextField
           className={styles.textField}
           label='New Info Type'
           onChange={handleChange}
           onKeyPress={handleKeyPress}
+          onMouseUp={handleKeyMouse}
           value={infoTypeValue}
           disabled={disabled || loading}
           variant='outlined'
@@ -244,7 +303,7 @@ function InfoTypeCreationForm({
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />
         </CalloutBox>
       ) : null}
-    </Form>
+    </InfoTypeStyleWrapper>
   );
 
   // ns__end_replacement return

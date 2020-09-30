@@ -34,7 +34,7 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 // ns__custom_end unit: appSpec, comp: UserType, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
 const UserTypeStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: UserType, loc: styling
@@ -55,7 +55,7 @@ const UserTypeStyleWrapper = styled.div(
   // ns__custom_end unit: appSpec, comp: UserType, loc: styling
 `
 );
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_section button
 const Button = styled.button`
@@ -136,13 +136,13 @@ function UserType({
   // ns__custom_end unit: appSpec, comp: UserType, loc: beforeReturn
 
   // ns__start_replacement notSelected
-  // if (!selected) {
-  //   return (
-  //     <UserTypeStyleWrapper onClick={() => onSelect(userType.id)}>
-  //       {userTypeValue}
-  //     </UserTypeStyleWrapper>
-  //   );
-  // }
+  if (selected) {
+    return (
+      <UserTypeStyleWrapper onClick={() => onSelect(userType.id)}>
+        {userTypeValue}
+      </UserTypeStyleWrapper>
+    );
+  }
   // ns__end_replacement notSelected
 
   // ns__start_section change

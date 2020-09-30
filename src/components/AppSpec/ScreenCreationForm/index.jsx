@@ -28,7 +28,55 @@ import { keyframes } from 'styled-components';
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
+const ScreenStyleWrapper = styled.div(
+  ({ selected, isDeleting }) => `
+  // ns__custom_start unit: appSpec, comp: Screen, loc: styling
+  // add styling here
+  margin: 2rem 0 .2rem 2.9rem;
+  @media (max-width: 480px) {
+    margin: 2rem 0 .2rem 2rem;
+
+
+  }
+  // padding: ${selected ? '0' : '1.5rem'};
+  
+  border-radius: 10px;
+  
+  background-color: ${
+    (isDeleting && 'tomato') || (selected && 'white') || ''
+  };
+  cursor: ${selected ? 'auto' : 'pointer'};
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -31px;
+    left: -29px;
+    border-left: 2px dashed #a2a5b5;
+    width: 1px;
+    height: ${(selected && '109%') || '138%'}; 
+   
+  }
+
+ 
+  &:after {
+    content: "";
+    position: absolute;
+    border-top: 2px dashed #a2a5b5;
+    top: ${(selected && '57px') || '44px'};
+    left: -30px;
+    width: ${(selected && '30px') || '29px'}; 
+  }
+
+  &:last-child:before {
+    top: -33px ;
+    height: ${(selected && '90px') || '77px'}; 
+  }
+  // ns__custom_end unit: appSpec, comp: Screen, loc: styling
+`
+);
 const Form = styled.div`
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: styling
   margin: 0.8rem 0 0.5rem 0.8rem;
@@ -60,7 +108,7 @@ const Form = styled.div`
   }
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: styling
 `;
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_replacement button
 // ns__end_replacement button
@@ -214,6 +262,9 @@ function ScreenCreationForm({
     }
     // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: insideHandleKeyPress
   }
+  function handleKeyMouse(e) {
+    handleSubmit(e);
+  }
 
   // ns__end_replacement handleKeyPress
 
@@ -224,7 +275,7 @@ function ScreenCreationForm({
   const handleClickShow = () => setCallout(!callout);
 
   return (
-    <Form>
+    <ScreenStyleWrapper>
       <Label htmlFor='screen-value'>
         <TextField
           className={styles.textField}
@@ -234,8 +285,8 @@ function ScreenCreationForm({
             handleChange(e);
             onChange(e.target.value);
           }}
-          autoFocus
           onKeyPress={handleKeyPress}
+          onMouseUp={handleKeyMouse}
           disabled={disabled || loading}
           variant='outlined'
           InputProps={{
@@ -256,7 +307,7 @@ function ScreenCreationForm({
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />
         </CalloutBox>
       ) : null}
-    </Form>
+    </ScreenStyleWrapper>
   );
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeReturn
 

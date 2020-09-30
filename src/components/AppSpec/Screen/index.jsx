@@ -34,7 +34,7 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 // ns__custom_end unit: appSpec, comp: Screen, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
 const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
@@ -54,10 +54,10 @@ const ScreenStyleWrapper = styled.div(
     content: "";
     position: absolute;
     top: -31px;
-    left: -31px;
+    left: -29px;
     border-left: 2px dashed #a2a5b5;
     width: 1px;
-    height: ${(selected && '109%') || '141%'}; 
+    height: ${(selected && '109%') || '138%'}; 
    
   }
 
@@ -73,12 +73,12 @@ const ScreenStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -33px ;
-    height: ${(selected && '90px') || '77px'}; 
+    height: ${(selected && '90px') || '113%'}; 
   }
   // ns__custom_end unit: appSpec, comp: Screen, loc: styling
 `
 );
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_section button
 const Button = styled.button`
