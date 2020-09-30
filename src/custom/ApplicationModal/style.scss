@@ -1,0 +1,88 @@
+@media only screen and (max-width: 480px) and (min-width: 300px) {
+  .modal {
+    font-size: 0 !important;
+  }
+}
+
+.context-text {
+  text-align: center;
+}
+
+.dialog-content-text {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem;
+  background-color: #fef3c6;
+  .span-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    span {
+      display: contents;
+      content: '\002A';
+      color: red;
+    }
+  }
+}
+
+.button-wrapper {
+  justify-content: space-evenly !important;
+  button {
+    text-transform: capitalize;
+  }
+  .button-back {
+    border-radius: 20px;
+    width: 30%;
+    border-color: #92d5de;
+    text-transform: capitalize;
+  }
+  .button-next {
+    border-radius: 20px;
+    width: 30%;
+    background-color: #fdcc00;
+    &:hover {
+      background-color: #fdcc00;
+    }
+  }
+  .button-next-schedule {
+    border-radius: 20px;
+    background-color: #fdcc00;
+    &:hover {
+      background-color: #fdcc00;
+    }
+    span {
+      padding: 5px !important;
+    }
+  }
+}
+
+.contact-us {
+  justify-content: center !important;
+  margin-bottom: 1rem;
+  button {
+    color: #2c96f9;
+  }
+}
+
+@media only screen and (max-width: 480px) and (min-width: 300px) {
+  .mobile-ver {
+    button {
+      width: 50% !important;
+    }
+  }
+}
+
+.circle-question {
+  
+    background: #FDCC00;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #ffffff;
+    display: inline-block;
+    line-height: 25px;
+    margin-right: 5px;
+    text-align: center;
+    width: 25px;
+  
+}

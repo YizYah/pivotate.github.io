@@ -27,7 +27,7 @@ import {
 // ns__custom_start unit: appSpec, comp: Apps, loc: addedImports
 import FirstTimeAppCreationForm from '../../../custom/FirstTimeAppCreationForm';
 import { Context as UnitDataContext } from '../../../custom/UnitDataContext';
-
+import { Container } from '@material-ui/core';
 // ns__custom_end unit: appSpec, comp: Apps, loc: addedImports
 // ns__end_section imports
 
@@ -35,9 +35,11 @@ import { Context as UnitDataContext } from '../../../custom/UnitDataContext';
 const AppsStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Apps, loc: styling
   // add a prop called \`show\`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: space-evenly;
   // mystyling...
   // ns__custom_end unit: appSpec, comp: Apps, loc: styling
 `;
@@ -143,7 +145,8 @@ class Apps extends Component {
 
           return (
             <>
-              {noApp ? (
+            <Container maxWidth='sm'>
+            {noApp ? (
                 <FirstTimeAppCreationForm
                   customerId={customerId}
                   refetchQueries={refetchQueries}
@@ -152,11 +155,9 @@ class Apps extends Component {
                 />
               ) : (
                 <AppsStyleWrapper
-                  ref={this.wrapperRef}
                   onClick={this.handleClick}
-                  show
                 >
-                  {/* ns__start_section listElements */}
+                  <Container maxWidth='sm'>
                   {apps &&
                     apps.map((app) => (
                       <App
@@ -165,17 +166,23 @@ class Apps extends Component {
                         app={app}
                         selected={app.id === selectedAppId}
                         refetchQueries={refetchQueries}
-                        onSelect={this.handleSelect}
                         // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForChildren
                         // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForChildren
                       />
                     ))}
+
+                  </Container>
+                  {/* ns__start_section listElements */}
+                  
                   {/* ns__end_section listElements */}
                 </AppsStyleWrapper>
               )}
 
               {/* ns__custom_start unit: appSpec, comp: Apps, loc: renderEnding */}
               {/* ns__custom_end unit: appSpec, comp: Apps, loc: renderEnding */}
+
+            </Container>
+              
             </>
           );
         }}
@@ -187,5 +194,15 @@ class Apps extends Component {
   // ns__end_section render
 }
 // ns__end_section function
+
+// ns__start_section  compose
+// ns__end_section  compose
+
+// ns__start_section propTypes
+Apps.propTypes = {
+  // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropTypes
+  // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropTypes
+};
+// ns__end_section propTypes
 
 export default Apps;

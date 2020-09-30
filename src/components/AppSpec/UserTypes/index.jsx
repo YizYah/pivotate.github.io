@@ -31,6 +31,8 @@ const UserTypesStyleWrapper = styled.div`
 
 // ns__end_section stylingSection
 
+// ns__start_replacement button
+// ns__end_replacement button
 
 // ns__custom_start unit: appSpec, comp: UserTypes, loc: beforeFunction
 UserTypesStyleWrapper.defaultProps = {
@@ -124,7 +126,7 @@ class UserTypes extends Component {
             />
           ))}
           {/* ns__custom_start unit: appSpec, comp: UserTypes, loc: renderEnding */}
-
+        
           {/* ns__custom_end unit: appSpec, comp: UserTypes, loc: renderEnding */}
         </UserTypesStyleWrapper>
         <UserTypeCreationForm
@@ -136,7 +138,7 @@ class UserTypes extends Component {
           label={label}
           // ns__custom_start unit: appSpec, comp: UserTypes, loc: addedPropsForCreationForm
         />
-        {userTypeCreationCount >= 3 ? (
+        {userTypeCreationCount >= 10 ? (
           <ScreenCreationForm
             disabled
             validateScreens={0}
@@ -144,7 +146,7 @@ class UserTypes extends Component {
             userTypeCreationCount={userTypeCreationCount}
             label={label}
           />
-        ) : null}
+         ) : null}
       </>
     );
 
@@ -153,5 +155,15 @@ class UserTypes extends Component {
   // ns__end_section render
 }
 // ns__end_section function
+
+// ns__start_section  compose
+// ns__end_section  compose
+
+// ns__start_section propTypes
+UserTypes.propTypes = {
+  // ns__custom_start unit: appSpec, comp: UserTypes, loc: addedPropTypes
+  // ns__custom_end unit: appSpec, comp: UserTypes, loc: addedPropTypes
+};
+// ns__end_section propTypes
 
 export default UserTypes;

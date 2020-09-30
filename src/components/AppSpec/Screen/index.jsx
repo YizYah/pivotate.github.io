@@ -34,18 +34,18 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 // ns__custom_end unit: appSpec, comp: Screen, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
 const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
   margin: 2rem 0 .5rem 1rem;
-  padding: ${selected ? '0' : '1.5rem'};
+  // padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
   
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+    (isDeleting && 'tomato') || (selected && 'white') || ''
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -54,10 +54,10 @@ const ScreenStyleWrapper = styled.div(
     content: "";
     position: absolute;
     top: -31px;
-    left: -31px;
+    left: -29px;
     border-left: 2px dashed #a2a5b5;
     width: 1px;
-    height: ${(selected && '109%') || '141%'}; 
+    height: ${(selected && '109%') || '138%'}; 
    
   }
 
@@ -73,12 +73,12 @@ const ScreenStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -33px ;
-    height: ${(selected && '90px') || '77px'}; 
+    height: ${(selected && '90px') || '113%'}; 
   }
   // ns__custom_end unit: appSpec, comp: Screen, loc: styling
 `
 );
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_section button
 const Button = styled.button`
@@ -139,22 +139,23 @@ function Screen({
   const styles = useStyles();
   // ns__custom_end unit: appSpec, comp: Screen, loc: beginning
 
-  // ns__custom_start unit: appSpec, comp: Screen, loc: beforeReturn
   const infoTypeData =
     screen.children &&
     screen.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
+
+  // ns__custom_start unit: appSpec, comp: Screen, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: Screen, loc: beforeReturn
 
-  // ns__start_section notSelected
-  if (!selected) {
-    return (
-      <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
-        {screenValue}
-      </ScreenStyleWrapper>
-    );
-  }
-  // ns__end_section notSelected
+  // ns__start_replacement notSelected
+  // if (!selected) {
+  //   return (
+  //     <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
+  //       {screenValue}
+  //     </ScreenStyleWrapper>
+  //   );
+  // }
+  // ns__end_replacement notSelected
 
   // ns__start_section change
   function handleScreenValueChange(e) {

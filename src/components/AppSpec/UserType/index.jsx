@@ -34,7 +34,7 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 // ns__custom_end unit: appSpec, comp: UserType, loc: addedImports
 // ns__end_section imports
 
-// ns__start_section stylingSection
+// ns__start_replacement stylingSection
 const UserTypeStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: UserType, loc: styling
@@ -46,7 +46,7 @@ const UserTypeStyleWrapper = styled.div(
   border-radius: 10px;
   border: 1px solid black;
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+    (isDeleting && 'tomato') || (selected && 'white') || ''
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -55,7 +55,7 @@ const UserTypeStyleWrapper = styled.div(
   // ns__custom_end unit: appSpec, comp: UserType, loc: styling
 `
 );
-// ns__end_section stylingSection
+// ns__end_replacement stylingSection
 
 // ns__start_section button
 const Button = styled.button`
@@ -124,26 +124,26 @@ function UserType({
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
   // ns__custom_start unit: appSpec, comp: UserType, loc: beginning
-  const screenData =
-    userType.children &&
-    userType.children.find((child) => child.typeId === TYPE_SCREEN_ID);
-  const screens = screenData ? screenData.instances : [];
 
   const styles = useStyles();
   // ns__custom_end unit: appSpec, comp: UserType, loc: beginning
 
+  const screenData =
+    userType.children &&
+    userType.children.find((child) => child.typeId === TYPE_SCREEN_ID);
+  const screens = screenData ? screenData.instances : [];
   // ns__custom_start unit: appSpec, comp: UserType, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: UserType, loc: beforeReturn
 
-  // ns__start_section notSelected
-  if (!selected) {
+  // ns__start_replacement notSelected
+  if (selected) {
     return (
       <UserTypeStyleWrapper onClick={() => onSelect(userType.id)}>
         {userTypeValue}
       </UserTypeStyleWrapper>
     );
   }
-  // ns__end_section notSelected
+  // ns__end_replacement notSelected
 
   // ns__start_section change
   function handleUserTypeValueChange(e) {

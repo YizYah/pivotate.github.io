@@ -26,12 +26,16 @@ import {
 
 import EditInstanceForm from '../../EditInstanceForm';
 import DeleteInstanceMenu from '../../DeleteInstanceMenu';
-
 import UserTypes from '../UserTypes';
 import Descriptions from '../Descriptions';
 
 // ns__custom_start unit: appSpec, comp: App, loc: addedImports
+
+import { Container } from '@material-ui/core';
 import AppTitleAccordion from '../../../custom/AppTitleAccordion';
+import ItemEditFormModal from '../../../custom/ItemEditFormModal';
+import { UPDATE_DESCRIPTION_FOR_APP_SPEC_ACTION_ID } from '../../../config';
+
 // ns__custom_end unit: appSpec, comp: App, loc: addedImports
 // ns__end_section imports
 
@@ -48,10 +52,10 @@ const AppStyleWrapper = styled.div(
     (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
   };
   cursor: ${selected ? 'auto' : 'pointer'};
-  width: 50%;
   // ns__custom_end unit: appSpec, comp: App, loc: styling
 `
 );
+
 // ns__end_section stylingSection
 
 // ns__start_section button
@@ -101,6 +105,8 @@ function App({
   const [isDeleting, updateIsDeleting] = useState(false);
 
   // ns__custom_start unit: appSpec, comp: App, loc: beginning
+  // ns__custom_end unit: appSpec, comp: App, loc: beginning
+
   const userTypeData =
     app.children &&
     app.children.find((child) => child.typeId === TYPE_USER_TYPE_ID);
@@ -109,29 +115,38 @@ function App({
     app.children &&
     app.children.find((child) => child.typeId === TYPE_DESCRIPTION_ID);
   const descriptions = descriptionData ? descriptionData.instances : [];
-  // ns__custom_end unit: appSpec, comp: App, loc: beginning
 
   // ns__custom_start unit: appSpec, comp: App, loc: beforeReturn
+
+  const [descValue, updateDescValue] = useState(
+    descriptions[0] && descriptions[0].value
+  );
+
+  let descriptionId = descriptions[0] && descriptions[0].id;
   // ns__custom_end unit: appSpec, comp: App, loc: beforeReturn
 
-  // ns__start_section notSelected
-  if (!selected) {
-    return (
-      <AppStyleWrapper onClick={() => onSelect(app.id)}>
-        {appValue}
-      </AppStyleWrapper>
-    );
-  }
-  // ns__end_section notSelected
+  // ns__start_replacement notSelected
+  // if (!selected) {
+  //   return (
+  //     <AppStyleWrapper onClick={() => onSelect(app.id)}>
+  //       {appValue}
+  //     </AppStyleWrapper>
+  //   );
+  // }
+  // ns__end_replacement notSelected
 
-  // ns__start_section change
+  // ns__start_replacement change
   function handleAppValueChange(e) {
     updateAppValue(e.target.value);
   }
 
-  // ns__end_section change
+  function handleDescValue(e) {
+    updateDescValue(e.target.value);
+  }
 
-  // ns__start_section save
+  // ns__end_replacement change
+
+  // ns__start_replacement save
   async function handleAppValueSave() {
     updateIsSaving(true);
 
@@ -146,10 +161,21 @@ function App({
       refetchQueries,
     });
 
+    await updateInstance({
+      variables: {
+        actionId: UPDATE_DESCRIPTION_FOR_APP_SPEC_ACTION_ID,
+        executionParameters: JSON.stringify({
+          value: descValue,
+          instanceId: descriptionId,
+        }),
+      },
+      refetchQueries,
+    });
+
     updateIsEditMode(false);
     updateIsSaving(false);
   }
-  // ns__end_section save
+  // ns__end_replacement save
 
   // ns__start_section cancel
   function handleCancelEdit() {
@@ -158,23 +184,33 @@ function App({
   // ns__end_section cancel
 
   // ns__start_replacement isEdit
-  if (isEditMode) {
-    return (
-      <AppStyleWrapper>
-        <EditInstanceForm
-          id={app.id}
-          label={`What's the preferred title ${
-            appValue ? `for ${appValue}?` : `off you App?`
-          }`}
-          value={appValue}
-          onChange={handleAppValueChange}
-          onSave={handleAppValueSave}
-          onCancel={handleCancelEdit}
-          disabled={isSaving}
-        />
-      </AppStyleWrapper>
-    );
-  }
+  // if (isEditMode) {
+  //   return (
+  //     // <AppStyleWrapper>
+  //     //   <EditInstanceForm
+  //     //     id={app.id}
+  //     //     label={`What's the preferred title ${
+  //     //       appValue ? `for ${appValue}?` : `off you App?`
+  //     //     }`}
+  //     //     value={appValue}
+  //     //     onChange={handleAppValueChange}
+  //     //     onSave={handleAppValueSave}
+  //     //     onCancel={handleCancelEdit}
+  //     //     disabled={isSaving}
+  //     //   />
+  //     // </AppStyleWrapper>
+  //     <ItemEditFormModal
+  //     id={app.id}
+  //         label={`What's the preferred title ${
+  //           appValue ? `for ${appValue}?` : `off you App?`
+  //         }`}
+  //         value={appValue}
+  //         onChange={handleAppValueChange}
+  //         handleClose={() => updateIsEditMode(false)}
+
+  //     />
+  //   );
+  // }
   // ns__end_replacement isEdit
 
   // ns__start_section delete
@@ -196,6 +232,7 @@ function App({
       updateIsDeleting(false);
     }
   }
+
   // ns__end_section delete
 
   // ns__start_section cancelDelete
@@ -221,17 +258,35 @@ function App({
 
   // ns__start_replacement functionReturn
   return (
-    <AppStyleWrapper selected={selected}>
+    <>
       <AppTitleAccordion
         title={appValue}
         description={descriptions[0] && descriptions[0].value}
+        userTypes={userTypes}
+        updateButton={() => updateIsEditMode(true)}
+        deleteButton={() => updateIsDeleteMode(true)}
       />
-      <Button type='button' onClick={() => updateIsEditMode(true)}>
+      <ItemEditFormModal
+        open={isEditMode}
+        value={appValue}
+        descValue={descValue}
+        desc='Description Value'
+        handleClose={() => updateIsEditMode(false)}
+        label={`What's the preferred title ${
+          appValue ? `for ${appValue}?` : `off you App?`
+        }`}
+        handleAppValueSave={handleAppValueSave}
+        handleCancelEdit={handleCancelEdit}
+        handleAppValueChange={handleAppValueChange}
+        handleDescValue={handleDescValue}
+        isSaving={isSaving}
+      />
+      {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
         &#9998;
       </Button>
       <Button type='button' onClick={() => updateIsDeleteMode(true)}>
         &#128465;
-      </Button>
+      </Button> */}
 
       <UserTypes
         userTypes={userTypes}
@@ -239,18 +294,18 @@ function App({
         label={appValue}
         refetchQueries={refetchQueries}
       />
-      {!descriptions.length ? (
+      {/* {!descriptions.length ? (
         <Descriptions
           descriptions={descriptions}
           appId={app.id}
           label={appValue}
           refetchQueries={refetchQueries}
         />
-      ) : null}
+      ) : null} */}
 
       {/* ns__custom_start unit: appSpec, comp: App, loc: renderEnding */}
       {/* ns__custom_end unit: appSpec, comp: App, loc: renderEnding */}
-    </AppStyleWrapper>
+    </>
   );
   // ns__end_replacement functionReturn
 }
