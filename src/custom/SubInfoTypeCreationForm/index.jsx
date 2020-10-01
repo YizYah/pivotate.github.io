@@ -24,7 +24,7 @@ const SubInfoStyleWrapper = styled.div(
     ({ selected, isDeleting }) => `
     // ns__custom_start unit: appSpec, comp: Screen, loc: styling
     // add styling here
-    margin: 2rem 0 .2rem 7.9rem;
+    margin: 2rem 0 .2rem 5.9rem;
     // @media (max-width: 480px) {
     //   margin: 2rem 0 .2rem 2rem;
   

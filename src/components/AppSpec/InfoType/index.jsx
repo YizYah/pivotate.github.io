@@ -42,12 +42,12 @@ const InfoTypeStyleWrapper = styled.div(
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
   margin: 2rem 0 .5rem 2rem;
-  // padding: ${selected ? '0' : '1.5rem'};
+  padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
   
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
+    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -74,7 +74,7 @@ const InfoTypeStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -32px ;
-    height: ${(selected && '94px') || '120%'}; 
+    height: ${(selected && '120%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
@@ -261,9 +261,9 @@ function InfoType({
       <TitleWrapper>
         {infoTypeValue}
         <div>
-          <Button type='button' onClick={() => updateIsEditMode(true)}>
+          {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
             &#9998;
-          </Button>
+          </Button> */}
           <Button type='button' onClick={() => updateIsDeleteMode(true)}>
             &#128465;
           </Button>

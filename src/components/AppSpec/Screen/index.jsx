@@ -40,12 +40,12 @@ const ScreenStyleWrapper = styled.div(
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
   margin: 2rem 0 .5rem 1rem;
-  // padding: ${selected ? '0' : '1.5rem'};
+  padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
   
   background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
+    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
   };
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
@@ -73,7 +73,7 @@ const ScreenStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -33px ;
-    height: ${(selected && '90px') || '113%'}; 
+    height: ${(selected && '120%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: Screen, loc: styling
 `
@@ -148,13 +148,13 @@ function Screen({
   // ns__custom_end unit: appSpec, comp: Screen, loc: beforeReturn
 
   // ns__start_replacement notSelected
-  // if (!selected) {
-  //   return (
-  //     <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
-  //       {screenValue}
-  //     </ScreenStyleWrapper>
-  //   );
-  // }
+  if (!selected) {
+    return (
+      <ScreenStyleWrapper onClick={() => onSelect(screen.id)}>
+        {screenValue}
+      </ScreenStyleWrapper>
+    );
+  }
   // ns__end_replacement notSelected
 
   // ns__start_section change
@@ -258,9 +258,9 @@ function Screen({
       <TitleWrapper>
         {screenValue}
         <div>
-          <Button type='button' onClick={() => updateIsEditMode(true)}>
+          {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
             &#9998;
-          </Button>
+          </Button> */}
           <Button type='button' onClick={() => updateIsDeleteMode(true)}>
             &#128465;
           </Button>
