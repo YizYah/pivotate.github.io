@@ -26,7 +26,7 @@ const SubInfoStyleWrapper = styled.div(
     // add styling here
     margin: 2rem 0 .2rem 5.9rem;
     @media (max-width: 600px) {
-      margin: 2rem 0 .2rem 2rem;
+      margin: ${selected ? '2rem 0 .2rem 2rem' : '2rem 0 .2rem 5rem'};
   
   
     }

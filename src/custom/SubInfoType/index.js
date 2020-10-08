@@ -51,14 +51,14 @@ const SubInfoTypeWrapper = styled.div(
     content: "";
     position: absolute;
     border-top: 2px dashed #a2a5b5;
-    top: ${(selected && '62px') || '37px'};
+    top: ${(selected && '42px') || '37px'};
     left: -30px;
     width: ${(selected && '30px') || '29px'}; 
   }
 
   &:last-child:before {
     top: -32px ;
-    height: ${(selected && '130%') || '107%'}; 
+    height: ${(selected && '75px') || '75px'}; 
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
