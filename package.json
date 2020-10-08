@@ -25,7 +25,6 @@
     "axios": "^0.19.2",
     "card-validator": "^6.2.0",
     "clsx": "^1.1.1",
-    "cogo-toast": "^4.2.3",
     "emailjs-com": "^2.6.3",
     "formik": "^2.1.5",
     "gh-pages": "^2.2.0",

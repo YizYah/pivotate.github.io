@@ -19,7 +19,6 @@ import BasicDetailsForm from './stepper/BasicDetailsForm';
 import AppDetailsForm from './stepper/AppDetailsForm';
 import CreditCardDetailsForm from './stepper/CreditCardDetailsForm';
 import Modal from '../Modal';
-import Notify from 'cogo-toast';
 
 import {
   validationSchemaBasic,
@@ -120,8 +119,6 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
       }
     } catch (error) {
       // alert(error);
-      console.log('errrrrrrrrrrrrrrrrrrrrrrr',error);
-      Notify.error('Something went wrong. Please try again.', {position: 'top-right'});
       setFormError('Something went wrong. Please try again.');
     }
 
