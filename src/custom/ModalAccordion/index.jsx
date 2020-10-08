@@ -40,7 +40,7 @@ function ModalAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            <font color="red" >15 days free trial period</font>,including free session with an app
+            <font color="red" >15 days free trial period</font>, including a free session with an app
             architect. Cancel anytime. Then you can pay $45 for our monthly plan
             (cancel any time, just pay current month) plus fees for any services
             that you order.

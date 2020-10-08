@@ -450,17 +450,17 @@ section {
         font-size: 0.9rem;
       }
     }
-    // input,
-    // textarea {
-    //   outline: 0;
-    //   border-radius: 6px;
-    //   padding: 1em 2em;
-    //   width: 100%;
-    //   border: 2px solid #d5d5d5;
-    //   // &:focus {
-    //   //   border: 2px solid $theme-teal !important;
-    //   // }
-    // }
+    input,
+    textarea {
+      outline: 0;
+      border-radius: 6px;
+      padding: 1em 2em;
+      width: 100%;
+      border: 2px solid #d5d5d5;
+      &:focus {
+        border: 2px solid $theme-teal !important;
+      }
+    }
   }
   .social-icon {
     margin-left: 1em;

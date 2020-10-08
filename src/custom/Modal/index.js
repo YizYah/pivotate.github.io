@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       width: '90%',
     },
     [theme.breakpoints.up('md')]: {
-      width: '90%',
+      width: '40%',
     },
     [theme.breakpoints.up('lg')]: {
       width: '30%',

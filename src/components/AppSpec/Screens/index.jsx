@@ -148,10 +148,10 @@ class Screens extends Component {
 // ns__start_section  compose
 // ns__end_section  compose
 
- // ns__start_section propTypes
- Screens.propTypes = {
+// ns__start_section propTypes
+Screens.propTypes = {
   // ns__custom_start unit: appSpec, comp: Screens, loc: addedPropTypes
-// ns__custom_end unit: appSpec, comp: Screens, loc: addedPropTypes
+  // ns__custom_end unit: appSpec, comp: Screens, loc: addedPropTypes
 };
 // ns__end_section propTypes
 

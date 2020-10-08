@@ -515,7 +515,7 @@ const Child = ({
       {selected && !last ? (
         <SubInfoTypeCreationForm
           parentId={parentId}
-          childId={currentId}
+          childId={instanceId}
           refetchQueries={refetchQueries}
           label={labelValue}
         />

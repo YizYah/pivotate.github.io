@@ -25,11 +25,11 @@ const SubInfoStyleWrapper = styled.div(
     // ns__custom_start unit: appSpec, comp: Screen, loc: styling
     // add styling here
     margin: 2rem 0 .2rem 5.9rem;
-    // @media (max-width: 480px) {
-    //   margin: 2rem 0 .2rem 2rem;
+    @media (max-width: 600px) {
+      margin: 2rem 0 .2rem 2rem;
   
   
-    // }
+    }
     // padding: ${selected ? '0' : '1.5rem'};
     
     border-radius: 10px;
@@ -121,6 +121,15 @@ const CalloutBox = styled.div`
     }
   }
 `;
+const CustomTextInput = styled(TextField)`
+@media (max-width: 600px) {
+  .MuiInputLabel-outlined {
+    font-size: .6em;
+  
+  }
+}
+
+`
 
 const useStyles = makeStyles({
   button: {
@@ -190,9 +199,8 @@ const SubInfoTypeCreationForm = ({
 
     try {
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
-      setSubInfoValue('');
-      updateLoading(false);
-      const createInfoTypeResponse = await createSubInfoType({
+     
+      let createInfoTypeResponse = await createSubInfoType({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
           executionParameters: JSON.stringify({
@@ -203,8 +211,9 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
+      console.log('subinforrrrrrrrrr',createInfoTypeResponse.data.execute);
 
-      const newInfoTypeData = JSON.parse(createInfoTypeResponse.data.Execute);
+      let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
 
       await saveInstance({
         variables: {
@@ -217,6 +226,9 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
+
+      setSubInfoValue('');
+      updateLoading(false);
     } catch (err) {
       // console.log(err);
     }
@@ -243,8 +255,7 @@ const SubInfoTypeCreationForm = ({
     <SubInfoStyleWrapper>
       {/* // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
-        <TextField
-          className={styles.textField}
+        <CustomTextInput
           label={`New Sub Info Type`}
           onChange={handleChange}
           onKeyPress={handleKeyPress}

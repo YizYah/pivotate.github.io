@@ -273,7 +273,7 @@ function App({
         desc='Description Value'
         handleClose={() => updateIsEditMode(false)}
         label={`What's the preferred title ${
-          appValue ? `for ${appValue}?` : `off you App?`
+          appValue ? `for ${appValue}?` : `off your App?`
         }`}
         handleAppValueSave={handleAppValueSave}
         handleCancelEdit={handleCancelEdit}

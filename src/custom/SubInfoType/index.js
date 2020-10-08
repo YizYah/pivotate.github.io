@@ -15,6 +15,7 @@ import {
 
 import EditInstanceForm from '../../components/EditInstanceForm';
 import DeleteInstanceMenu from '../../components/DeleteInstanceMenu';
+import { InputLabel, makeStyles } from '@material-ui/core';
 
 // ns__custom_start unit: appSpec, comp: SubInfoType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
@@ -22,17 +23,44 @@ import SubInfoChildTypes from '../SubInfoChildTypes';
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
-  margin: 2em 1em;
-  padding: 1.5em;
-  border: ${selected ? '1px solid aquamarine' : '1px solid white'};
+  // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
+  // add styling here
+  margin: 2rem 0 .5rem 2rem;
+  padding: ${selected ? '0' : '1.5rem'};
+  
   border-radius: 10px;
-  box-shadow: 5px 5px 10px #888888;
-  background-color: ${isDeleting && 'tomato'};
+  
+  background-color: ${
+    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+  };
   cursor: ${selected ? 'auto' : 'pointer'};
+  position: relative;
 
-  &:hover {
-    border: 1px solid aquamarine;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    border-left: 2px dashed #a2a5b5;
+    width: 1px;
+    height: ${(selected && '116%') || '107%'}; 
   }
+
+ 
+  &:after {
+    content: "";
+    position: absolute;
+    border-top: 2px dashed #a2a5b5;
+    top: ${(selected && '62px') || '37px'};
+    left: -30px;
+    width: ${(selected && '30px') || '29px'}; 
+  }
+
+  &:last-child:before {
+    top: -32px ;
+    height: ${(selected && '130%') || '107%'}; 
+  }
+  // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
 );
 
@@ -48,7 +76,23 @@ const Button = styled.button`
     color: ${(props) => props.hoverColor || '#000000'};
   }
 `;
+const TitleWrapper = styled.div`
+  margin-top: 8px;
+  background: #d2ecef;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: initial;
+  text-transfor: capitalize;
+  display: flex;
+  justify-content: space-between;
+`;
 
+const useStyles = makeStyles(() => ({
+  titleLabel: {
+    fontSize: '.8rem',
+    textAlign: 'initial',
+  },
+}))
 const SubInfoType = ({
   infoType,
   infoTypeId,
@@ -67,6 +111,7 @@ const SubInfoType = ({
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const styles = useStyles();
 
   const infoTypeData =
     infoType.children &&
@@ -75,7 +120,7 @@ const SubInfoType = ({
 
   if (!selected) {
     return (
-      <SubInfoTypeWrapper onClick={() => onSelect(infoTypeId)}>
+      <SubInfoTypeWrapper onClick={() => onSelect(infoTypeId.id)}>
         {infoTypeValue}
       </SubInfoTypeWrapper>
     );
@@ -160,21 +205,30 @@ const SubInfoType = ({
   }
 
   return (
-    <SubInfoTypeWrapper selected={selected}>
+    <SubInfoTypeWrapper selected={selected} >
+      <InputLabel className={styles.titleLabel} >Sub Info Type</InputLabel>
+      <TitleWrapper>
       {infoTypeValue}
+      <div>
       <Button type='button' onClick={() => setIsEditMode(true)}>
         &#9998;
       </Button>
       <Button type='button' onClick={() => setIsDeleteMode(true)}>
         &#128465;
       </Button>
+      </div>
 
-      <SubInfoChildTypes
+
+      </TitleWrapper>
+
+    
+
+      {/* <SubInfoChildTypes
         subInfoId={infoTypeId}
         refetchQueries={refetchQueries}
         childState={childState}
         parentId={parentId}
-      />
+      /> */}
     </SubInfoTypeWrapper>
   );
 };

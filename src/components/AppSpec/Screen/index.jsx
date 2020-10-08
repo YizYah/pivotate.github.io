@@ -30,6 +30,7 @@ import InfoTypes from '../InfoTypes';
 // ns__custom_start unit: appSpec, comp: Screen, loc: addedImports
 // <!-- prettier-ignore-start -->
 import { InputLabel, makeStyles } from '@material-ui/core';
+import ApplicationEdit from '../../../custom/ApplicationEdit';
 // <!-- prettier-ignore-end -->
 // ns__custom_end unit: appSpec, comp: Screen, loc: addedImports
 // ns__end_section imports
@@ -135,6 +136,7 @@ function Screen({
   const [isSaving, updateIsSaving] = useState(false);
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
+
   // ns__custom_start unit: appSpec, comp: Screen, loc: beginning
   const styles = useStyles();
   // ns__custom_end unit: appSpec, comp: Screen, loc: beginning
@@ -247,6 +249,7 @@ function Screen({
       </ScreenStyleWrapper>
     );
   }
+
   // ns__end_section isDelete
 
   // ns__start_section functionReturn
@@ -257,10 +260,12 @@ function Screen({
       <InputLabel className={styles.titleLabel}>Screen</InputLabel>
       <TitleWrapper>
         {screenValue}
+
         <div>
-          {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
+          <Button type='button' onClick={() => updateIsEditMode(true)}>
             &#9998;
-          </Button> */}
+          </Button>
+
           <Button type='button' onClick={() => updateIsDeleteMode(true)}>
             &#128465;
           </Button>
