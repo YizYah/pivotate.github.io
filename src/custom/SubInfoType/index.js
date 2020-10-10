@@ -87,12 +87,13 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
+
 const useStyles = makeStyles(() => ({
   titleLabel: {
     fontSize: '.8rem',
     textAlign: 'initial',
   },
-}))
+}));
 const SubInfoType = ({
   infoType,
   infoTypeId,
@@ -157,7 +158,7 @@ const SubInfoType = ({
       <SubInfoTypeWrapper>
         <EditInstanceForm
           id={infoTypeId}
-          label='SubInfoType Value:'
+          label='Sub Info Type'
           value={infoTypeValue}
           onChange={handleSubInfoTypeValueChange}
           onSave={handleSubInfoTypeValueChange}
@@ -205,23 +206,19 @@ const SubInfoType = ({
   }
 
   return (
-    <SubInfoTypeWrapper selected={selected} >
-      <InputLabel className={styles.titleLabel} >Sub Info Type</InputLabel>
+    <SubInfoTypeWrapper selected={selected}>
+      <InputLabel className={styles.titleLabel}>Sub Info Type</InputLabel>
       <TitleWrapper>
-      {infoTypeValue}
-      <div>
-      <Button type='button' onClick={() => setIsEditMode(true)}>
-        &#9998;
-      </Button>
-      <Button type='button' onClick={() => setIsDeleteMode(true)}>
-        &#128465;
-      </Button>
-      </div>
-
-
+        {infoTypeValue}
+        <div>
+          <Button type='button' onClick={() => setIsEditMode(true)}>
+            &#9998;
+          </Button>
+          <Button type='button' onClick={() => setIsDeleteMode(true)}>
+            &#128465;
+          </Button>
+        </div>
       </TitleWrapper>
-
-    
 
       {/* <SubInfoChildTypes
         subInfoId={infoTypeId}

@@ -30,7 +30,7 @@ import DeleteInstanceMenu from '../../DeleteInstanceMenu';
 import { TYPE_INFO_TYPE_ID } from '../../../config';
 import { useEffect } from 'react';
 import { InputLabel, makeStyles } from '@material-ui/core';
-
+import EasyEdit from 'react-easy-edit';
 import getChildData from '../../../custom/getChildData';
 import SubInfoComponent from '../../../custom/SubInfoTypesRecursive';
 import SubInfoType from '../../../custom/SubInfoType';
@@ -269,6 +269,7 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
       <InputLabel className={styles.titleLabel}>Info Type</InputLabel>
       <TitleWrapper>
+      
         {infoTypeValue}
         <div>
           {/* <Button type='button' onClick={() => updateIsEditMode(true)}>

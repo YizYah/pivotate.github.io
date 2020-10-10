@@ -99,6 +99,9 @@ const CustomTextInput = styled(TextField)`
     font-size: .6em;
   
   }
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 9px;
+}
 }
 
 `
@@ -145,6 +148,9 @@ const CalloutBox = styled.div`
   margin: .5rem;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
   
 
   :after{

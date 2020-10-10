@@ -10149,6 +10149,11 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-easy-edit@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/react-easy-edit/-/react-easy-edit-1.11.0.tgz#bdcecc506674903c881377e8a47f5bd575f6c9da"
+  integrity sha512-ie6xbbgl5tLJ/NVOrl8FQzon298bC3JK1BeUFlD/aN9tmr5K923JmNPVasU97FJVxC5/8vBYzk6W1ZOyGbk3pQ==
+
 react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"

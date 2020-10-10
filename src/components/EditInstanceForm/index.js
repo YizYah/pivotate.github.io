@@ -30,6 +30,16 @@ const Button = styled.button`
   }
 `;
 
+const CustomTextInput = styled(TextField)`
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+      font-size: 0.6em;
+    }
+  }
+`;
+
+const CustomWrapper = styled.div``;
+
 const useStyles = makeStyles((theme) => ({
   titleLabel: {
     fontSize: '.8rem',
@@ -58,7 +68,7 @@ function EditInstanceForm({
     <>
       {/* // ns__custom_start unit: general, comp: EditInstanceForm, loc: insideReturn */}
       <label htmlFor={id}>
-        <TextField
+        <CustomTextInput
           className={styles.textArea}
           label={label}
           id={id}
@@ -69,22 +79,25 @@ function EditInstanceForm({
           variant='outlined'
         />
       </label>
-      <Button
-        type='button'
-        hoverColor='#00FF00'
-        onClick={onSave}
-        disabled={disabled}
-      >
-        &#10003;
-      </Button>
-      <Button
-        type='button'
-        hoverColor='#FF0000'
-        onClick={onCancel}
-        disabled={disabled}
-      >
-        &#10005;
-      </Button>
+      <CustomWrapper>
+        <Button
+          type='button'
+          hoverColor='#00FF00'
+          onClick={onSave}
+          disabled={disabled}
+        >
+          &#10003;
+        </Button>
+        <Button
+          type='button'
+          hoverColor='#FF0000'
+          onClick={onCancel}
+          disabled={disabled}
+        >
+          &#10005;
+        </Button>
+      </CustomWrapper>
+
       {/* // ns__custom_end unit: general, comp: EditInstanceForm, loc: insideReturn */}
     </>
   );

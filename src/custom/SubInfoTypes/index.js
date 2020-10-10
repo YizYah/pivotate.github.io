@@ -8,8 +8,20 @@ import styled from 'styled-components';
 const ScreensStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Screens, loc: styling
   margin: 0 0 0 7%;
+  position: relative;
+    right: 24px;
+  @media (max-width: 600px) {
+    // margin: 0 0 0 -28%;
+
+
+  }
   // ns__custom_end unit: appSpec, comp: Screens, loc: styling
 `;
+
+const CreateWrapper = styled.div`
+  margin: 0 0 0 7%;
+`;
+
 
 const SubInfoTypes = ({
   subInfoTypes,
@@ -43,17 +55,21 @@ const SubInfoTypes = ({
     !(subInfoTypeData[0].value && subInfoTypeData[0].value !== '');
 
   return (
-    <ScreensStyleWrapper>
+    <>
       {checkSubInfo ? (
-        <SubInfoTypeCreationForm
+        <ScreensStyleWrapper>
+                <SubInfoTypeCreationForm
           parentId={parentId}
           refetchQueries={refetchQueries}
           /* // ns__custom_start unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
           childId={infoTypeId}
           /* // ns__custom_end unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
         />
+
+        </ScreensStyleWrapper>
+  
       ) : (
-        <>
+        <CreateWrapper>
           {subInfoTypeData &&
             subInfoTypeData.map((infoType) => (
               <SubInfoType
@@ -69,9 +85,9 @@ const SubInfoTypes = ({
                 childState={childState}
               />
             ))}
-        </>
+        </CreateWrapper>
       )}
-    </ScreensStyleWrapper>
+    </>
   );
 };
 

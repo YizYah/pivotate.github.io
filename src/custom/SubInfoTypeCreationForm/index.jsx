@@ -26,8 +26,9 @@ const SubInfoStyleWrapper = styled.div(
     // add styling here
     margin: 2rem 0 .2rem 5.9rem;
     @media (max-width: 600px) {
-      margin: ${selected ? '2rem 0 .2rem 2rem' : '2rem 0 .2rem 5rem'};
-  
+      // margin:  2rem 0 .2rem 5rem;
+      margin: 32px 0 0px 38%;  
+      width: 72%;
   
     }
     // padding: ${selected ? '0' : '1.5rem'};
@@ -41,6 +42,7 @@ const SubInfoStyleWrapper = styled.div(
     position: relative;
   
     &:before {
+
       content: "";
       position: absolute;
       top: -31px;
@@ -102,6 +104,10 @@ const CalloutBox = styled.div`
   margin: .5rem;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    width: 100%;
+    right: 20px;
+  }
   
 
   :after{
@@ -114,6 +120,9 @@ const CalloutBox = styled.div`
     border-left: 0px solid #F3E196;
     border-bottom: 2px solid #F3E196;
     left: 81%;
+    @media (max-width: 600px) {
+      left: 66%;
+    }
     
     content: '';
     transform: rotate(45deg);
@@ -181,7 +190,7 @@ const SubInfoTypeCreationForm = ({
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the sub Info Type ${subInfoValue ? `for ${subInfoValue}?` : ''}`;
+    callOutText = `What is the Sub Info Type ${subInfoValue ? `for ${subInfoValue}?` : ''}`;
   }
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   function handleChange(e) {
