@@ -43,7 +43,7 @@ const SubInfoTypeWrapper = styled.div(
     left: -2rem;
     border-left: 2px dashed #a2a5b5;
     width: 1px;
-    height: ${(selected && '116%') || '107%'}; 
+    height: ${(selected && '145%') || '146%'}; 
   }
 
  

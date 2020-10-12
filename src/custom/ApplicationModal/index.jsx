@@ -46,7 +46,7 @@ function ApplicationModal({
   open,
   handleButton,
   buttonBack,
-  handleClose
+  handleClose,
 }) {
   const styles = useStyles();
 
@@ -89,7 +89,6 @@ function ApplicationModal({
           onClick={handleButton}
           variant='outlined'
         >
-          
           {buttonBack}
         </Button>
 
@@ -98,7 +97,6 @@ function ApplicationModal({
           onClick={handleButton}
           variant='contained'
         >
-          
           {buttonLabel}
         </Button>
       </DialogActions>

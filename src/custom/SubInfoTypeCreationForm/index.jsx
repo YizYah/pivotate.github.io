@@ -21,7 +21,7 @@ import {
 // change styling here
 
 const SubInfoStyleWrapper = styled.div(
-    ({ selected, isDeleting }) => `
+  ({ selected, isDeleting }) => `
     // ns__custom_start unit: appSpec, comp: Screen, loc: styling
     // add styling here
     margin: 2rem 0 .2rem 5.9rem;
@@ -69,7 +69,7 @@ const SubInfoStyleWrapper = styled.div(
     }
     // ns__custom_end unit: appSpec, comp: Screen, loc: styling
   `
-  );
+);
 const Form = styled.div`
   margin: 2em;
   border: none;
@@ -131,14 +131,12 @@ const CalloutBox = styled.div`
   }
 `;
 const CustomTextInput = styled(TextField)`
-@media (max-width: 600px) {
-  .MuiInputLabel-outlined {
-    font-size: .6em;
-  
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+      font-size: 0.6em;
+    }
   }
-}
-
-`
+`;
 
 const useStyles = makeStyles({
   button: {
@@ -190,7 +188,9 @@ const SubInfoTypeCreationForm = ({
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Sub Info Type ${subInfoValue ? `for ${subInfoValue}?` : ''}`;
+    callOutText = `What is the Sub Info Type ${
+      subInfoValue ? `for ${subInfoValue}?` : ''
+    }`;
   }
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   function handleChange(e) {
@@ -208,7 +208,7 @@ const SubInfoTypeCreationForm = ({
 
     try {
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
-     
+
       let createInfoTypeResponse = await createSubInfoType({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
@@ -220,7 +220,7 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
-      console.log('subinforrrrrrrrrr',createInfoTypeResponse.data.execute);
+      console.log('subinforrrrrrrrrr', createInfoTypeResponse.data.execute);
 
       let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
 

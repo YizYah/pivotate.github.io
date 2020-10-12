@@ -147,11 +147,10 @@ function InfoType({
   //   setParentState(parentData);
   // }, [infoType]);
   const infoTypeData =
-  infoType.children &&
-  infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
-const infoTypes = infoTypeData ? infoTypeData.instances : [];
+    infoType.children &&
+    infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
+  const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
-   
   const handleSelect = (id) => setSubInfoId(id);
   const styles = useStyles();
   // ns__custom_end unit: appSpec, comp: InfoType, loc: beginning
@@ -269,7 +268,6 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
       <InputLabel className={styles.titleLabel}>Info Type</InputLabel>
       <TitleWrapper>
-      
         {infoTypeValue}
         <div>
           {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
@@ -310,14 +308,14 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
       
       /> */}
 
-       <SubInfoTypes
+      <SubInfoTypes
         subInfoTypes={infoType._children}
         infoTypeId={infoType.id}
         refetchQueries={refetchQueries}
         // hasParentId={hasParentId}
         parentId={parentId}
         childState={childState}
-      /> 
+      />
 
       {/* ns__custom_end unit: appSpec, comp: InfoType, loc: renderEnding */}
     </InfoTypeStyleWrapper>

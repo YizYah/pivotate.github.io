@@ -56,19 +56,8 @@ const SubInfoTypes = ({
 
   return (
     <>
-      {checkSubInfo ? (
-        <ScreensStyleWrapper>
-                <SubInfoTypeCreationForm
-          parentId={parentId}
-          refetchQueries={refetchQueries}
-          /* // ns__custom_start unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
-          childId={infoTypeId}
-          /* // ns__custom_end unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
-        />
-
-        </ScreensStyleWrapper>
+       
   
-      ) : (
         <CreateWrapper>
           {subInfoTypeData &&
             subInfoTypeData.map((infoType) => (
@@ -86,7 +75,16 @@ const SubInfoTypes = ({
               />
             ))}
         </CreateWrapper>
-      )}
+        <ScreensStyleWrapper>
+                <SubInfoTypeCreationForm
+          parentId={parentId}
+          refetchQueries={refetchQueries}
+          /* // ns__custom_start unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
+          childId={infoTypeId}
+          /* // ns__custom_end unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
+        />
+
+        </ScreensStyleWrapper>
     </>
   );
 };
