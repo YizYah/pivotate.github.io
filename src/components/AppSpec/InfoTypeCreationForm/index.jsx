@@ -38,11 +38,11 @@ const InfoTypeStyleWrapper = styled.div(
   margin: 2rem 0 .2rem 24%;
   right: 18px;
   left: -33px;
-  // @media (max-width: 480px) {
-  //   margin: 2rem 0 .2rem 5rem;
+  @media (max-width: 600px) {
+    margin: 2rem 0 .2rem 5rem;
 
 
-  // }
+  }
   // @media (min-width: 300px) {
   //   margin: 2rem 0 .2rem 5.7rem;
 
@@ -92,6 +92,19 @@ const Form = styled.div`
   border-radius: 5px;
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: styling
 `;
+
+const CustomTextInput = styled(TextField)`
+@media (max-width: 600px) {
+  .MuiInputLabel-outlined {
+    font-size: .6em;
+  
+  }
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 9px;
+}
+}
+
+`
 // ns__end_replacement stylingSection
 
 // ns__start_replacement button
@@ -135,6 +148,9 @@ const CalloutBox = styled.div`
   margin: .5rem;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
   
 
   :after{
@@ -275,8 +291,7 @@ function InfoTypeCreationForm({
   return (
     <InfoTypeStyleWrapper>
       <Label htmlFor='infoType-value'>
-        <TextField
-          className={styles.textField}
+        <CustomTextInput
           label='New Info Type'
           onChange={handleChange}
           onKeyPress={handleKeyPress}

@@ -1582,10 +1582,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@nostack/no-stack@^2.0.0-alpha.21":
-  version "2.0.0-alpha.22"
-  resolved "https://registry.yarnpkg.com/@nostack/no-stack/-/no-stack-2.0.0-alpha.22.tgz#5f5f89f6244b2307d6462ea6fb2c7cb717c51ac3"
-  integrity sha512-PQ0sq881sUVJ9h5wlHYYXRF7RWsM5/DsCYcDq/ONyV8lVx0A2o2/T7GFsDGtvVyY3iOJnDNUYuEuJkVUk3+RwQ==
+"@nostack/no-stack@^2.0.0-alpha.23":
+  version "2.0.0-alpha.23"
+  resolved "https://registry.yarnpkg.com/@nostack/no-stack/-/no-stack-2.0.0-alpha.23.tgz#9451cc410ea576eff14d3ad20d520611ae78eaae"
+  integrity sha512-8Dr99DZPo1J8OYcg5GWB5Ptjs9HzmqjDbYfHO2XaO+meTnB8M6CJ+iWWaKvOrCewBDuZndjND40tE2UI7amBOg==
   dependencies:
     "@babel/runtime" "^7.4.3"
     websocket-extensions "^0.1.4"
@@ -3566,7 +3566,7 @@ clone-deep@^4.0.1:
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
 
-clsx@^1.0.4, clsx@^1.1.1:
+clsx@^1.0.4, clsx@^1.1.0, clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -8481,6 +8481,14 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
+notistack@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/notistack/-/notistack-1.0.0.tgz#849ac58fad484852833284ee40bda5e04fbfe649"
+  integrity sha512-kIGwVy8qs2hpcDegLhjTQMlGkJvr7OVUg6mnOcjqwKOCZhCnkMt5h53kP9bPRKQQ3UckCzhkvuEPbyMbyYyRNQ==
+  dependencies:
+    clsx "^1.1.0"
+    hoist-non-react-statics "^3.3.0"
+
 npm-run-path@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
@@ -10140,6 +10148,11 @@ react-dom@^16.13.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.1"
+
+react-easy-edit@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/react-easy-edit/-/react-easy-edit-1.11.0.tgz#bdcecc506674903c881377e8a47f5bd575f6c9da"
+  integrity sha512-ie6xbbgl5tLJ/NVOrl8FQzon298bC3JK1BeUFlD/aN9tmr5K923JmNPVasU97FJVxC5/8vBYzk6W1ZOyGbk3pQ==
 
 react-error-overlay@^6.0.7:
   version "6.0.7"

@@ -25,7 +25,7 @@ import ScreenCreationForm from '../ScreenCreationForm';
 // ns__start_section stylingSection
 const UserTypesStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: UserTypes, loc: styling
-  padding-right: 0.5rem;
+  // padding-right: 0.5rem;
   // ns__custom_end unit: appSpec, comp: UserTypes, loc: styling
 `;
 

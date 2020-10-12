@@ -25,6 +25,7 @@ import {
   validationSchemaApp,
   validationSchemaCreditCard,
 } from './stepper/registration-util';
+import { size } from 'lodash/fp';
 
 // Get Current Month
 const dt = new Date();
@@ -50,6 +51,7 @@ const initialValues = {
 };
 
 const RegistrationForm = (props, { userClassId, onSuccess }) => {
+  console.log('propssssssssssssss',props);
   const [register] = useMutation(REGISTER_USER);
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -116,6 +118,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         onSuccess();
       }
     } catch (error) {
+      // alert(error);
       setFormError('Something went wrong. Please try again.');
     }
 
@@ -158,7 +161,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
     //   </Modal>
     // );
     return (
-      <Modal onClose={props.onClose} styleName='dialogConfirm'>
+      <Modal  styleName='dialogConfirm'>
         <div className='dialog__title'>
           <img src='/images/mail.png' alt='png' />
         </div>

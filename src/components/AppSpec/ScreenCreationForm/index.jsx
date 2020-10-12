@@ -162,6 +162,8 @@ const CalloutBox = styled.div`
   }
 `;
 
+
+
 const useStyles = makeStyles({
   button: {
     minWidth: 0,
@@ -182,6 +184,7 @@ const useStyles = makeStyles({
   textField: {
     width: '100%',
   },
+ 
 });
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeFunction
 
@@ -215,6 +218,7 @@ function ScreenCreationForm({
       screenValue ? `for ${screenValue} ?` : ''
     }`;
   }
+
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beginning
 
   // ns__start_section handleChange
@@ -278,8 +282,8 @@ function ScreenCreationForm({
     <ScreenStyleWrapper>
       <Label htmlFor='screen-value'>
         <TextField
-          className={styles.textField}
           label='New Screen'
+          className={styles.textField}
           value={screenValue}
           onChange={(e) => {
             handleChange(e);
