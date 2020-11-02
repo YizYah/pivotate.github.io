@@ -7,11 +7,14 @@ import styled from 'styled-components';
 
 const ScreensStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Screens, loc: styling
-  margin: 0 0 0 7%;
+  // margin: 0 0 0 7%;
   position: relative;
-    right: 24px;
+  right: 31px;
+
   @media (max-width: 600px) {
     // margin: 0 0 0 -28%;
+    right: 21px;
+
 
 
   }
@@ -32,12 +35,16 @@ const SubInfoTypes = ({
   parentId,
   childState,
 }) => {
-  debugger;
   const [subInfoTypeID, setSubInfoTypeID] = useState(null);
   const wrapperRef = createRef();
   const [subInfoTypeData, setInfoTypeData] = useState(subInfoTypes);
   // const validateSubInfoTypes = subInfoTypeData.length;
 
+  console.log('subinfotypesiof',subInfoTypes);
+  console.log('su pa', parentId);
+  console.log('su', infoTypeId);
+  console.log('dataaaaaaaaaaaaa',subInfoTypeData);
+  console.log('subinfo hasparent id', hasParentId);
   const handleClick = (e) => {
     const node = wrapperRef.current;
 
@@ -50,21 +57,21 @@ const SubInfoTypes = ({
     setSubInfoTypeID(id);
   };
 
-  const checkSubInfo =
-    subInfoTypeData.length === 0 ||
-    !(subInfoTypeData[0].value && subInfoTypeData[0].value !== '');
+  // const checkSubInfo =
+  //   subInfoTypeData.length === 0 ||
+  //   !(subInfoTypeData[0].value && subInfoTypeData[0].value !== '');
 
   return (
     <>
        
   
-        <CreateWrapper>
+        <CreateWrapper ref={wrapperRef} onClick={handleClick} >
           {subInfoTypeData &&
             subInfoTypeData.map((infoType) => (
               <SubInfoType
+              
                 key={v4()}
                 infoType={infoType}
-                infoTypeId={infoType}
                 selected={infoType.id === subInfoTypeID}
                 refetchQueries={refetchQueries}
                 label={label}

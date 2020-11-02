@@ -99,6 +99,7 @@ class Screens extends Component {
     // ns__custom_end unit: appSpec, comp: Screens, loc: renderBeginning
 
     // ns__start_replacement renderReturn
+    console.log('screen display', screens);
 
     return (
       <>

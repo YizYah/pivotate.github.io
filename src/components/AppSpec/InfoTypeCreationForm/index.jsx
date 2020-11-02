@@ -35,11 +35,11 @@ const InfoTypeStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .2rem 24%;
+  margin: 2rem 0 .2rem 16.9%;
   right: 18px;
   left: -33px;
   @media (max-width: 600px) {
-    margin: 2rem 0 .2rem 5rem;
+    margin: 2rem 0 .2rem 4rem;
 
 
   }
@@ -94,17 +94,15 @@ const Form = styled.div`
 `;
 
 const CustomTextInput = styled(TextField)`
-@media (max-width: 600px) {
-  .MuiInputLabel-outlined {
-    font-size: .6em;
-  
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+      font-size: 0.6em;
+    }
+    .MuiOutlinedInput-adornedEnd {
+      padding-right: 9px;
+    }
   }
-  .MuiOutlinedInput-adornedEnd {
-    padding-right: 9px;
-}
-}
-
-`
+`;
 // ns__end_replacement stylingSection
 
 // ns__start_replacement button

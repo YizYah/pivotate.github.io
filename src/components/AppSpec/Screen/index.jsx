@@ -74,7 +74,7 @@ const ScreenStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -33px ;
-    height: ${(selected && '120%') || '150%'}; 
+    height: ${(selected && '109%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: Screen, loc: styling
 `
@@ -145,6 +145,7 @@ function Screen({
     screen.children &&
     screen.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
+  console.log('infoTypesinfoTypes', infoTypes);
 
   // ns__custom_start unit: appSpec, comp: Screen, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: Screen, loc: beforeReturn

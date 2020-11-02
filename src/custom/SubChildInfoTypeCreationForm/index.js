@@ -7,7 +7,7 @@ import compose from '@shopify/react-compose';
 // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: addedImports
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
 import IconButton from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import {
@@ -19,6 +19,64 @@ import {
 
 // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: styling
 // change styling here
+
+const SubInfoStyleWrapper = styled.div(
+  ({ selected, isDeleting }) => `
+    // ns__custom_start unit: appSpec, comp: Screen, loc: styling
+    // add styling here
+    margin: 2rem 0 .2rem 4.6rem;
+    @media (max-width: 600px) {
+      // margin:  2rem 0 .2rem 5rem;
+      margin: 32px 0 0px 38%;  
+      width: 72%;
+  
+    }
+    // padding: ${selected ? '0' : '1.5rem'};
+    
+    border-radius: 10px;
+    
+    background-color: ${
+      (isDeleting && 'tomato') || (selected && 'white') || ''
+    };
+    cursor: ${selected ? 'auto' : 'pointer'};
+    position: relative;
+  
+    &:before {
+
+      content: "";
+      position: absolute;
+      top: -31px;
+      left: -29px;
+      border-left: 2px dashed #a2a5b5;
+      width: 1px;
+      height: ${(selected && '109%') || '138%'}; 
+     
+    }
+  
+   
+    &:after {
+      content: "";
+      position: absolute;
+      border-top: 2px dashed #a2a5b5;
+      top: ${(selected && '57px') || '44px'};
+      left: -30px;
+      width: ${(selected && '30px') || '29px'}; 
+    }
+  
+    &:last-child:before {
+      top: -33px ;
+      height: ${(selected && '90px') || '77px'}; 
+    }
+    // ns__custom_end unit: appSpec, comp: Screen, loc: styling
+  `
+);
+const CustomTextInput = styled(TextField)`
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+      font-size: 0.5em;
+    }
+  }
+`;
 const Form = styled.div`
   margin: 2em;
   padding: 1.5em;
@@ -73,6 +131,7 @@ const CalloutBox = styled.div`
   margin: .5rem;
   display: flex;
   justify-content: space-between;
+
   
 
   :after{
@@ -116,10 +175,18 @@ const Button = styled.button`
   margin-left: 1em;
 `;
 
+const InputIcon = styled(InputAdornment)`
+  @media (max-width: 600px) {
+    && {
+      display: none;
+    }
+  }
+`;
+
 // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: styling
 
 const SubInfoTypeCreationForm = ({
-  infoTypes,
+  childId,
   parentId,
   createSubInfoType,
   refetchQueries,
@@ -134,8 +201,6 @@ const SubInfoTypeCreationForm = ({
   const [callout, setCallout] = useState(false);
   const showCalloutBox = callout || validateSubInfoTypes === 0;
   const callOutText = "What's the name of this Sub Info Type?";
-
-  console.log(`validateSubInfoTypes`, validateSubInfoTypes);
 
   // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: addedDeclaration
 
@@ -155,9 +220,8 @@ const SubInfoTypeCreationForm = ({
 
     try {
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
-      setSubInfoValue('');
-      updateLoading(false);
-      const createInfoTypeResponse = await createSubInfoType({
+
+      let createInfoTypeResponse = await createSubInfoType({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
           executionParameters: JSON.stringify({
@@ -168,20 +232,24 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
+      console.log('subinchikd', createInfoTypeResponse.data.execute);
 
-      const newInfoTypeData = JSON.parse(createInfoTypeResponse.data.Execute);
+      let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
 
-      const createChildInfoTypeResponse = await saveInstance({
+      await saveInstance({
         variables: {
           actionId: ADD_HAS_PARENT_FOR_PARENT_ACTION_ID,
           executionParameters: JSON.stringify({
-            childInstanceId: infoTypes.id,
+            childInstanceId: childId,
             parentInstanceId: newInfoTypeData.instanceId,
           }),
           unrestricted: false,
         },
         refetchQueries,
       });
+
+      setSubInfoValue('');
+      updateLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -197,30 +265,32 @@ const SubInfoTypeCreationForm = ({
   const showCallout = () => {
     setCallout(!callout);
   };
+  const handleClickShow = () => setCallout(!callout);
+
   // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: beforeReturn*/
 
   return (
-    <Form>
+    <SubInfoStyleWrapper>
       {/* ns__custom_start unit: appSpec, comp: SubChild_creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
-        Sub Info Type:
-        <InputContainer>
-          <Input
-            id='screen-value'
-            type='text'
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
-            value={subInfoValue}
-            disabled={loading}
-          />
-
-          <IconButton className={styles.button} onClick={showCallout}>
-            <HelpOutlineIcon className={styles.helpIcon} />
-          </IconButton>
-        </InputContainer>
-        <Button type='submit' disabled={loading} onClick={handleSubmit}>
-          {loading ? 'Creating Sub Info Type...' : 'Create Sub Info Type'}
-        </Button>
+        <CustomTextInput
+          label={`New Child Sub Info Type`}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
+          value={subInfoValue}
+          disabled={loading}
+          variant='outlined'
+          InputProps={{
+            endAdornment: (
+              <InputIcon position='end'>
+                <HelpOutlineIcon
+                  className={styles.helpIcon}
+                  onClick={handleClickShow}
+                />
+              </InputIcon>
+            ),
+          }}
+        />
       </Label>
       {showCalloutBox ? (
         <CalloutBox>
@@ -229,7 +299,7 @@ const SubInfoTypeCreationForm = ({
         </CalloutBox>
       ) : null}
       {/* ns__custom_end unit: appSpec, comp: SubChild_creation, loc: insideReturn */}
-    </Form>
+    </SubInfoStyleWrapper>
   );
 };
 

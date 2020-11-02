@@ -13,12 +13,12 @@ import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
 import { v4 } from 'uuid';
 
-import InfoTypeCreationForm from '../InfoTypeCreationForm';
-import InfoType from '../InfoType';
 // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedImports
-import getChildData from '../../../custom/getChildData';
-import { Context as UnitDataContext } from '../../../custom/UnitDataContext';
-import SubInfoTypeCreationForm from '../../../custom/SubInfoTypeCreationForm';
+import getChildData from '../../custom/getChildData';
+import { Context as UnitDataContext } from '../../custom/UnitDataContext';
+import SubChildInfoType from '../SubChildInfoType';
+import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
+import SubInfoChildTypes from '../SubInfoChildTypes';
 
 // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedImports
 // ns__end_section imports
@@ -26,7 +26,7 @@ import SubInfoTypeCreationForm from '../../../custom/SubInfoTypeCreationForm';
 // ns__start_section stylingSection
 const InfoTypesStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: InfoTypes, loc: styling
-  // margin: 0 0 0 7%;
+  margin: 0 0 0 3%;
   // ns__custom_end unit: appSpec, comp: InfoTypes, loc: styling
 `;
 
@@ -39,7 +39,7 @@ const InfoTypesStyleWrapper = styled.div`
 // ns__custom_end unit: appSpec, comp: InfoTypes, loc: beforeFunction
 
 // ns__start_section function
-class InfoTypes extends Component {
+class CustomChildSub extends Component {
   // ns__custom_start unit: appSpec, comp: InfoTypes, loc: beginning
   // eslint-disable-next-line react/static-property-placement
   static contextType = UnitDataContext;
@@ -48,7 +48,7 @@ class InfoTypes extends Component {
   state = {
     selectedInfoTypeId: null,
     // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedState
-    childState: [],
+    childState1: [],
     parentState: [],
     subInfoTypeValueCount: 0,
     // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedState
@@ -59,14 +59,16 @@ class InfoTypes extends Component {
   // ns__start_section didMount
   componentDidMount() {
     // ns__custom_start unit: appSpec, comp: InfoTypes, loc: componentDidMount
-    const { childState, parentState } = this.state;
-    const { infoTypes } = this.props;
-    console.log('infotypes child', infoTypes);
-    if (!childState.length || !parentState.length) {
-      const [parentData, childData] = getChildData(infoTypes);
+    const { childState1, parentState } = this.state;
+    const { childState, subInfoTypes } = this.props;
+    console.log('chilcustom', subInfoTypes);
+
+    if (!childState1.length || !parentState.length) {
+      const [parentData, childData] = getChildData(childState);
+
 
       this.setState({
-        childState: childData,
+        childState1: childData,
         parentState: parentData,
         subInfoTypeValueCount: 0,
       });
@@ -107,68 +109,79 @@ class InfoTypes extends Component {
 
   // ns__start_section render
   render() {
-    const { screenId, infoTypes, refetchQueries, onUpdate } = this.props;
+    const { subInfoId,childState, subInfoTypes, refetchQueries, onUpdate,parentId } = this.props;
+    // console.log('screeen id->>>..', subInfoTypes,childState);
+    console.log('inner screen id child', subInfoId);
+    console.log('inner pcreen id child', parentId)
+console.log('sunonfo', subInfoTypes);    
+
+
+
+
 
     const { selectedInfoTypeId } = this.state;
 
     // ns__custom_start unit: appSpec, comp: InfoTypes, loc: renderBeginning
     const { label } = this.props;
-    const validateInfoTypes = infoTypes.length;
-    const { childState, parentState, subInfoTypeValueCount } = this.state;
+    const validateInfoTypes = childState.length;
+    const { childState1, parentState, subInfoTypeValueCount } = this.state;
     // const [data] = getChildData(parentState);
     // ns__custom_end unit: appSpec, comp: InfoTypes, loc: renderBeginning
 
     // ns__start_replacement renderReturn
-    console.log('parnetstate', parentState);
+
+    console.log('parnmmm', parentState);
 
     return (
       <>
         <InfoTypesStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-          {parentState.map((infoType) => {
-            console.log('infotype.parnet', infoType);
-            if (infoType.parentId) return true;
+          {parentState && parentState.map((infoType) => {
+                        console.log('---------', infoType._children );
 
-            // eslint-disable-next-line consistent-return
-            return (
-              <InfoType
-                key={v4()}
-                infoType={infoType}
-                selected={infoType.id === selectedInfoTypeId}
-                onUpdate={onUpdate}
-                parentId={screenId}
-                refetchQueries={refetchQueries}
-                onSelect={this.handleSelect}
-                // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-                hasParentId={infoType.parentId}
-                childState={childState}
-                onChange={this.onChangeHelper}
-                // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-              />
-            );
-          })}
+                        console.log('=======',infoType );
+
+
+
+return (
+         // eslint-disable-next-line consistent-return
+         
+         <SubChildInfoType
+         key={v4()}
+         subChildInfoType={infoType}
+         infoTypeId={infoType.id}
+         selected={infoType.id === selectedInfoTypeId}
+         parentId={parentId}
+         refetchQueries={refetchQueries}
+         onSelect={this.handleSelect}
+         // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+         hasParentId={infoType.parentId}
+         onChange={this.onChangeHelper}
+         childState={childState}
+         // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+       />
+
+
+)
+
+     
+  })}
+
+               <SubChildInfoTypeCreationForm 
+               refetchQueries={refetchQueries}
+               childId={subInfoId}
+               parentId={parentId}
+               />
+
+         
+
+
+          
+          
 
           {/* ns__custom_start unit: appSpec, comp: InfoTypes, loc: renderEnding */}
           {/* ns__custom_end unit: appSpec, comp: InfoTypes, loc: renderEnding */}
         </InfoTypesStyleWrapper>
-        <InfoTypeCreationForm
-          parentId={screenId}
-          refetchQueries={refetchQueries}
-          // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForCreationForm
-          label={label}
-          validateInfoTypes={validateInfoTypes}
-          onChange={this.onChangeHelper}
-          /* ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForCreationForm */
-          /* ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForCreationForm */
-        />
-        {subInfoTypeValueCount >= 3 ? (
-          <SubInfoTypeCreationForm
-            disabled
-            validateSubInfoTypes={0}
-            textLabel='What is the sub Info Type fo...'
-            subInfoTypeValueCount={subInfoTypeValueCount}
-            label={label}
-          />
-        ) : null}
+
       </>
     );
 
@@ -182,10 +195,10 @@ class InfoTypes extends Component {
 // ns__end_section  compose
 
 // ns__start_section propTypes
-InfoTypes.propTypes = {
+CustomChildSub.propTypes = {
   // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropTypes
   // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropTypes
 };
 // ns__end_section propTypes
 
-export default InfoTypes;
+export default CustomChildSub;

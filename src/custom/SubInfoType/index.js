@@ -19,13 +19,14 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 
 // ns__custom_start unit: appSpec, comp: SubInfoType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
+import CustomChildSub from '../CustomChildSub';
 // ns__custom_end unit: appSpec, comp: SubInfoType, loc: addedImports
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 2rem;
+  margin: 2rem 0 .5rem 0rem;
   padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
@@ -43,7 +44,7 @@ const SubInfoTypeWrapper = styled.div(
     left: -2rem;
     border-left: 2px dashed #a2a5b5;
     width: 1px;
-    height: ${(selected && '145%') || '146%'}; 
+    height: ${(selected && '110%') || '146%'}; 
   }
 
  
@@ -51,14 +52,38 @@ const SubInfoTypeWrapper = styled.div(
     content: "";
     position: absolute;
     border-top: 2px dashed #a2a5b5;
-    top: ${(selected && '42px') || '37px'};
-    left: -30px;
-    width: ${(selected && '30px') || '29px'}; 
+    top: ${(selected && '42px') || '41px'};
+    left: -21px;
+    width: ${(selected && '21px') || '21px'}; 
   }
+  
+
+ 
 
   &:last-child:before {
     top: -32px ;
     height: ${(selected && '75px') || '75px'}; 
+    left: -21px;
+  }
+
+  @media (max-width: 600px) {
+
+    &:after {
+      content: "";
+      position: absolute;
+      border-top: 2px dashed #a2a5b5;
+      top: ${(selected && '41px') || '41px'};
+      left: -9px;
+      width: ${(selected && '9px') || '9px'}; 
+    }
+    &:last-child:before {
+      top: -32px ;
+      height: ${(selected && '75px') || '75px'}; 
+      position: absolute;
+      left: -10px;
+    }
+
+
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
@@ -107,6 +132,14 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
+
+  console.log('subinfotype----', childState);
+  console.log('subinpe----', infoType);
+
+
+
+ 
+
   const [infoTypeValue, setSubInfoTypeValue] = useState(infoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -119,9 +152,12 @@ const SubInfoType = ({
     infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
+  console.log('cnfoTypesinfoTypes', infoTypes);
+
+ 
   if (!selected) {
     return (
-      <SubInfoTypeWrapper onClick={() => onSelect(infoTypeId.id)}>
+      <SubInfoTypeWrapper onClick={() => onSelect(infoType.id)}>
         {infoTypeValue}
       </SubInfoTypeWrapper>
     );
@@ -157,7 +193,7 @@ const SubInfoType = ({
     return (
       <SubInfoTypeWrapper>
         <EditInstanceForm
-          id={infoTypeId}
+          id={infoType.id}
           label='Sub Info Type'
           value={infoTypeValue}
           onChange={handleSubInfoTypeValueChange}
@@ -178,7 +214,7 @@ const SubInfoType = ({
           actionId: DELETE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
           executionParameters: JSON.stringify({
             parentInstanceId: parentId,
-            instanceId: infoTypeId,
+            instanceId: infoType.id,
           }),
         },
         refetchQueries,
@@ -220,12 +256,13 @@ const SubInfoType = ({
         </div>
       </TitleWrapper>
 
-      {/* <SubInfoChildTypes
-        subInfoId={infoTypeId}
+      <CustomChildSub
+        subInfoTypes={infoType}
+        subInfoId={infoType.id}
         refetchQueries={refetchQueries}
         childState={childState}
         parentId={parentId}
-      /> */}
+      />
     </SubInfoTypeWrapper>
   );
 };

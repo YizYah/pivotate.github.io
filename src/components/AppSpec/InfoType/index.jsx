@@ -77,7 +77,7 @@ const InfoTypeStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -32px ;
-    height: ${(selected && '120%') || '150%'}; 
+    height: ${(selected && '112%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
@@ -134,6 +134,7 @@ function InfoType({
   childState,
   // ns__custom_end unit: appSpec, comp: InfoType, loc: addedProps
 }) {
+  console.log('in++', infoType);
   const [infoTypeValue, updateInfoTypeValue] = useState(infoType.value);
   const [isEditMode, updateIsEditMode] = useState(false);
   const [isSaving, updateIsSaving] = useState(false);

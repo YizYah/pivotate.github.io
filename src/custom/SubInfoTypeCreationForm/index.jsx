@@ -133,7 +133,7 @@ const CalloutBox = styled.div`
 const CustomTextInput = styled(TextField)`
   @media (max-width: 600px) {
     .MuiInputLabel-outlined {
-      font-size: 0.6em;
+      font-size: 0.5em;
     }
   }
 `;
@@ -176,6 +176,7 @@ const SubInfoTypeCreationForm = ({
   textLabel,
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: addedPropsForCreationForm
 }) => {
+  console.log('idddddddddd', childId, parentId);
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
