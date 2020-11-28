@@ -6,7 +6,6 @@ import SubInfoTypeCreationForm from '../SubInfoTypeCreationForm';
 import SubChildInfoType from '../SubChildInfoType';
 import SubChild from '../SubChildInfoTypeCreationForm';
 import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
-
 const SubInfoChildTypes = ({
   refetchQueries,
   label,
@@ -16,11 +15,12 @@ const SubInfoChildTypes = ({
   subInfoTypes,
   subInfoId,
 }) => {
-  console.log('subicild id', parentId, subInfoId);
-  console.log('data for sub', subInfoTypes,childState);
+  console.log('subicild id',childState, parentId,hasParentId, subInfoId,subInfoTypes);
+  console.log('2!!2', subInfoTypes);
+  console.log('pppp', childState)
   const [subInfoTypeID, setSubInfoTypeID] = useState(null);
   const wrapperRef = createRef();
-  const [subInfoTypeData, setInfoTypeData] = useState(childState);
+  const [subInfoTypeData, setInfoTypeData] = useState(subInfoTypes);
   const [validateCount, setvalidateCount] = useState(0);
 
   const handleClick = (e) => {
@@ -34,10 +34,9 @@ const SubInfoChildTypes = ({
   console.log('subInfoTypeDatasubInfoTypeData',subInfoTypeData)
 
   const handleSelect = (id) => {
+    console.log('handleclick',id)
     setSubInfoTypeID(id);
   };
-
-
 
 
 
@@ -46,17 +45,18 @@ const SubInfoChildTypes = ({
       
 <div ref={wrapperRef} onClick={handleClick} >
 {
-            subInfoTypeData.map((infoType) =>   {
-              // console.log('subchild.idisplay', infoType.parentId); 
-              // if (infoType.parentId) return true;
-              console.log('childinfotypes!!!!', infoType);
+            subInfoTypeData && subInfoTypeData.map((subInfoTypesChild) =>   {
+              console.log('subchild.idisplay', subInfoTypesChild.parentId); 
+              console.log('childinfotypes!!!!', subInfoTypesChild);
+
+              // if (infoType.parentId ===  ) return true
               return (
 
                 <SubChildInfoType
                 key={v4()}
-                subChildInfoType={infoType}
-                infoTypeId={infoType.id}
-                selected={infoType.id === subInfoTypeID}
+                subChildInfoType={subInfoTypesChild}
+                infoTypeId={subInfoId}
+                selected={subInfoTypesChild.id === subInfoTypeID}
                 refetchQueries={refetchQueries}
                 label={label}
                 hasParentId={hasParentId}

@@ -24,10 +24,10 @@ const SubInfoStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
     // ns__custom_start unit: appSpec, comp: Screen, loc: styling
     // add styling here
-    margin: 2rem 0 .2rem 5.9rem;
+    margin: 2rem 0 .2rem 2.4rem;
     @media (max-width: 600px) {
       // margin:  2rem 0 .2rem 5rem;
-      margin: 32px 0 0px 38%;  
+      margin: 35px 0 0px 17%;  
       width: 72%;
   
     }
@@ -176,11 +176,11 @@ const SubInfoTypeCreationForm = ({
   textLabel,
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: addedPropsForCreationForm
 }) => {
-  console.log('idddddddddd', childId, parentId);
+  console.log('idddddddddd', childId, parentId, createSubInfoType);
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(true);
   const showCalloutBox = callout || validateSubInfoTypes === 0;
 
   // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
@@ -190,7 +190,7 @@ const SubInfoTypeCreationForm = ({
     callOutText = textLabel;
   } else {
     callOutText = `What is the Sub Info Type ${
-      subInfoValue ? `for ${subInfoValue}?` : ''
+      label ? `for ${subInfoValue}?` : ''
     }`;
   }
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
@@ -209,7 +209,6 @@ const SubInfoTypeCreationForm = ({
 
     try {
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
-
       let createInfoTypeResponse = await createSubInfoType({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
@@ -266,7 +265,7 @@ const SubInfoTypeCreationForm = ({
       {/* // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
         <CustomTextInput
-          label={`New Sub Info Type`}
+          label={`New Sub Info  Type`}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           value={subInfoValue}

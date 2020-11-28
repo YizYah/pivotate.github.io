@@ -1,0 +1,108 @@
+{
+  "data": {
+    "unitData": [
+      {
+        "instance": {
+          "id": "dbd440d6-7957-455a-9d98-2221f3925a7f",
+          "value": "Multitask",
+          "__typename": "Instance"
+        },
+        "children": [
+          {
+            "typeId": "1b0a1e97-32a8-41ed-946a-d33c6560f4d2",
+            "instances": [
+              {
+                "instance": {
+                  "id": "a510e9b1-2e34-4ad1-913a-117917944517",
+                  "value": "User type",
+                  "__typename": "Instance"
+                },
+                "children": [
+                  {
+                    "typeId": "6ee096cc-1d66-42e1-ae8e-be0cbdcb2bf5",
+                    "instances": [
+                      {
+                        "instance": {
+                          "id": "8090d0e4-d3ca-4b28-8407-6bd872e7c0de",
+                          "value": "Screen",
+                          "__typename": "Instance"
+                        },
+                        "children": [
+                          {
+                            "typeId": "49200929-013e-4196-b13b-bbfec87c3efb",
+                            "instances": [
+                              {
+                                "instance": {
+                                  "id": "4bac8a5e-6544-48cc-8ca5-00c7defa5b7f",
+                                  "value": "Sub info",
+                                  "__typename": "Instance"
+                                },
+                                "children": [
+                                  {
+                                    "typeId": "49200929-013e-4196-b13b-bbfec87c3efb",
+                                    "instances": [
+                                      {
+                                        "instance": {
+                                          "id": "0ff66fcd-fd37-4565-b71a-db4cfbb1b527",
+                                          "value": "Info type",
+                                          "__typename": "Instance"
+                                        },
+                                        "__typename": "InstanceWithTypedChildren"
+                                      }
+                                    ],
+                                    "__typename": "TypeWithInstances"
+                                  }
+                                ],
+                                "__typename": "InstanceWithTypedChildren"
+                              },
+                              {
+                                "instance": {
+                                  "id": "0ff66fcd-fd37-4565-b71a-db4cfbb1b527",
+                                  "value": "Info type",
+                                  "__typename": "Instance"
+                                },
+                                "children": [
+                                  {
+                                    "typeId": "49200929-013e-4196-b13b-bbfec87c3efb",
+                                    "instances": [null],
+                                    "__typename": "TypeWithInstances"
+                                  }
+                                ],
+                                "__typename": "InstanceWithTypedChildren"
+                              }
+                            ],
+                            "__typename": "TypeWithInstances"
+                          }
+                        ],
+                        "__typename": "InstanceWithTypedChildren"
+                      }
+                    ],
+                    "__typename": "TypeWithInstances"
+                  }
+                ],
+                "__typename": "InstanceWithTypedChildren"
+              }
+            ],
+            "__typename": "TypeWithInstances"
+          },
+          {
+            "typeId": "1f2a35d2-0757-424b-b610-1eabec184fca",
+            "instances": [
+              {
+                "instance": {
+                  "id": "d44cf900-5be0-4a53-8248-9efaf73acc1b",
+                  "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                  "__typename": "Instance"
+                },
+                "children": null,
+                "__typename": "InstanceWithTypedChildren"
+              }
+            ],
+            "__typename": "TypeWithInstances"
+          }
+        ],
+        "__typename": "InstanceWithTypedChildren"
+      }
+    ]
+  }
+}

@@ -20,12 +20,15 @@ import {
 } from '../../config';
 
 import SubInfoTypeCreationForm from '../SubInfoTypeCreationForm';
+import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
     margin: .5rem 0 .5rem 2.5rem;
     padding: .5em;
     position: relative;
+    padding: ${selected ? '0' : '1.5rem'};
+
     
     border-radius: 10px;
     
@@ -68,10 +71,15 @@ const Button = styled.button`
 
 const InfoTypesStyleWrapper = styled.div(
   ({ selected }) => `
-  
-  margin: 15px 0 0 7%;
-  position: relative;
 
+  margin: 10px 0 0 11%;
+  position: relative;
+  @media (max-width: 600px) {
+    margin: 16px 0 0 18%;
+
+
+
+  }
 
   &:before {
     content: "";
@@ -96,7 +104,7 @@ const InfoTypesStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -11px ;
-    height: ${(selected && '133px') || '55px'}; 
+    height: ${(selected && '133px') || '113%'}; 
   }
 `
 );
@@ -122,6 +130,7 @@ const useStyles = makeStyles(() => ({
 const SubInfoComponent = ({
   infoType,
   instanceId,
+  childState,
   parentId,
   refetchQueries,
   updateInstance,
@@ -131,6 +140,7 @@ const SubInfoComponent = ({
   setParentLabel,
   label,
 }) => {
+
   const [infoTypeValue, setSubInfoTypeValue] = useState('');
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState(null);
@@ -142,6 +152,9 @@ const SubInfoComponent = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [labelParent, setLabel] = useState(label);
   const wrapperRef = createRef();
+
+  console.log('child data',labelParent)
+
 
   const styles = useStyles();
 
@@ -246,7 +259,9 @@ const SubInfoComponent = ({
   return (
     <>
       <div ref={wrapperRef} key={v4()}>
-        {infoType.map((instance) => {
+        {childState && childState.map((instance) => {
+
+          console.log('recursive', instance,instanceId);
           if (instanceId === instance.parentId) {
             return (
               <InfoTypesStyleWrapper key={v4()}>
@@ -265,7 +280,7 @@ const SubInfoComponent = ({
                   <TitleWrapper>
                     {' '}
                     {instance.value}
-                    <div>
+                    <div onClick={instance.id} >
                       <Button
                         type='button'
                         onClick={() => {
@@ -304,7 +319,7 @@ const SubInfoComponent = ({
                   onClick={onClick}
                   currentId={currentId}
                   setParentLabel={setParentLabel}
-                  parentLabel={parentLabel}
+                  parentLabel={instance.value}
                 />
                 {instance._children.length ? (
                   <SubInfoComponent
@@ -349,6 +364,7 @@ const Child = ({
   selected,
   label,
   parentLabel,
+  setParentLabel
 }) => {
   const [currentChildId, setChildCurrentId] = useState(null);
   const [showChild, setshowChild] = useState(!show);
@@ -359,6 +375,10 @@ const Child = ({
   const [isChildEditMode, setIsChildEditMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [labelValue, setLabelValue] = useState(parentLabel);
+  const styles = useStyles();
+
+  console.log('labelvalll',parentLabel)
+
 
   useEffect(() => {
     setChildState(_children);
@@ -366,6 +386,14 @@ const Child = ({
       setChildCurrentId(instanceId);
     }
   }, [isEditMode, isChildEditMode, currentId]);
+
+  // if (!selected) {
+  //   return (
+  //     <SubInfoTypeWrapper onClick={() => onSelect(infoType.id)}>
+  //       {infoTypeValue}
+  //     </SubInfoTypeWrapper>
+  //   );
+  // }
 
   async function handleInfoTypeValueSave() {
     setIsSaving(true);
@@ -447,27 +475,30 @@ const Child = ({
 
   return (
     <>
-      {childState.map((instance) => {
+     
+      {childState && childState.map((instance) => {
         return (
-          <React.Fragment key={v4()}>
+          <React.Fragment key={v4()} >
             {selected && show ? (
-              <SubInfoTypeWrapper key={v4()}>
+              <InfoTypesStyleWrapper key={v4()}>
                 <div
                   role='presentation'
                   onClick={() => {
                     setChildCurrentId(instance.id);
                     setLabelValue(instance.value);
-                    if (!last) {
-                      return null;
-                    }
-                    onClick();
+                    // if (!last) {
+                    //   return null;
+                    // }
+                    // onClick();
                   }}
                   onChange={handleSubInfoTypeValueChange}
                   key={v4()}
                 >
                   <TitleWrapper>
-                    {' '}
-                    {instance.value}
+                  <InputLabel className={styles.titleLabel}>
+                    Sub Info Type for {parentLabel}
+                  </InputLabel>                    
+                  {instance.value}
                     <div>
                       <Button
                         type='button'
@@ -507,18 +538,27 @@ const Child = ({
                   selected={selected}
                   label={label}
                 />
-              </SubInfoTypeWrapper>
+              </InfoTypesStyleWrapper>
             ) : null}
           </React.Fragment>
         );
       })}
+
+{/* <SubInfoTypeCreationForm
+        key={v4()}
+        parentId={parentId}
+        childId={currentId}
+        refetchQueries={refetchQueries}
+        label={labelValue}
+      /> */}
       {selected && !last ? (
-        <SubInfoTypeCreationForm
-          parentId={parentId}
-          childId={instanceId}
-          refetchQueries={refetchQueries}
-          label={labelValue}
-        />
+     <SubInfoTypeCreationForm
+     key={v4()}
+     parentId={parentId}
+     childId={currentId}
+     refetchQueries={refetchQueries}
+     label={labelValue}
+   />
       ) : null}
     </>
   );

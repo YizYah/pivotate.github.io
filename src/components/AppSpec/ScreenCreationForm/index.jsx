@@ -43,9 +43,7 @@ const ScreenStyleWrapper = styled.div(
   
   border-radius: 10px;
   
-  background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
-  };
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
 
@@ -162,8 +160,6 @@ const CalloutBox = styled.div`
   }
 `;
 
-
-
 const useStyles = makeStyles({
   button: {
     minWidth: 0,
@@ -184,7 +180,6 @@ const useStyles = makeStyles({
   textField: {
     width: '100%',
   },
- 
 });
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeFunction
 
@@ -207,17 +202,19 @@ function ScreenCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(true);
   const showCalloutBox = callout || validateScreens === 0;
   let callOutText = '';
 
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Screen name ${
-      screenValue ? `for ${screenValue} ?` : ''
-    }`;
+    callOutText = `What is the Screen name ${label ? `for ${label} ?` : ''}`;
   }
+
+  // useEffect(() => {
+  //   setCallout(true);
+  // }, [callout]);
 
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beginning
 

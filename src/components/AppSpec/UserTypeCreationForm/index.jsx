@@ -43,7 +43,6 @@ const Form = styled.div`
 `;
 // ns__end_section  stylingSection
 
-
 // ns__start_replacement button
 // ns__end_replacement button
 
@@ -83,7 +82,6 @@ const UserTypeStyleWrapper = styled.div(
   // ns__custom_end unit: appSpec, comp: UserType, loc: styling
 `
 );
-
 
 const CalloutBox = styled.div`
   padding: 1rem;
@@ -159,7 +157,7 @@ function UserTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(true);
   let callOutText = '';
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;

@@ -185,16 +185,18 @@ const InputIcon = styled(InputAdornment)`
 
 // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: styling
 
-const SubInfoTypeCreationForm = ({
+const SubChildInfoTypeCreationForm = ({
   childId,
   parentId,
-  createSubInfoType,
+  createSubInfoTypeChild,
   refetchQueries,
   saveInstance,
   // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: addedPropsForCreationForm
   validateSubInfoTypes,
   // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: addedPropsForCreationForm
 }) => {
+
+  console.log('child creation id', parentId, childId)
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
@@ -203,7 +205,7 @@ const SubInfoTypeCreationForm = ({
   const callOutText = "What's the name of this Sub Info Type?";
 
   // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: addedDeclaration
-
+console.log('ipp', childId, parentId)
   // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: addedDeclaration
   function handleChange(e) {
     setSubInfoValue(e.target.value);
@@ -219,9 +221,10 @@ const SubInfoTypeCreationForm = ({
     updateLoading(true);
 
     try {
+      debugger;
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
 
-      let createInfoTypeResponse = await createSubInfoType({
+      let createInfoTypeResponse = await createSubInfoTypeChild({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
           executionParameters: JSON.stringify({
@@ -232,9 +235,10 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
-      console.log('subinchikd', createInfoTypeResponse.data.execute);
+      console.log('subinchikd', createInfoTypeResponse);
 
       let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
+      console.log('child-creattttt',newInfoTypeData);
 
       await saveInstance({
         variables: {
@@ -247,6 +251,7 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
+
 
       setSubInfoValue('');
       updateLoading(false);
@@ -304,6 +309,6 @@ const SubInfoTypeCreationForm = ({
 };
 
 export default compose(
-  graphql(EXECUTE, { name: 'createSubInfoType' }),
+  graphql(EXECUTE, { name: 'createSubInfoTypeChild' }),
   graphql(EXECUTE, { name: 'saveInstance' })
-)(SubInfoTypeCreationForm);
+)(SubChildInfoTypeCreationForm);

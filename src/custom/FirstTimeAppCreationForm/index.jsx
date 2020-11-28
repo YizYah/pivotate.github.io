@@ -29,6 +29,7 @@ import { keyframes } from 'styled-components';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import Descriptions from '../../components/AppSpec/DescriptionCreationForm';
+import CustomStepper from '../CustomStepper';
 
 // ns__custom_end unit: appSpec, comp: DescriptionCreationForm, loc: addedImports
 
@@ -236,6 +237,7 @@ function AppCreationForm({
 
   return (
     <>
+      <CustomStepper />
       <CustomWrapper maxWidth='sm'>
         <Label>
           <TextField

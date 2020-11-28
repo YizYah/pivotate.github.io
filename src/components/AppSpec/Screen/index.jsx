@@ -145,7 +145,6 @@ function Screen({
     screen.children &&
     screen.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
-  console.log('infoTypesinfoTypes', infoTypes);
 
   // ns__custom_start unit: appSpec, comp: Screen, loc: beforeReturn
   // ns__custom_end unit: appSpec, comp: Screen, loc: beforeReturn
@@ -282,6 +281,7 @@ function Screen({
         screenId={screen.id}
         label={screenValue}
         refetchQueries={refetchQueries}
+        parentId={parentId}
       />
 
       {/* ns__end_replacement childrenList */}

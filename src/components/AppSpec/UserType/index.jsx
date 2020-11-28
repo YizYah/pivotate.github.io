@@ -45,9 +45,7 @@ const UserTypeStyleWrapper = styled.div(
   
   border-radius: 10px;
   border: 1px solid black;
-  background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
-  };
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
   width: inherit; 

@@ -37,12 +37,11 @@ const SubInfoTypes = ({
 }) => {
   const [subInfoTypeID, setSubInfoTypeID] = useState(null);
   const wrapperRef = createRef();
-  const [subInfoTypeData, setInfoTypeData] = useState(subInfoTypes);
+  const [subInfoTypeData, setInfoTypeData] = useState(childState);
   // const validateSubInfoTypes = subInfoTypeData.length;
-
-  console.log('subinfotypesiof',subInfoTypes);
-  console.log('su pa', parentId);
-  console.log('su', infoTypeId);
+  console.log('subinfotypesiof',infoTypeId);
+  console.log('su!!pa', childState);
+  console.log('suinfotypedis',childState, parentId,infoTypeId,subInfoTypeData,subInfoTypes);
   console.log('dataaaaaaaaaaaaa',subInfoTypeData);
   console.log('subinfo hasparent id', hasParentId);
   const handleClick = (e) => {
@@ -54,8 +53,10 @@ const SubInfoTypes = ({
   };
 
   const handleSelect = (id) => {
+    console.log('sub hand', id);
     setSubInfoTypeID(id);
   };
+  console.log('sub  selected id',subInfoTypeID)
 
   // const checkSubInfo =
   //   subInfoTypeData.length === 0 ||
@@ -65,14 +66,16 @@ const SubInfoTypes = ({
     <>
        
   
-        <CreateWrapper ref={wrapperRef} onClick={handleClick} >
+        <CreateWrapper ref={wrapperRef} onClick={handleClick}  >
           {subInfoTypeData &&
-            subInfoTypeData.map((infoType) => (
-              <SubInfoType
+            subInfoTypeData.map((subInfoTypes) => {
+              console.log('in00', subInfoTypes);
+              return (
+                <SubInfoType
               
                 key={v4()}
-                infoType={infoType}
-                selected={infoType.id === subInfoTypeID}
+                infoType={subInfoTypes}
+                selected={subInfoTypes.id === subInfoTypeID}
                 refetchQueries={refetchQueries}
                 label={label}
                 hasParentId={hasParentId}
@@ -80,7 +83,10 @@ const SubInfoTypes = ({
                 parentId={parentId}
                 childState={childState}
               />
-            ))}
+
+              )
+           
+})}
         </CreateWrapper>
         <ScreensStyleWrapper>
                 <SubInfoTypeCreationForm

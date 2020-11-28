@@ -16,6 +16,7 @@ import {
 import EditInstanceForm from '../../components/EditInstanceForm';
 import DeleteInstanceMenu from '../../components/DeleteInstanceMenu';
 import { InputLabel, makeStyles } from '@material-ui/core';
+import Recursive from '../recursive';
 
 // ns__custom_start unit: appSpec, comp: SubInfoType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
@@ -133,7 +134,7 @@ const SubInfoType = ({
   childState,
 }) => {
 
-  console.log('subinfotype----', childState);
+  console.log('subinfotype----', childState,parentId,infoType,infoType.parentId);
   console.log('subinpe----', infoType);
 
 
@@ -146,13 +147,14 @@ const SubInfoType = ({
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const styles = useStyles();
-
   const infoTypeData =
-    infoType.children &&
-    infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
+  infoType.children &&
+  infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
+
+  console.log('chi@@', infoTypeData)
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
-  console.log('cnfoTypesinfoTypes', infoTypes);
+  console.log('cnfoTypesinfoTypes', infoTypes[0].id);
 
  
   if (!selected) {
@@ -166,6 +168,10 @@ const SubInfoType = ({
   const handleSubInfoTypeValueChange = (e) => {
     setSubInfoTypeValue(e.target.value);
   };
+
+  const ob = {...childState};
+  console.log('papapa', ob)
+
 
   const handleSubInfoInfoTypeValueSave = async () => {
     setIsSaving(true);
@@ -255,13 +261,23 @@ const SubInfoType = ({
           </Button>
         </div>
       </TitleWrapper>
+{/* 
+      <Recursive
+              subinfoTypeData={childState}
+              refetchQueries={refetchQueries}
+              childState={childState}
+              parentId={parentId}
+      
+      
+      
+      /> */}
 
-      <CustomChildSub
-        subInfoTypes={infoType}
+      <SubInfoChildTypes
+        subInfoTypes={infoType._children}
         subInfoId={infoType.id}
         refetchQueries={refetchQueries}
         childState={childState}
-        parentId={parentId}
+        parentId={infoType.parentId}
       />
     </SubInfoTypeWrapper>
   );
@@ -271,3 +287,18 @@ export default compose(
   graphql(EXECUTE, { name: 'updateInstance' }),
   graphql(EXECUTE, { name: 'deleteInstance' })
 )(SubInfoType);
+
+SubInfoType.propTypes = {
+
+  parentId: PropTypes.string,
+  selected: PropTypes.bool,
+  updateInstance: PropTypes.func,
+  deleteInstance: PropTypes.func,
+  refetchQueries: PropTypes.array,
+  onSelect: PropTypes.func,
+  childState: PropTypes.shape({
+    children: PropTypes.array,
+    id: PropTypes.string,
+  }),
+
+}

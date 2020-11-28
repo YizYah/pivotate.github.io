@@ -99,22 +99,24 @@ class Screens extends Component {
     // ns__custom_end unit: appSpec, comp: Screens, loc: renderBeginning
 
     // ns__start_replacement renderReturn
-    console.log('screen display', screens);
 
     return (
       <>
         <ScreensStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-          {screens.map((screen) => (
-            <Screen
-              key={v4()}
-              screen={screen}
-              selected={screen.id === selectedScreenId}
-              onUpdate={onUpdate}
-              parentId={userTypeId}
-              refetchQueries={refetchQueries}
-              onSelect={this.handleSelect}
-            />
-          ))}
+          {screens.map((screen) => {
+            console.log('screen id', screen);
+            return (
+              <Screen
+                key={v4()}
+                screen={screen}
+                selected={screen.id === selectedScreenId}
+                onUpdate={onUpdate}
+                parentId={userTypeId}
+                refetchQueries={refetchQueries}
+                onSelect={this.handleSelect}
+              />
+            );
+          })}
           {/* ns__custom_start unit: appSpec, comp: Screens, loc: renderEnding */}
           {/* ns__custom_end unit: appSpec, comp: Screens, loc: renderEnding */}
         </ScreensStyleWrapper>

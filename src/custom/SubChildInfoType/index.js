@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
 import compose from '@shopify/react-compose';
@@ -20,6 +20,7 @@ import { InputLabel, makeStyles } from '@material-ui/core';
 
 // ns__custom_start unit: appSpec, comp: SubInfoChildType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
+import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
 // ns__custom_end unit: appSpec, comp: SubInfoChildType, loc: addedImports
 
 const SubInfoTypeWrapper = styled.div(
@@ -106,7 +107,7 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-  console.log('=>>>>>>>>>>.',  subChildInfoType);
+  console.log('=>>>>>>>>>>.',  subChildInfoType,parentId,infoTypeId);
   const [infoTypeValue, setSubInfoTypeValue] = useState(subChildInfoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -115,15 +116,20 @@ const SubInfoType = ({
   const styles = useStyles();
 
 
-  // const infoTypeData =
-  //   infoType.children &&
-  //   infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
-  // const infoTypes = infoTypeData ? infoTypeData.instances : [];
+ 
   // let array = [...subChildInfoType];
   // cleanArray = array.filter(function () {
   //   return true
   // });
   // console.log('array',cleanArray);
+
+  
+  
+
+  
+ 
+
+
 
 
 
@@ -213,9 +219,12 @@ const SubInfoType = ({
     );
   }
 
+
+
+
   return (
     <SubInfoTypeWrapper selected={selected}>
-      <InputLabel className={styles.titleLabel}>Sub Info Type for ..</InputLabel>
+      <InputLabel className={styles.titleLabel}>Sub Info Child Type for ..</InputLabel>
       <TitleWrapper>
       {infoTypeValue}
 
@@ -230,6 +239,15 @@ const SubInfoType = ({
 
 
       </TitleWrapper>
+      {/* <SubChildInfoTypeCreationForm
+       parentId={parentId}
+       refetchQueries={refetchQueries}
+       childId={infoTypeId}
+
+
+      
+      
+      /> */}
 
 
       

@@ -217,9 +217,7 @@ function InfoTypeCreationForm({
   if (infoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is a Info Type ${
-      infoTypeValue ? `for ${infoTypeValue}` : ''
-    }`;
+    callOutText = `What is the Info Type ${label ? `for ${label}` : ''}`;
   }
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
 
