@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { CREATE_USER_TYPE_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import { keyframes } from 'styled-components';
 import { makeStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -264,12 +265,18 @@ function UserTypeCreationForm({
           }}
         />
       </UserTypeStyleWrapper>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout && value == 2 ? (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
       {/* ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: insideReturn */}
     </Container>
   );

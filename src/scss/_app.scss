@@ -1611,7 +1611,6 @@ ol.progtrckr li.progtrckr-done:hover:before {
 }
 .box {
   min-width: 550px;
-  
 }
 .box + .box {
   margin-top: 1em;
@@ -1682,4 +1681,101 @@ ol.progtrckr li.progtrckr-done:hover:before {
 }
 #app .box input[type='checkbox'] {
   display: none;
+}
+
+.wizard-stepper {
+  font-size: 0.875rem;
+  font-weight: 300;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.wizard-stepper .number {
+  border-radius: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: block;
+  text-align: center;
+  line-height: 0.75rem;
+  background: #26abbc;
+  margin: 0 auto;
+}
+.wizard-stepper .text {
+  line-height: 0.75rem;
+}
+.wizard-stepper .progress-bar {
+  position: relative;
+  width: 5.625rem;
+  height: 0.75rem;
+}
+.wizard-stepper .progress-bar:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  width: 100%;
+  background: #26abbc;
+  vertical-align: middle;
+}
+.wizard-stepper .wizard-step {
+  position: relative;
+}
+.wizard-stepper .wizard-step .text {
+  display: none;
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  top: 1.875rem;
+  transform: translateX(-50%);
+}
+.wizard-step.current-step {
+  bottom: 0.35em;
+  .text{
+    display : block;
+  }
+}
+.wizard-step.current-step .text {
+  font-size: 0.85em;
+  margin-top: 1em;
+}
+.current-step .title-number{
+  color: #000 !important
+}
+.wizard-stepper .wizard-step.current-step .number {
+  background: #fff;
+  border-color: #26abbc;
+  border: 1px solid #26abbc;
+  height: 1.75em;
+  width: 1.75em;
+  color: #fff;
+  &:after {
+    content: '';
+    position: absolute;
+    background: #26abbc;
+    height: 1em;
+    width: 1em;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 100%;
+  }
+}
+.wizard-stepper .wizard-step.step-done .title-number {
+  color: #fdcc00 !important;
+  font-weight: 800;
+}
+.wizard-stepper .wizard-step.step-done .number {
+  border-color: #26abbc;
+  color: #fff;
+}
+.title-number {
+  position: absolute;
+  top: -30px;
+  text-align: center;
+  width: 100%;
+}
+.current-step ~ .progress-bar:before {
+  background-color: #c4c4c4;
 }

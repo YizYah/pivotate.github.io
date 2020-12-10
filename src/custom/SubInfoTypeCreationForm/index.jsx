@@ -6,6 +6,8 @@ import { EXECUTE } from '@nostack/no-stack';
 import compose from '@shopify/react-compose';
 
 // ns__custom_start unit: appSpec, comp: Sub_Info_TypeCreationForm, loc: addedImports
+import StepContext from '../../../src/StepContext';
+
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -283,12 +285,20 @@ const SubInfoTypeCreationForm = ({
           }}
         />
       </Label>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout && value == 16 ? (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
+
       {/* // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
     </SubInfoStyleWrapper>
   );

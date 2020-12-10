@@ -21,6 +21,8 @@ import PropTypes from 'prop-types';
 import { CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
+
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -308,12 +310,25 @@ function InfoTypeCreationForm({
         />
       </Label>
 
-      {callout ? (
+      {/* {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />
         </CalloutBox>
-      ) : null}
+      ) : null} */}
+
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {value == 12 && (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            )}
+          </div>
+        )}
+      </StepContext.Consumer>
     </InfoTypeStyleWrapper>
   );
 

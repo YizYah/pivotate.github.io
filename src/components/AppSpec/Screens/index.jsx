@@ -17,6 +17,7 @@ import ScreenCreationForm from '../ScreenCreationForm';
 import Screen from '../Screen';
 // ns__custom_start unit: appSpec, comp: Screens, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import InfoTypeCreationForm from '../InfoTypeCreationForm';
 // <!-- prettier-ignore-end -->
 // ns__custom_end unit: appSpec, comp: Screens, loc: addedImports

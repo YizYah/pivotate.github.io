@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { CREATE_SCREEN_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -302,12 +303,19 @@ function ScreenCreationForm({
           }}
         />
       </Label>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout && value == 6 ? (
+              <CalloutBox>
+                {callOutText}
+
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
     </ScreenStyleWrapper>
   );
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeReturn
