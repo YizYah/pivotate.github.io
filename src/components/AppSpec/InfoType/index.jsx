@@ -274,9 +274,9 @@ function InfoType({
       <TitleWrapper>
         {infoTypeValue}
         <div>
-          {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
+          <Button type='button' onClick={() => updateIsEditMode(true)}>
             &#9998;
-          </Button> */}
+          </Button>
           <Button type='button' onClick={() => updateIsDeleteMode(true)}>
             &#128465;
           </Button>
