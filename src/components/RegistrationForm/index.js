@@ -51,7 +51,7 @@ const initialValues = {
 };
 
 const RegistrationForm = (props, { userClassId, onSuccess }) => {
-  console.log('propssssssssssssss',props);
+  console.log('propssssssssssssss', props);
   const [register] = useMutation(REGISTER_USER);
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -118,7 +118,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         onSuccess();
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
       setFormError('Something went wrong. Please try again.');
     }
 
@@ -161,7 +161,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
     //   </Modal>
     // );
     return (
-      <Modal  styleName='dialogConfirm'>
+      <Modal styleName='dialogConfirm' onClose={props.onClose}>
         <div className='dialog__title'>
           <img src='/images/mail.png' alt='png' />
         </div>
