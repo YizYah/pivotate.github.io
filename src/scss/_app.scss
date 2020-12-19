@@ -1732,16 +1732,16 @@ ol.progtrckr li.progtrckr-done:hover:before {
 }
 .wizard-step.current-step {
   bottom: 0.35em;
-  .text{
-    display : block;
+  .text {
+    display: block;
   }
 }
 .wizard-step.current-step .text {
   font-size: 0.85em;
   margin-top: 1em;
 }
-.current-step .title-number{
-  color: #000 !important
+.current-step .title-number {
+  color: #000 !important;
 }
 .wizard-stepper .wizard-step.current-step .number {
   background: #fff;
@@ -1778,4 +1778,42 @@ ol.progtrckr li.progtrckr-done:hover:before {
 }
 .current-step ~ .progress-bar:before {
   background-color: #c4c4c4;
+}
+
+@media screen and (max-width: 600px) {
+  .wizard-stepper {
+    padding-top: 100px;
+    .progress-bar {
+      width: 3.5em;
+    }
+  }
+  .MuiContainer-root {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    label {
+      font-size: 12px !important;
+    }
+
+    .MuiFormLabel-root + div:not(.MuiInputBase-formControl) {
+      flex-direction: column;
+    }
+  }
+  [data-id='userType__wrapper'] {
+    margin: 0.25em 0em !important;
+    padding: 1em !important;
+  }
+}
+
+.is-curent-step {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+.callout__hide {
+  visibility: hidden !important;
+}
+
+svg {
+  cursor: pointer;
 }

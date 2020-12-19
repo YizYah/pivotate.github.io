@@ -33,7 +33,6 @@ const Button = styled.button`
 const CustomTextInput = styled(TextField)`
   @media (max-width: 600px) {
     .MuiInputLabel-outlined {
-      font-size: 0.6em;
     }
   }
 `;

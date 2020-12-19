@@ -75,7 +75,7 @@ const Button = styled.button`
 // ns__custom_start unit: appSpec, comp: UserType, loc: beforeFunction
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 25px;
+  padding: 12px;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
@@ -93,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 UserTypeStyleWrapper.defaultProps = {
   'data-id': 'userType__wrapper',
+  class: 'userWrapper',
 };
 
 Button.defaultProps = {

@@ -49,7 +49,7 @@ const Button = styled.button`
 
 const TitleWrapper = styled.p`
   background: #d2ecef;
-  padding: 25px;
+  padding: 12px;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;

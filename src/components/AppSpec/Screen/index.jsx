@@ -40,7 +40,7 @@ const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 1rem;
+  margin: 2rem 0 .5rem 0.5rem;
   padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
@@ -102,7 +102,7 @@ const Button = styled.button`
 
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 25px;
+  padding: 12px;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;

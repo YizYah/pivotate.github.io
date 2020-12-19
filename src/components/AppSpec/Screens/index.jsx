@@ -26,7 +26,7 @@ import InfoTypeCreationForm from '../InfoTypeCreationForm';
 // ns__start_section stylingSection
 const ScreensStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Screens, loc: styling
-  margin: 0 0 0 7%;
+  margin: 0 0 0 1.5rem;
   // ns__custom_end unit: appSpec, comp: Screens, loc: styling
 `;
 

@@ -25,8 +25,8 @@ export const validationSchemaBasic = Yup.object().shape({
     .matches(/[a-z]/, 'at least one lowercase char')
     .matches(/[A-Z]/, 'at least one uppercase char')
     .matches(
-      /[a-zA-Z]+[^a-zA-Z\s]+/,
-      'at least 1 number or special char (@,!,#, etc).'
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+      'at least 1 special char (@,!,#, etc).'
     )
     .min(8, 'Must be at least 8 characters.')
     .required('Please enter your desired password.'),

@@ -28,7 +28,7 @@ const SubInfoStyleWrapper = styled.div(
     @media (max-width: 600px) {
       // margin:  2rem 0 .2rem 5rem;
       margin: 32px 0 0px 38%;  
-      width: 72%;
+      width: 100%;
   
     }
     // padding: ${selected ? '0' : '1.5rem'};
@@ -73,7 +73,6 @@ const SubInfoStyleWrapper = styled.div(
 const CustomTextInput = styled(TextField)`
   @media (max-width: 600px) {
     .MuiInputLabel-outlined {
-      font-size: 0.5em;
     }
   }
 `;
@@ -195,8 +194,7 @@ const SubChildInfoTypeCreationForm = ({
   validateSubInfoTypes,
   // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: addedPropsForCreationForm
 }) => {
-
-  console.log('child creation id', parentId, childId)
+  console.log('child creation id', parentId, childId);
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
@@ -205,7 +203,7 @@ const SubChildInfoTypeCreationForm = ({
   const callOutText = "What's the name of this Sub Info Type?";
 
   // ns__custom_start unit: appSpec, comp: SubChild_creation, loc: addedDeclaration
-console.log('ipp', childId, parentId)
+  console.log('ipp', childId, parentId);
   // ns__custom_end unit: appSpec, comp: SubChild_creation, loc: addedDeclaration
   function handleChange(e) {
     setSubInfoValue(e.target.value);
@@ -238,7 +236,7 @@ console.log('ipp', childId, parentId)
       console.log('subinchikd', createInfoTypeResponse);
 
       let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
-      console.log('child-creattttt',newInfoTypeData);
+      console.log('child-creattttt', newInfoTypeData);
 
       await saveInstance({
         variables: {
@@ -251,7 +249,6 @@ console.log('ipp', childId, parentId)
         },
         refetchQueries,
       });
-
 
       setSubInfoValue('');
       updateLoading(false);

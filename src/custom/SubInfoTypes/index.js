@@ -7,24 +7,20 @@ import styled from 'styled-components';
 
 const ScreensStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Screens, loc: styling
-  // margin: 0 0 0 7%;
+  // margin: 0 0 0 1.5rem;
   position: relative;
   right: 31px;
 
   @media (max-width: 600px) {
     // margin: 0 0 0 -28%;
     right: 21px;
-
-
-
   }
   // ns__custom_end unit: appSpec, comp: Screens, loc: styling
 `;
 
 const CreateWrapper = styled.div`
-  margin: 0 0 0 7%;
+  margin: 0 0 0 1.5rem;
 `;
-
 
 const SubInfoTypes = ({
   subInfoTypes,
@@ -39,10 +35,17 @@ const SubInfoTypes = ({
   const wrapperRef = createRef();
   const [subInfoTypeData, setInfoTypeData] = useState(childState);
   // const validateSubInfoTypes = subInfoTypeData.length;
-  console.log('subinfotypesiof',infoTypeId);
+  console.log('subinfotypesiof', infoTypeId);
   console.log('su!!pa', childState);
-  console.log('suinfotypedis',childState, parentId,infoTypeId,subInfoTypeData,subInfoTypes);
-  console.log('dataaaaaaaaaaaaa',subInfoTypeData);
+  console.log(
+    'suinfotypedis',
+    childState,
+    parentId,
+    infoTypeId,
+    subInfoTypeData,
+    subInfoTypes
+  );
+  console.log('dataaaaaaaaaaaaa', subInfoTypeData);
   console.log('subinfo hasparent id', hasParentId);
   const handleClick = (e) => {
     const node = wrapperRef.current;
@@ -56,7 +59,7 @@ const SubInfoTypes = ({
     console.log('sub hand', id);
     setSubInfoTypeID(id);
   };
-  console.log('sub  selected id',subInfoTypeID)
+  console.log('sub  selected id', subInfoTypeID);
 
   // const checkSubInfo =
   //   subInfoTypeData.length === 0 ||
@@ -64,15 +67,12 @@ const SubInfoTypes = ({
 
   return (
     <>
-       
-  
-        <CreateWrapper ref={wrapperRef} onClick={handleClick}  >
-          {subInfoTypeData &&
-            subInfoTypeData.map((subInfoTypes) => {
-              console.log('in00', subInfoTypes);
-              return (
-                <SubInfoType
-              
+      <CreateWrapper ref={wrapperRef} onClick={handleClick}>
+        {subInfoTypeData &&
+          subInfoTypeData.map((subInfoTypes) => {
+            console.log('in00', subInfoTypes);
+            return (
+              <SubInfoType
                 key={v4()}
                 infoType={subInfoTypes}
                 selected={subInfoTypes.id === subInfoTypeID}
@@ -83,21 +83,18 @@ const SubInfoTypes = ({
                 parentId={parentId}
                 childState={childState}
               />
-
-              )
-           
-})}
-        </CreateWrapper>
-        <ScreensStyleWrapper>
-                <SubInfoTypeCreationForm
+            );
+          })}
+      </CreateWrapper>
+      <ScreensStyleWrapper>
+        <SubInfoTypeCreationForm
           parentId={parentId}
           refetchQueries={refetchQueries}
           /* // ns__custom_start unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
           childId={infoTypeId}
           /* // ns__custom_end unit: appSpec, comp: SubInfo_Types, loc: addedPropsForCreationForm */
         />
-
-        </ScreensStyleWrapper>
+      </ScreensStyleWrapper>
     </>
   );
 };

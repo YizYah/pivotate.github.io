@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled, { keyframes } from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -135,7 +135,6 @@ const CalloutBox = styled.div`
 const CustomTextInput = styled(TextField)`
   @media (max-width: 600px) {
     .MuiInputLabel-outlined {
-      font-size: 0.5em;
     }
   }
 `;
@@ -178,16 +177,17 @@ const SubInfoTypeCreationForm = ({
   textLabel,
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: addedPropsForCreationForm
 }) => {
-  console.log('idddddddddd', childId, parentId, createSubInfoType);
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
-  const [callout, setCallout] = useState(true);
+  const [callout, setCallout] = useState(false);
   const showCalloutBox = callout || validateSubInfoTypes === 0;
 
   // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   let callOutText = '';
-
+  if (useContext(StepContext) == 16) {
+    setCallout(true);
+  }
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
@@ -222,7 +222,6 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
-      console.log('subinforrrrrrrrrr', createInfoTypeResponse.data.execute);
 
       let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
 
@@ -289,7 +288,7 @@ const SubInfoTypeCreationForm = ({
       <StepContext.Consumer>
         {(value) => (
           <div>
-            {callout && value == 16 ? (
+            {callout ? (
               <CalloutBox>
                 {callOutText}
                 <CloseIcon className={styles.closeIcon} onClick={showCallout} />

@@ -113,7 +113,6 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
-
 const useStyles = makeStyles(() => ({
   titleLabel: {
     fontSize: '.8rem',
@@ -133,13 +132,14 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-
-  console.log('subinfotype----', childState,parentId,infoType,infoType.parentId);
+  console.log(
+    'subinfotype----',
+    childState,
+    parentId,
+    infoType,
+    infoType.parentId
+  );
   console.log('subinpe----', infoType);
-
-
-
- 
 
   const [infoTypeValue, setSubInfoTypeValue] = useState(infoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -148,15 +148,14 @@ const SubInfoType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const styles = useStyles();
   const infoTypeData =
-  infoType.children &&
-  infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
+    infoType.children &&
+    infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
 
-  console.log('chi@@', infoTypeData)
+  console.log('chi@@', infoTypeData);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
   console.log('cnfoTypesinfoTypes', infoTypes[0].id);
 
- 
   if (!selected) {
     return (
       <SubInfoTypeWrapper onClick={() => onSelect(infoType.id)}>
@@ -169,9 +168,8 @@ const SubInfoType = ({
     setSubInfoTypeValue(e.target.value);
   };
 
-  const ob = {...childState};
-  console.log('papapa', ob)
-
+  const ob = { ...childState };
+  console.log('papapa', ob);
 
   const handleSubInfoInfoTypeValueSave = async () => {
     setIsSaving(true);
@@ -200,7 +198,7 @@ const SubInfoType = ({
       <SubInfoTypeWrapper>
         <EditInstanceForm
           id={infoType.id}
-          label='Sub Info Type'
+          label='Sub Info Typsdde'
           value={infoTypeValue}
           onChange={handleSubInfoTypeValueChange}
           onSave={handleSubInfoTypeValueChange}
@@ -249,7 +247,7 @@ const SubInfoType = ({
 
   return (
     <SubInfoTypeWrapper selected={selected}>
-      <InputLabel className={styles.titleLabel}>Sub Info Type</InputLabel>
+      <InputLabel className={styles.titleLabel}>Sub Infoasdas Type</InputLabel>
       <TitleWrapper>
         {infoTypeValue}
         <div>
@@ -261,7 +259,7 @@ const SubInfoType = ({
           </Button>
         </div>
       </TitleWrapper>
-{/* 
+      {/* 
       <Recursive
               subinfoTypeData={childState}
               refetchQueries={refetchQueries}
@@ -289,7 +287,6 @@ export default compose(
 )(SubInfoType);
 
 SubInfoType.propTypes = {
-
   parentId: PropTypes.string,
   selected: PropTypes.bool,
   updateInstance: PropTypes.func,
@@ -300,5 +297,4 @@ SubInfoType.propTypes = {
     children: PropTypes.array,
     id: PropTypes.string,
   }),
-
-}
+};

@@ -9,7 +9,7 @@
 // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -158,7 +158,11 @@ function UserTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(true);
+  let [callout, setCallout] = useState(false);
+
+  if (useContext(StepContext) == 2) {
+    setCallout(true);
+  }
   let callOutText = '';
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
@@ -268,7 +272,7 @@ function UserTypeCreationForm({
       <StepContext.Consumer>
         {(value) => (
           <div>
-            {callout && value == 2 ? (
+            {callout ? (
               <CalloutBox>
                 {callOutText}
                 <CloseIcon className={styles.closeIcon} onClick={showCallout} />

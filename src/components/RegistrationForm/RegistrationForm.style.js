@@ -27,13 +27,11 @@ export const ErrorContainer = styled.div`
 `;
 
 export const Row = styled.div`
-  margin: 0.5em;
-  padding: 0.5em;
   text-align: center;
 
   input {
     display: block;
-    margin: 0.5em auto;
+    margin: auto;
     width: 80%;
   }
 `;

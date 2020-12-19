@@ -106,7 +106,7 @@ const Button = styled.button`
 const TitleWrapper = styled.div`
   margin-top: 8px;
   background: #d2ecef;
-  padding: 25px;
+  padding: 12px;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;

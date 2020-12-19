@@ -10,7 +10,7 @@
 // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -41,7 +41,7 @@ const InfoTypeStyleWrapper = styled.div(
   right: 18px;
   left: -33px;
   @media (max-width: 600px) {
-    margin: 2rem 0 .2rem 4rem;
+    margin: 0 0 0 4rem;
 
 
   }
@@ -98,7 +98,6 @@ const Form = styled.div`
 const CustomTextInput = styled(TextField)`
   @media (max-width: 600px) {
     .MuiInputLabel-outlined {
-      font-size: 0.6em;
     }
     .MuiOutlinedInput-adornedEnd {
       padding-right: 9px;
@@ -213,9 +212,11 @@ function InfoTypeCreationForm({
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
   const styles = useStyles();
   const [callout, setCallout] = useState(false);
-  const showCalloutBox = callout || validateInfoTypes === 0;
-  let callOutText = '';
 
+  let callOutText = '';
+  if (useContext(StepContext) == 12) {
+    setCallout(true);
+  }
   if (infoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
@@ -320,7 +321,7 @@ function InfoTypeCreationForm({
       <StepContext.Consumer>
         {(value) => (
           <div>
-            {value == 12 && (
+            {callout && (
               <CalloutBox>
                 {callOutText}
                 <CloseIcon className={styles.closeIcon} onClick={showCallout} />

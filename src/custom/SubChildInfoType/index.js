@@ -17,7 +17,6 @@ import EditInstanceForm from '../../components/EditInstanceForm';
 import DeleteInstanceMenu from '../../components/DeleteInstanceMenu';
 import { InputLabel, makeStyles } from '@material-ui/core';
 
-
 // ns__custom_start unit: appSpec, comp: SubInfoChildType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
 import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
@@ -27,7 +26,7 @@ const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 2rem;
+  margin: 2rem 0 .5rem 1rem;
   padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
@@ -107,7 +106,7 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-  console.log('=>>>>>>>>>>.',  subChildInfoType,parentId,infoTypeId);
+  console.log('=>>>>>>>>>>.', subChildInfoType, parentId, infoTypeId);
   const [infoTypeValue, setSubInfoTypeValue] = useState(subChildInfoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -115,23 +114,11 @@ const SubInfoType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const styles = useStyles();
 
-
- 
   // let array = [...subChildInfoType];
   // cleanArray = array.filter(function () {
   //   return true
   // });
   // console.log('array',cleanArray);
-
-  
-  
-
-  
- 
-
-
-
-
 
   if (!selected) {
     return (
@@ -219,16 +206,15 @@ const SubInfoType = ({
     );
   }
 
-
-
-
   return (
     <SubInfoTypeWrapper selected={selected}>
-      <InputLabel className={styles.titleLabel}>Sub Info Child Type for ..</InputLabel>
+      <InputLabel className={styles.titleLabel}>
+        Sub Info Child Type for ..
+      </InputLabel>
       <TitleWrapper>
-      {infoTypeValue}
+        {infoTypeValue}
 
-      <div>
+        <div>
           <Button type='button' onClick={() => setIsEditMode(true)}>
             &#9998;
           </Button>
@@ -236,8 +222,6 @@ const SubInfoType = ({
             &#128465;
           </Button>
         </div>
-
-
       </TitleWrapper>
       {/* <SubChildInfoTypeCreationForm
        parentId={parentId}
@@ -248,9 +232,6 @@ const SubInfoType = ({
       
       
       /> */}
-
-
-      
     </SubInfoTypeWrapper>
   );
 };

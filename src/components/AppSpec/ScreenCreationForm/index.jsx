@@ -9,7 +9,7 @@
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -34,7 +34,7 @@ const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
-  margin: 2rem 0 .2rem 2.9rem;
+  margin: 2rem 0 .2rem 2rem;
   @media (max-width: 480px) {
     margin: 2rem 0 .2rem 2rem;
 
@@ -203,10 +203,13 @@ function ScreenCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(true);
+  const [callout, setCallout] = useState(false);
   const showCalloutBox = callout || validateScreens === 0;
   let callOutText = '';
 
+  if (useContext(StepContext) == 6) {
+    setCallout(true);
+  }
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
@@ -306,7 +309,7 @@ function ScreenCreationForm({
       <StepContext.Consumer>
         {(value) => (
           <div>
-            {callout && value == 6 ? (
+            {callout ? (
               <CalloutBox>
                 {callOutText}
 

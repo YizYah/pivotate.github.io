@@ -111,15 +111,13 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
           formValues: JSON.stringify({}),
         },
       });
-
       setRegistrationCompleted(true);
 
       if (onSuccess) {
         onSuccess();
       }
     } catch (error) {
-      console.log(error);
-      setFormError('Something went wrong. Please try again.');
+      setFormError('Error: Username already exists');
     }
 
     setSubmitting(false);
@@ -172,7 +170,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
             </div>
             <p style={{ margin: '1.25em 0' }}>
               Please check your email
-              <strong> sample@gmail.com </strong>
+              <strong> {email} </strong>
               for a message to confirm that it’s really you. Then you can log
               in.
             </p>

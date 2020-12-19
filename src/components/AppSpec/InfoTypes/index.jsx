@@ -26,7 +26,7 @@ import SubInfoTypeCreationForm from '../../../custom/SubInfoTypeCreationForm';
 // ns__start_section stylingSection
 const InfoTypesStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: InfoTypes, loc: styling
-  // margin: 0 0 0 7%;
+  // margin: 0 0 0 1.5rem;
   // ns__custom_end unit: appSpec, comp: InfoTypes, loc: styling
 `;
 
