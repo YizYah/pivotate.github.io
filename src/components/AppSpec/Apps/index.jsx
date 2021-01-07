@@ -131,16 +131,11 @@ class Apps extends Component {
 
           const apps = data.unitData.map((el) => flattenData(el));
           function getDepth(obj) {
-            if (!obj || obj.length === 0 || typeof obj !== 'object') return 0;
-            const keys = Object.keys(obj);
-            let depth = 0;
-            keys.forEach((key) => {
-              let tmpDepth = getDepth(obj[key]);
-              if (tmpDepth > depth) {
-                depth = tmpDepth;
-              }
-            });
-            return depth + 1;
+            let res = JSON.stringify(obj).replace(/[^{|^}]/g, '');
+            while (/}{/g.test(res)) {
+              res = res.replace(/}{/g, '');
+            }
+            return res.replace(/}/g, '').length;
           }
 
           // ns__custom_start unit: appSpec, comp: Apps, loc: beforeReturn
@@ -160,33 +155,37 @@ class Apps extends Component {
 
           return (
             <>
+              {/* {getDepth(apps)} */}
               <StepContext.Provider value={getDepth(apps)}>
                 <Container maxWidth='sm'>
                   <div class='wizard-stepper'>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) >= 2,
-                        'current-step': false,
+                        'step-done': getDepth(apps) >= 1,
+                        'current-step': getDepth(apps) == 0,
                         'wizard-step': true,
                       })}
                     >
-                      <span href='#' class='title-number'>
-                        {getDepth(apps) >= 0 ? '\u2713' : 1}
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 0 ? '\u2713' : 1}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;{' '}
+                      </span>
+                      <span href='#' class='text'>
+                        About your app!
                       </span>
                     </div>
                     <div class='progress-bar'></div>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) > 2,
-                        'current-step': getDepth(apps) == 2,
+                        'step-done': getDepth(apps) > 1,
+                        'current-step': getDepth(apps) == 1,
                         'wizard-step': true,
                       })}
                     >
-                      <span href='#' class='title-number'>
-                        {getDepth(apps) > 2 ? '\u2713' : 2}
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 1 ? '\u2713' : 2}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;{' '}
@@ -199,13 +198,13 @@ class Apps extends Component {
                     <div class='progress-bar'></div>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) > 6,
-                        'current-step': getDepth(apps) == 6,
+                        'step-done': getDepth(apps) > 3,
+                        'current-step': getDepth(apps) == 3,
                         'wizard-step': true,
                       })}
                     >
                       <span href='#' class='title-number grey--text'>
-                        {getDepth(apps) > 6 ? '\u2713' : 3}
+                        {getDepth(apps) > 3 ? '\u2713' : 3}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;
@@ -217,13 +216,13 @@ class Apps extends Component {
                     <div class='progress-bar'></div>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) > 12,
-                        'current-step': getDepth(apps) == 12,
+                        'step-done': getDepth(apps) > 6,
+                        'current-step': getDepth(apps) == 6,
                         'wizard-step': true,
                       })}
                     >
                       <span href='#' class='title-number grey--text'>
-                        {getDepth(apps) > 13 ? '\u2713' : 4}
+                        {getDepth(apps) > 6 ? '\u2713' : 4}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;{' '}
@@ -236,13 +235,13 @@ class Apps extends Component {
                     <div class='progress-bar'></div>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) > 16,
-                        'current-step': getDepth(apps) >= 16,
+                        'step-done': getDepth(apps) > 8,
+                        'current-step': getDepth(apps) >= 8,
                         'wizard-step': true,
                       })}
                     >
                       <span href='#' class='title-number grey--text'>
-                        {getDepth(apps) > 16 ? '\u2713' : 5}
+                        {getDepth(apps) > 8 ? '\u2713' : 5}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;{' '}
