@@ -203,17 +203,21 @@ function ScreenCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 3 ? true : false
+  );
   const showCalloutBox = callout || validateScreens === 0;
   let callOutText = '';
 
-  if (useContext(StepContext) == 6) {
-    setCallout(true);
-  }
+  // if (useContext(StepContext) == 6) {
+  //   setCallout(true);
+  // }
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Screen name ${label ? `for ${label} ?` : ''}`;
+    callOutText = `What is the Screen name ${
+      label ? `for ${screenValue} ?` : ''
+    }`;
   }
 
   // useEffect(() => {

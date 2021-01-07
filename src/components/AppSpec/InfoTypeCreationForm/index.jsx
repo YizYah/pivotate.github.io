@@ -211,12 +211,14 @@ function InfoTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
-
+  // const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 6 ? true : false
+  );
   let callOutText = '';
-  if (useContext(StepContext) == 12) {
-    setCallout(true);
-  }
+  // if (useContext(StepContext) == 12) {
+  //   setCallout(true);
+  // }
   if (infoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
@@ -303,7 +305,7 @@ function InfoTypeCreationForm({
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  onClick={handleClickShow}
+                  // onClick={handleClickShow}
                 />
               </InputAdornment>
             ),

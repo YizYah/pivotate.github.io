@@ -158,11 +158,11 @@ function UserTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: beginning
   const styles = useStyles();
-  let [callout, setCallout] = useState(false);
 
-  if (useContext(StepContext) == 2) {
-    setCallout(true);
-  }
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 1 ? true : false
+  );
+
   let callOutText = '';
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
