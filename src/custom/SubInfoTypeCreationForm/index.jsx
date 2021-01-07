@@ -180,14 +180,14 @@ const SubInfoTypeCreationForm = ({
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
-  const showCalloutBox = callout || validateSubInfoTypes === 0;
+  // const showCalloutBox = callout || validateSubInfoTypes === 0;
 
   // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   let callOutText = '';
-  if (useContext(StepContext) == 16) {
-    setCallout(true);
-  }
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 8 ? true : false
+  );
+
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
