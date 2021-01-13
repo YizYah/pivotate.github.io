@@ -305,7 +305,7 @@ function InfoTypeCreationForm({
               <InputAdornment position='end'>
                 <HelpOutlineIcon
                   className={styles.helpIcon}
-                  // onClick={handleClickShow}
+                  onClick={handleClickShow}
                 />
               </InputAdornment>
             ),
