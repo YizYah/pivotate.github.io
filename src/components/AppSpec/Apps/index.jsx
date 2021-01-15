@@ -179,13 +179,16 @@ class Apps extends Component {
                     <div class='progress-bar'></div>
                     <div
                       className={classNames({
-                        'step-done': getDepth(apps) > 1,
-                        'current-step': getDepth(apps) == 1,
+                        'step-done':
+                          getDepth(apps) > 1 && apps[0].children.length > 1,
+                        'current-step': apps[0].children.length == 1,
                         'wizard-step': true,
                       })}
                     >
                       <span href='#' class='title-number grey--text'>
-                        {getDepth(apps) > 1 ? '\u2713' : 2}
+                        {getDepth(apps) > 1 && apps[0].children.length > 1
+                          ? '\u2713'
+                          : 2}
                       </span>
                       <span href='#' class='number'>
                         &nbsp;{' '}
@@ -199,7 +202,8 @@ class Apps extends Component {
                     <div
                       className={classNames({
                         'step-done': getDepth(apps) > 3,
-                        'current-step': getDepth(apps) == 3,
+                        'current-step':
+                          getDepth(apps) == 3 && apps[0].children.length == 2,
                         'wizard-step': true,
                       })}
                     >
