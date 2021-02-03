@@ -111,7 +111,8 @@ const InfoTypesStyleWrapper = styled.div(
 
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 12px;
+  padding: 1.5rem;
+  align-items: center;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;

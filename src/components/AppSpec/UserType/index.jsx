@@ -75,13 +75,14 @@ const Button = styled.button`
 // ns__custom_start unit: appSpec, comp: UserType, loc: beforeFunction
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 12px;
+  padding: 1.5rem;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const useStyles = makeStyles((theme) => ({
