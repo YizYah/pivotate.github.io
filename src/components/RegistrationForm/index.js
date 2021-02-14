@@ -12,8 +12,14 @@
 
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { REGISTER_USER } from '@nostack/no-stack';
+import {
+  REGISTER_USER,
+  RESEND_CONFIRMATION,
+  withNoStack,
+} from '@nostack/no-stack';
 import { HashLink as Link } from 'react-router-hash-link';
+import { graphql } from '@apollo/react-hoc';
+import compose from '@shopify/react-compose';
 
 import BasicDetailsForm from './stepper/BasicDetailsForm';
 import AppDetailsForm from './stepper/AppDetailsForm';
@@ -50,8 +56,10 @@ const initialValues = {
   expiryYear: yyyy,
 };
 
-const RegistrationForm = (props, { userClassId, onSuccess }) => {
-  console.log('propssssssssssssss', props);
+const RegistrationForm = (
+  props,
+  { resendConfirmCode, userClassId, onSuccess }
+) => {
   const [register] = useMutation(REGISTER_USER);
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -121,6 +129,21 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
     }
 
     setSubmitting(false);
+  };
+
+  const handleSubmitResend = async () => {
+    try {
+      await resendConfirmCode({
+        variables: {
+          actionId: '25bfdd78-6a2c-11eb-9439-0242ac130002',
+          executionParameters:
+            '{"userName":"mod" ,"clientId":"7ncu4lmh0m2uf2itlgit5q3q59", "platformId":"us-east-1_IDHU1YQ1O"}',
+          unrestricted: true,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   if (registrationCompleted) {
@@ -314,6 +337,10 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         progress={displayCurrentDescription().progressWidth}
         onClose={props.onClose}
       >
+        <button type='button' onClick={handleSubmitResend}>
+          {' '}
+          resend{' '}
+        </button>
         <div className='dialog__title'>
           {/* <div className="dialog__step">
             STEP <span className="teal--text"> {step} </span> of 3
@@ -337,4 +364,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
   );
 };
 
-export default RegistrationForm;
+export default compose(
+  graphql(RESEND_CONFIRMATION, { name: 'resendConfirmCode' }),
+  withNoStack
+)(RegistrationForm);

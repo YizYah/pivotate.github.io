@@ -132,15 +132,15 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-  console.log(
-    'subinfotype----',
-    childState,
-    parentId,
-    infoType,
-    infoType.parentId
-  );
-  console.log('subinpe----', infoType);
-
+  // console.log(
+  //   'subinfotype----',
+  //   updateInstance,
+  //   childState,
+  //   parentId,
+  //   infoType,
+  //   infoType.parentId
+  // );
+  // console.log('subinpe----', infoType);
   const [infoTypeValue, setSubInfoTypeValue] = useState(infoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

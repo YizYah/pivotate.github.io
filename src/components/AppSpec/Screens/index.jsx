@@ -131,7 +131,7 @@ class Screens extends Component {
           /* ns__custom_end unit: appSpec, comp: Screens, loc: addedProps */
         />
 
-        {infoTypeValueCount >= 3 ? (
+        {screens.lenght > 0 ? (
           <InfoTypeCreationForm
             disabled
             validateInfoTypes={0}

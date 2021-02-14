@@ -39,7 +39,7 @@ const InfoTypeStyleWrapper = styled.div(
   // add styling here
   margin: 2rem 0 .2rem 16.9%;
   right: 18px;
-  left: -33px;
+  left: -37px;
   @media (max-width: 600px) {
     margin: 0 0 0 4rem;
 

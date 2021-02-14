@@ -153,8 +153,8 @@ const SubInfoComponent = ({
   const [labelParent, setLabel] = useState(label);
   const wrapperRef = createRef();
 
-  console.log('child data', labelParent);
-
+  // console.log('child data', labelParent);
+  console.log(updateInstance);
   const styles = useStyles();
 
   useEffect(() => {
@@ -375,8 +375,6 @@ const Child = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [labelValue, setLabelValue] = useState(parentLabel);
   const styles = useStyles();
-
-  console.log('labelvalll', parentLabel);
 
   useEffect(() => {
     setChildState(_children);

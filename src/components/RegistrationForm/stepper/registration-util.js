@@ -5,6 +5,10 @@ import moment from 'moment';
 export const validationSchemaBasic = Yup.object().shape({
   username: Yup.string()
     .label('username')
+    .matches(
+      /^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/,
+      'Only contains alphanumeric characters, underscore and dot.'
+    )
     .required('Please enter desired username.'),
   firstName: Yup.string()
     .label('firstName')
