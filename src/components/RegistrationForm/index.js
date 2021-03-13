@@ -315,7 +315,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         onClose={props.onClose}
       >
         test
-        <ResendButton></ResendButton>
+        {/* <ResendButton></ResendButton> */}
         <div className='dialog__title'>
           {/* <div className="dialog__step">
             STEP <span className="teal--text"> {step} </span> of 3
