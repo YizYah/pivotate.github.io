@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useRef } from 'react';
 import './scss/style.scss';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
 import ScrollToTop from 'react-router-scroll-top';
 import Confirmation from './components/Pages/Confirmation';
@@ -48,7 +48,7 @@ const App = () => {
         </section>
       }
     >
-      <BrowserRouter basename={`${process.env.PUBLIC_URL}/`}>
+      <MemoryRouter basename={`${process.env.PUBLIC_URL}/`}>
         <ScrollToTop>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/confirmation`}>
@@ -141,7 +141,7 @@ const App = () => {
             <Route component={underConstruction} />
           </Switch>
         </ScrollToTop>
-      </BrowserRouter>
+      </MemoryRouter>
     </React.Suspense>
   );
 };

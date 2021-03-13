@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshopt Test 1`] = `
+<div
+  className="text-center container full-width"
+>
+  <div
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "borderRadius": "10px",
+        "margin": "auto",
+        "marginBottom": "100px",
+        "marginTop": "100px",
+        "maxWidth": "769px",
+      }
+    }
+  >
+    <h2
+      className="text-center"
+    >
+      <span
+        className="headline headline--teal"
+      >
+         ACCOUNT ACTIVATED 
+      </span>
+    </h2>
+    <p>
+       Your email address has been verified.
+    </p>
+  </div>
+</div>
+`;

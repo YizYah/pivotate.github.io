@@ -52,6 +52,7 @@ const initialValues = {
 };
 
 const RegistrationForm = (props, { userClassId, onSuccess }) => {
+  console.log('propssssssssssssss', props);
   const [register] = useMutation(REGISTER_USER);
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -314,12 +315,11 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         progress={displayCurrentDescription().progressWidth}
         onClose={props.onClose}
       >
-        test
-        <ResendButton></ResendButton>
         <div className='dialog__title'>
           {/* <div className="dialog__step">
             STEP <span className="teal--text"> {step} </span> of 3
           </div> */}
+          <ResendButton></ResendButton>
           <h3>{displayCurrentDescription().enterText}</h3>
         </div>
         {step === 3 && (
