@@ -117,7 +117,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         onSuccess();
       }
     } catch (error) {
-      setFormError('Error: Username already exists');
+      setFormError('Error');
     }
 
     setSubmitting(false);
@@ -314,8 +314,8 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         progress={displayCurrentDescription().progressWidth}
         onClose={props.onClose}
       >
-        test
-        {/* <ResendButton></ResendButton> */}
+        {/* test */}
+        {/* <ResendButton></ResendButton> de[] */}
         <div className='dialog__title'>
           {/* <div className="dialog__step">
             STEP <span className="teal--text"> {step} </span> of 3
