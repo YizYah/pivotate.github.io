@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useRef } from 'react';
 import './scss/style.scss';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import ScrollToTop from 'react-router-scroll-top';
 import Confirmation from './components/Pages/Confirmation';
@@ -30,7 +30,7 @@ const Schedule = React.lazy(() => import('./components/Pages/Schedule'));
 
 const App = () => {
   const childRef = useRef();
-
+  console.log(childRef);
   return (
     <React.Suspense
       path='/'
@@ -48,7 +48,7 @@ const App = () => {
         </section>
       }
     >
-      <MemoryRouter basename={`${process.env.PUBLIC_URL}/`}>
+      <BrowserRouter basename={`${process.env.PUBLIC_URL}/`}>
         <ScrollToTop>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/confirmation`}>
@@ -141,7 +141,7 @@ const App = () => {
             <Route component={underConstruction} />
           </Switch>
         </ScrollToTop>
-      </MemoryRouter>
+      </BrowserRouter>
     </React.Suspense>
   );
 };

@@ -22,8 +22,13 @@ const SendCodeForm = ({ onSubmit, onCancel, error, disabled }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(error);
     onSubmit(email);
+    if (error.length > 0) {
+      alert(error);
+    } else {
+      alert('Success: Please check your email');
+    }
   };
 
   const handleCancel = (e) => {
@@ -34,20 +39,22 @@ const SendCodeForm = ({ onSubmit, onCancel, error, disabled }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Reset Password</h3>
-      <div>
-        Your Username/Email:
-        <input type='text' onChange={handleChange} disabled={disabled} />
+      <div hidden>
+        <h3>Reset Password</h3>
+        <div>
+          Your Username/Email:
+          <input type='text' onChange={handleChange} disabled={disabled} />
+        </div>
       </div>
       <div>
-        <button type='submit' disabled={disabled || !email}>
-          Send Reset
+        <button className='button button--rounded' type='submit'>
+          SEND AGAIN
         </button>
-        <button type='button' onClick={handleCancel} disabled={disabled}>
+        {/* <button type='button' onClick={handleCancel} disabled={disabled}>
           Cancel
-        </button>
+        </button> */}
       </div>
-      {error && <div>{error}</div>}
+      {/* {error && <div>{error}</div>} */}
     </form>
   );
 };

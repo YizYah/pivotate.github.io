@@ -8,7 +8,7 @@
 // ns__custom_start unit: general, comp: ForgotPasswordButton, loc: beforeImports
 
 // ns__custom_end unit: general, comp: ForgotPasswordButton, loc: beforeImports
-
+import { PLATFORM_ID } from '../../config';
 import React, { useState } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import compose from '@shopify/react-compose';
@@ -34,7 +34,12 @@ const Button = styled.button`
   }
 `;
 
-const ResendButton = ({ resendConfirmCode, resetPassword, platformId }) => {
+const ResendButton = ({
+  resendConfirmCode,
+  resetPassword,
+  platformId,
+  ...props
+}) => {
   const [formVisible, setFormVisible] = useState(false);
   const [userNameOrEmail, setUsernameOrEmail] = useState('');
   const [passwordReset, setPasswordReset] = useState(false);
@@ -58,10 +63,8 @@ const ResendButton = ({ resendConfirmCode, resetPassword, platformId }) => {
     try {
       await resendConfirmCode({
         variables: {
-          actionId: '25bfdd78-6a2c-11eb-9439-0242ac130002',
-          executionParameters:
-            '{"userName":"mod" ,"clientId":"7ncu4lmh0m2uf2itlgit5q3q59", "platformId":"us-east-1_IDHU1YQ1O"}',
-          unrestricted: true,
+          userNameOrEmail: props.initialValues,
+          stackId: PLATFORM_ID,
         },
       });
 
@@ -95,7 +98,7 @@ const ResendButton = ({ resendConfirmCode, resetPassword, platformId }) => {
     setSubmitting(false);
   };
 
-  if (!formVisible) {
+  if (formVisible) {
     return (
       <Button type='button' onClick={showForm}>
         Forgot Password?

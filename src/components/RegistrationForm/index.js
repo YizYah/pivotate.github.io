@@ -10,7 +10,7 @@
 
 // ns__custom_end unit: general, comp: RegistrationForm, loc: beforeImports
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { REGISTER_USER } from '@nostack/no-stack';
 import { HashLink as Link } from 'react-router-hash-link';
@@ -32,7 +32,6 @@ import { size } from 'lodash/fp';
 const dt = new Date();
 const mm = (dt.getMonth() + 1).toString().padStart(2, '0');
 const yyyy = dt.getFullYear();
-
 const initialValues = {
   name: '',
   username: '',
@@ -76,6 +75,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
 
   // const formValuesTemp =
   //   '{"app":"newApp","description":"newApp Desc","creditCardNumber":"232","expirationDate":"234243","csv":"46"}';
+
   const handleSubmit = async (values, { setSubmitting }) => {
     setFormError('');
     // setUsername(values);
@@ -122,42 +122,14 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
 
     setSubmitting(false);
   };
-
+  const myRef = useRef();
+  console.log(myRef);
   if (registrationCompleted) {
     window.history.pushState(
       { registered: 'success' },
       'Registration Complete',
       '?registered=success'
     );
-
-    // return (
-    //   <Modal onClose={props.onClose}>
-    //     <div className="dialog__title">
-    //       <h3>Awesome, </h3>
-    //     </div>
-    //     <p className="text-center">
-    //       <div>
-    //         <Link
-    //           onClick={props.onClose}
-    //           style={{ marginBottom: "2em" }}
-    //           className="button button--rounded button--yellow"
-    //           to="/schedule"
-    //         >
-    //           Schedule a Meeting
-    //         </Link>
-    //       </div>
-    //       <div>
-    //         <Link
-    //           onClick={props.onClose}
-    //           className="button button--rounded button--yellow"
-    //           to="/contact?s=ny"
-    //         >
-    //           Not Yet
-    //         </Link>
-    //       </div>
-    //     </p>
-    //   </Modal>
-    // );
     return (
       <Modal styleName='dialogConfirm' onClose={props.onClose}>
         <div className='dialog__title'>
@@ -184,21 +156,13 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
               </Link>
             </div>
             <div>
-              <Link
-                style={{ marginTop: '1em' }}
-                onClick={props.onClose}
-                className='button button--rounded'
-                to='/schedule'
-              >
-                SEND AGAIN
-              </Link>
+              <ResendButton initialValues={email}></ResendButton>
             </div>
             <div>
               <Link
                 style={{ marginTop: '1em' }}
                 onClick={props.onClose}
                 className='button button--rounded'
-                to='/schedule'
               >
                 CHANGE EMAIL
               </Link>
@@ -315,7 +279,7 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
         onClose={props.onClose}
       >
         {/* test */}
-        {/* <ResendButton></ResendButton> de[] */}
+
         <div className='dialog__title'>
           {/* <div className="dialog__step">
             STEP <span className="teal--text"> {step} </span> of 3
