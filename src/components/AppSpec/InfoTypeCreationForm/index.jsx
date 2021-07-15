@@ -10,7 +10,7 @@
 // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -21,6 +21,8 @@ import PropTypes from 'prop-types';
 import { CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
+
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -35,11 +37,11 @@ const InfoTypeStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .2rem 24%;
+  margin: 2rem 0 .2rem 16.9%;
   right: 18px;
-  left: -33px;
+  left: -37px;
   @media (max-width: 600px) {
-    margin: 2rem 0 .2rem 5rem;
+    margin: 0 0 0 4rem;
 
 
   }
@@ -94,17 +96,14 @@ const Form = styled.div`
 `;
 
 const CustomTextInput = styled(TextField)`
-@media (max-width: 600px) {
-  .MuiInputLabel-outlined {
-    font-size: .6em;
-  
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+    }
+    .MuiOutlinedInput-adornedEnd {
+      padding-right: 9px;
+    }
   }
-  .MuiOutlinedInput-adornedEnd {
-    padding-right: 9px;
-}
-}
-
-`
+`;
 // ns__end_replacement stylingSection
 
 // ns__start_replacement button
@@ -212,16 +211,18 @@ function InfoTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
-  const showCalloutBox = callout || validateInfoTypes === 0;
+  // const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 6 ? true : false
+  );
   let callOutText = '';
-
+  // if (useContext(StepContext) == 12) {
+  //   setCallout(true);
+  // }
   if (infoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is a Info Type ${
-      infoTypeValue ? `for ${infoTypeValue}` : ''
-    }`;
+    callOutText = `What is the Info Type ${label ? `for ${label}` : ''}`;
   }
   // ns__custom_end unit: appSpec, comp: InfoTypeCreationForm, loc: beginning
 
@@ -312,12 +313,25 @@ function InfoTypeCreationForm({
         />
       </Label>
 
-      {callout ? (
+      {/* {callout ? (
         <CalloutBox>
           {callOutText}
           <CloseIcon className={styles.closeIcon} onClick={showCallout} />
         </CalloutBox>
-      ) : null}
+      ) : null} */}
+
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout && (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            )}
+          </div>
+        )}
+      </StepContext.Consumer>
     </InfoTypeStyleWrapper>
   );
 

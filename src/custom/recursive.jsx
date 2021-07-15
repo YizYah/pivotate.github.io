@@ -15,6 +15,7 @@ import {
 } from '../config';
 
 import SubInfoTypeCreationForm from './SubInfoTypeCreationForm';
+import SubChildInfoTypeCreationForm from './SubChildInfoTypeCreationForm';
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
@@ -48,7 +49,8 @@ const Button = styled.button`
 
 const TitleWrapper = styled.p`
   background: #d2ecef;
-  padding: 25px;
+  padding: 1.5rem;
+  align-items: center;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
@@ -65,6 +67,7 @@ const InfoTypesStyleWrapper = styled.div``;
 
 const DataList = memo(
   ({
+    infoType,
     subinfoTypeData,
     selectedDataProps,
     onChange,
@@ -135,8 +138,9 @@ const DataList = memo(
 
     return (
       <>
-        {subinfoTypeData.map((instance) => {
-          if (instanceId === instance.parentId) {
+        {subinfoTypeData &&
+          subinfoTypeData.map((instance) => {
+            console.log('new@@', instance);
             return (
               <SubInfoTypeWrapper
                 key={v4()}
@@ -146,12 +150,10 @@ const DataList = memo(
                 }}
               >
                 <InputLabel className={styles.titleLabel}>
-                  Sub Info Type
+                  New Sub Chhhh Info Type
                 </InputLabel>
-                <TitleWrapper>
-                  {instance.value} {instance.id}
-                </TitleWrapper>
-                <Button
+                <TitleWrapper>{instance.value}</TitleWrapper>
+                {/* <Button
                   type='button'
                   onClick={() => {
                     updateIsEditMode(true);
@@ -163,7 +165,7 @@ const DataList = memo(
                 </Button>
                 <Button type='button' onClick={() => updateIsDeleteMode(true)}>
                   &#128465;
-                </Button>
+                </Button> */}
 
                 {/* {console.log(`selectedDataProps`,instance._children[0] && selectedDataProps[instance._children[0].parentId] ? true: false)} */}
                 {/* {console.log(`instance._children[0].parentId`, instance._children[0] && instance._children[0].parentId)} */}
@@ -206,8 +208,7 @@ const DataList = memo(
                 )}
               </SubInfoTypeWrapper>
             );
-          }
-        })}
+          })}
       </>
     );
   }
@@ -237,6 +238,7 @@ class SubComponentInfo extends Component {
     const { selectedData, instanceId } = this.state;
     const {
       infoType,
+      childState,
       parentId,
       refetchQueries,
       onSelect,
@@ -244,16 +246,24 @@ class SubComponentInfo extends Component {
       selectedDataProps,
       updateInstance,
       deleteInstance,
+      subinfoTypeData,
     } = this.props;
+
+    console.log('recursiveeee', infoType);
+    console.log('recursiveeee child', childState);
+
     return (
       <InfoTypesStyleWrapper>
-        <SubInfoTypeCreationForm
+        <SubChildInfoTypeCreationForm
           parentId={parentId}
           childId={instanceId}
           refetchQueries={refetchQueries}
         />
+        {/* <SubInfoTypeCreationForm
+   
+        /> */}
         <DataList
-          subinfoTypeData={infoType}
+          subinfoTypeData={childState}
           selectedDataProps={selectedData}
           onChange={(selectedData) => this.setState({ selectedData })}
           instanceId={instanceId}

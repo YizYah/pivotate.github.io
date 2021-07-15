@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
 import compose from '@shopify/react-compose';
@@ -15,27 +15,55 @@ import {
 
 import EditInstanceForm from '../../components/EditInstanceForm';
 import DeleteInstanceMenu from '../../components/DeleteInstanceMenu';
+import { InputLabel, makeStyles } from '@material-ui/core';
 
 // ns__custom_start unit: appSpec, comp: SubInfoChildType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
+import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
 // ns__custom_end unit: appSpec, comp: SubInfoChildType, loc: addedImports
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
-  margin: 2em 1em;
-  padding: 1.5em;
-  border: ${selected ? '1px solid aquamarine' : '1px solid white'};
+  // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
+  // add styling here
+  margin: 2rem 0 .5rem 1rem;
+  padding: ${selected ? '0' : '1.5rem'};
+  
   border-radius: 10px;
-  box-shadow: 5px 5px 10px #888888;
-  background-color: ${isDeleting && 'tomato'};
+  
+  background-color: ${
+    (isDeleting && 'tomato') || (selected && 'white') || '#D2ECEF'
+  };
   cursor: ${selected ? 'auto' : 'pointer'};
+  position: relative;
 
-  &:hover {
-    border: 1px solid aquamarine;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    border-left: 2px dashed #a2a5b5;
+    width: 1px;
+    height: ${(selected && '300%') || '280%'}; 
   }
+
+ 
+  &:after {
+    content: "";
+    position: absolute;
+    border-top: 2px dashed #a2a5b5;
+    top: ${(selected && '42px') || '37px'};
+    left: -30px;
+    width: ${(selected && '30px') || '29px'}; 
+  }
+
+  &:last-child:before {
+    top: -32px ;
+    height: ${(selected && '113%') || '150%'}; 
+  }
+  // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
 );
-
 const Button = styled.button`
   background: none;
   border: none;
@@ -49,8 +77,24 @@ const Button = styled.button`
   }
 `;
 
+const TitleWrapper = styled.div`
+  margin-top: 8px;
+  background: #d2ecef;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: initial;
+  text-transfor: capitalize;
+  display: flex;
+  justify-content: space-between;
+`;
+const useStyles = makeStyles(() => ({
+  titleLabel: {
+    fontSize: '.8rem',
+    textAlign: 'initial',
+  },
+}));
 const SubInfoType = ({
-  infoType,
+  subChildInfoType,
   infoTypeId,
   parentId,
   selected,
@@ -62,16 +106,19 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-  const [infoTypeValue, setSubInfoTypeValue] = useState(infoType.value);
+  console.log('=>>>>>>>>>>.', subChildInfoType, parentId, infoTypeId);
+  const [infoTypeValue, setSubInfoTypeValue] = useState(subChildInfoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const styles = useStyles();
 
-  const infoTypeData =
-    infoType.children &&
-    infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
-  const infoTypes = infoTypeData ? infoTypeData.instances : [];
+  // let array = [...subChildInfoType];
+  // cleanArray = array.filter(function () {
+  //   return true
+  // });
+  // console.log('array',cleanArray);
 
   if (!selected) {
     return (
@@ -93,7 +140,7 @@ const SubInfoType = ({
         actionId: UPDATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
         executionParameters: JSON.stringify({
           value: infoTypeValue,
-          instanceId: infoType.id,
+          instanceId: subChildInfoType.id,
         }),
       },
       refetchQueries,
@@ -161,14 +208,30 @@ const SubInfoType = ({
 
   return (
     <SubInfoTypeWrapper selected={selected}>
-      {infoTypeValue}
+      <InputLabel className={styles.titleLabel}>
+        Sub Info Child Type for ..
+      </InputLabel>
+      <TitleWrapper>
+        {infoTypeValue}
 
-      <Button type='button' onClick={() => setIsEditMode(true)}>
-        &#9998;
-      </Button>
-      <Button type='button' onClick={() => setIsDeleteMode(true)}>
-        &#128465;
-      </Button>
+        <div>
+          <Button type='button' onClick={() => setIsEditMode(true)}>
+            &#9998;
+          </Button>
+          <Button type='button' onClick={() => setIsDeleteMode(true)}>
+            &#128465;
+          </Button>
+        </div>
+      </TitleWrapper>
+      {/* <SubChildInfoTypeCreationForm
+       parentId={parentId}
+       refetchQueries={refetchQueries}
+       childId={infoTypeId}
+
+
+      
+      
+      /> */}
     </SubInfoTypeWrapper>
   );
 };

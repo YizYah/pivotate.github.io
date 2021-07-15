@@ -17,6 +17,7 @@ import ScreenCreationForm from '../ScreenCreationForm';
 import Screen from '../Screen';
 // ns__custom_start unit: appSpec, comp: Screens, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import InfoTypeCreationForm from '../InfoTypeCreationForm';
 // <!-- prettier-ignore-end -->
 // ns__custom_end unit: appSpec, comp: Screens, loc: addedImports
@@ -25,7 +26,7 @@ import InfoTypeCreationForm from '../InfoTypeCreationForm';
 // ns__start_section stylingSection
 const ScreensStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: Screens, loc: styling
-  margin: 0 0 0 7%;
+  margin: 0 0 0 1.5rem;
   // ns__custom_end unit: appSpec, comp: Screens, loc: styling
 `;
 
@@ -103,17 +104,20 @@ class Screens extends Component {
     return (
       <>
         <ScreensStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-          {screens.map((screen) => (
-            <Screen
-              key={v4()}
-              screen={screen}
-              selected={screen.id === selectedScreenId}
-              onUpdate={onUpdate}
-              parentId={userTypeId}
-              refetchQueries={refetchQueries}
-              onSelect={this.handleSelect}
-            />
-          ))}
+          {screens.map((screen) => {
+            console.log('screen id', screen);
+            return (
+              <Screen
+                key={v4()}
+                screen={screen}
+                selected={screen.id === selectedScreenId}
+                onUpdate={onUpdate}
+                parentId={userTypeId}
+                refetchQueries={refetchQueries}
+                onSelect={this.handleSelect}
+              />
+            );
+          })}
           {/* ns__custom_start unit: appSpec, comp: Screens, loc: renderEnding */}
           {/* ns__custom_end unit: appSpec, comp: Screens, loc: renderEnding */}
         </ScreensStyleWrapper>
@@ -127,7 +131,7 @@ class Screens extends Component {
           /* ns__custom_end unit: appSpec, comp: Screens, loc: addedProps */
         />
 
-        {infoTypeValueCount >= 3 ? (
+        {screens.lenght > 0 ? (
           <InfoTypeCreationForm
             disabled
             validateInfoTypes={0}

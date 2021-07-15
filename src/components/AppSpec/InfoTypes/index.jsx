@@ -26,7 +26,7 @@ import SubInfoTypeCreationForm from '../../../custom/SubInfoTypeCreationForm';
 // ns__start_section stylingSection
 const InfoTypesStyleWrapper = styled.div`
   // ns__custom_start unit: appSpec, comp: InfoTypes, loc: styling
-  margin: 0 0 0 7%;
+  // margin: 0 0 0 1.5rem;
   // ns__custom_end unit: appSpec, comp: InfoTypes, loc: styling
 `;
 
@@ -60,7 +60,7 @@ class InfoTypes extends Component {
   componentDidMount() {
     // ns__custom_start unit: appSpec, comp: InfoTypes, loc: componentDidMount
     const { childState, parentState } = this.state;
-    const { infoTypes } = this.props;
+    const { infoTypes, parentId } = this.props;
 
     if (!childState.length || !parentState.length) {
       const [parentData, childData] = getChildData(infoTypes);
@@ -108,11 +108,11 @@ class InfoTypes extends Component {
   // ns__start_section render
   render() {
     const { screenId, infoTypes, refetchQueries, onUpdate } = this.props;
-
     const { selectedInfoTypeId } = this.state;
 
     // ns__custom_start unit: appSpec, comp: InfoTypes, loc: renderBeginning
-    const { label } = this.props;
+    const { label, parentId } = this.props;
+
     const validateInfoTypes = infoTypes.length;
     const { childState, parentState, subInfoTypeValueCount } = this.state;
     // const [data] = getChildData(parentState);
@@ -123,27 +123,30 @@ class InfoTypes extends Component {
     return (
       <>
         <InfoTypesStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-          {parentState.map((infoType) => {
-            if (infoType.parentId) return true;
+          {parentState &&
+            parentState.map((infoType) => {
+              if (infoType.parentId) return true;
+              let checkHasParentId =
+                infoType.parentId !== null && infoType.parentId;
 
-            // eslint-disable-next-line consistent-return
-            return (
-              <InfoType
-                key={v4()}
-                infoType={infoType}
-                selected={infoType.id === selectedInfoTypeId}
-                onUpdate={onUpdate}
-                parentId={screenId}
-                refetchQueries={refetchQueries}
-                onSelect={this.handleSelect}
-                // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-                hasParentId={infoType.parentId}
-                childState={childState}
-                onChange={this.onChangeHelper}
-                // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-              />
-            );
-          })}
+              // eslint-disable-next-line consistent-return
+              return (
+                <InfoType
+                  key={v4()}
+                  infoType={infoType}
+                  selected={infoType.id === selectedInfoTypeId}
+                  onUpdate={onUpdate}
+                  parentId={screenId}
+                  refetchQueries={refetchQueries}
+                  onSelect={this.handleSelect}
+                  // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+                  hasParentId={parentId}
+                  childState={childState}
+                  onChange={this.onChangeHelper}
+                  // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+                />
+              );
+            })}
 
           {/* ns__custom_start unit: appSpec, comp: InfoTypes, loc: renderEnding */}
           {/* ns__custom_end unit: appSpec, comp: InfoTypes, loc: renderEnding */}

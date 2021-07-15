@@ -8,6 +8,9 @@ import Confirmation from './components/Pages/Confirmation';
 
 const AppFooter = React.lazy(() => import('./components/AppFooter'));
 const Home = React.lazy(() => import('./components/Pages/Home'));
+const EmailVerified = React.lazy(() =>
+  import('./components/Pages/Email-verified')
+);
 const AppHeader = React.lazy(() => import('./components/AppHeader'));
 const Staging = React.lazy(() => import('./components/Pages/Staging'));
 const Contact = React.lazy(() => import('./components/Pages/Contact'));
@@ -25,10 +28,9 @@ const termsAndConditions = React.lazy(() =>
 const TempVideo = React.lazy(() => import('./components/Pages/Temp-video'));
 const Schedule = React.lazy(() => import('./components/Pages/Schedule'));
 
-
 const App = () => {
   const childRef = useRef();
-
+  console.log(childRef);
   return (
     <React.Suspense
       path='/'
@@ -53,6 +55,14 @@ const App = () => {
               <AppHeader noAction />
               <Confirmation />
               <AppFooter noAction />
+            </Route>
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/userEmailVerification`}
+            >
+              <AppHeader />
+              <EmailVerified />
+              <AppFooter />
             </Route>
             <Route exact path={`${process.env.PUBLIC_URL}/tempvideo`}>
               <AppHeader noAction />
@@ -91,7 +101,6 @@ const App = () => {
                   onSignUp={() => childRef.current.modalHandlerRegistration()}
                 />
               </Route>
-
 
               <Route
                 exact

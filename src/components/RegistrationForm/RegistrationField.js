@@ -52,10 +52,10 @@ const RegistrationField = ({
             <label>
               <input {...field} type='checkbox' />I agree to our
               <b>
-  <a href='/terms-and-conditions' target='_blank'>
+                <a href='/terms-and-conditions' target='_blank'>
                   &nbsp; Terms of Use &nbsp;
                 </a>
-</b>
+              </b>
               and
               <b>
                 <a href='/privacy-policy' target='_blank'>

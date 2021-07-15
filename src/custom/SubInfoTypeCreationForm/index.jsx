@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled, { keyframes } from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
 import compose from '@shopify/react-compose';
 
 // ns__custom_start unit: appSpec, comp: Sub_Info_TypeCreationForm, loc: addedImports
+import StepContext from '../../../src/StepContext';
+
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -21,13 +23,13 @@ import {
 // change styling here
 
 const SubInfoStyleWrapper = styled.div(
-    ({ selected, isDeleting }) => `
+  ({ selected, isDeleting }) => `
     // ns__custom_start unit: appSpec, comp: Screen, loc: styling
     // add styling here
-    margin: 2rem 0 .2rem 5.9rem;
+    margin: 2rem 0 .2rem 2.4rem;
     @media (max-width: 600px) {
       // margin:  2rem 0 .2rem 5rem;
-      margin: 32px 0 0px 38%;  
+      margin: 35px 0 0px 17%;  
       width: 72%;
   
     }
@@ -69,7 +71,7 @@ const SubInfoStyleWrapper = styled.div(
     }
     // ns__custom_end unit: appSpec, comp: Screen, loc: styling
   `
-  );
+);
 const Form = styled.div`
   margin: 2em;
   border: none;
@@ -131,14 +133,11 @@ const CalloutBox = styled.div`
   }
 `;
 const CustomTextInput = styled(TextField)`
-@media (max-width: 600px) {
-  .MuiInputLabel-outlined {
-    font-size: .6em;
-  
+  @media (max-width: 600px) {
+    .MuiInputLabel-outlined {
+    }
   }
-}
-
-`
+`;
 
 const useStyles = makeStyles({
   button: {
@@ -181,16 +180,20 @@ const SubInfoTypeCreationForm = ({
   const [subInfoValue, setSubInfoValue] = useState('');
   const [loading, updateLoading] = useState(false);
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
-  const showCalloutBox = callout || validateSubInfoTypes === 0;
+  // const showCalloutBox = callout || validateSubInfoTypes === 0;
 
   // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   let callOutText = '';
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 8 ? true : false
+  );
 
   if (subInfoTypeValueCount < 5) {
     callOutText = textLabel;
   } else {
-    callOutText = `What is the Sub Info Type ${subInfoValue ? `for ${subInfoValue}?` : ''}`;
+    callOutText = `What is the Sub Info Type ${
+      label ? `for ${subInfoValue}?` : ''
+    }`;
   }
   // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: beginning
   function handleChange(e) {
@@ -208,7 +211,6 @@ const SubInfoTypeCreationForm = ({
 
     try {
       // const newInfoTypeData = JSON.parse(createSubInfoResponse.data.Execute);
-     
       let createInfoTypeResponse = await createSubInfoType({
         variables: {
           actionId: CREATE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
@@ -220,7 +222,6 @@ const SubInfoTypeCreationForm = ({
         },
         refetchQueries,
       });
-      console.log('subinforrrrrrrrrr',createInfoTypeResponse.data.execute);
 
       let newInfoTypeData = JSON.parse(createInfoTypeResponse.data.execute);
 
@@ -265,7 +266,7 @@ const SubInfoTypeCreationForm = ({
       {/* // ns__custom_start unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
       <Label htmlFor='screen-value'>
         <CustomTextInput
-          label={`New Sub Info Type`}
+          label={`New Sub Info  Type`}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           value={subInfoValue}
@@ -283,12 +284,20 @@ const SubInfoTypeCreationForm = ({
           }}
         />
       </Label>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout ? (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
+
       {/* // ns__custom_end unit: appSpec, comp: Sub_Info_Type_Creation, loc: insideReturn */}
     </SubInfoStyleWrapper>
   );

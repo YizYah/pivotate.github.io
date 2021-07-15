@@ -15,6 +15,7 @@ import { Unit } from '@nostack/no-stack';
 import styled from 'styled-components';
 import { v4 } from 'uuid';
 import { flattenData } from '../../../flattenData';
+import classNames from 'classnames';
 
 // ns__remove_import AppCreationForm from '../AppCreationForm';
 import App from '../App';
@@ -27,7 +28,10 @@ import {
 // ns__custom_start unit: appSpec, comp: Apps, loc: addedImports
 import FirstTimeAppCreationForm from '../../../custom/FirstTimeAppCreationForm';
 import { Context as UnitDataContext } from '../../../custom/UnitDataContext';
+import StepContext from '../../../StepContext';
 import { Container } from '@material-ui/core';
+import { $CombinedState } from 'redux';
+import { stubFalse } from 'lodash';
 // ns__custom_end unit: appSpec, comp: Apps, loc: addedImports
 // ns__end_section imports
 
@@ -54,7 +58,6 @@ class Apps extends Component {
   // ns__custom_start unit: appSpec, comp: Apps, loc: beginning
   // eslint-disable-next-line react/static-property-placement
   static contextType = UnitDataContext;
-
   // ns__custom_end unit: appSpec, comp: Apps, loc: beginning
   state = {
     selectedAppId: null,
@@ -127,6 +130,17 @@ class Apps extends Component {
           }
 
           const apps = data.unitData.map((el) => flattenData(el));
+          function getDepth(obj) {
+            let res = JSON.stringify(obj).replace(/[^{|^}]/g, '');
+            while (/}{/g.test(res)) {
+              res = res.replace(/}{/g, '');
+            }
+            return res.replace(/}/g, '').length;
+          }
+          let appLength = 0;
+          if (apps[0]) {
+            appLength = apps[0].children ? apps[0].children.length : 0;
+          }
 
           // ns__custom_start unit: appSpec, comp: Apps, loc: beforeReturn
           /* NOTE: one app is assumed here. */
@@ -145,44 +159,134 @@ class Apps extends Component {
 
           return (
             <>
-            <Container maxWidth='sm'>
-            {noApp ? (
-                <FirstTimeAppCreationForm
-                  customerId={customerId}
-                  refetchQueries={refetchQueries}
-                  // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForCreationForm
-                  // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForCreationForm
-                />
-              ) : (
-                <AppsStyleWrapper
-                  onClick={this.handleClick}
-                >
-                  <Container maxWidth='sm'>
-                  {apps &&
-                    apps.map((app) => (
-                      <App
-                        key={v4()}
-                        parentId={customerId}
-                        app={app}
-                        selected={app.id === selectedAppId}
-                        refetchQueries={refetchQueries}
-                        // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForChildren
-                        // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForChildren
-                      />
-                    ))}
+              <StepContext.Provider value={getDepth(apps)}>
+                <Container maxWidth='sm'>
+                  <div class='wizard-stepper'>
+                    <div
+                      className={classNames({
+                        'step-done': getDepth(apps) >= 1,
+                        'current-step': getDepth(apps) == 0,
+                        'wizard-step': true,
+                      })}
+                    >
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 0 ? '\u2713' : 1}
+                      </span>
+                      <span href='#' class='number'>
+                        &nbsp;{' '}
+                      </span>
+                      <span href='#' class='text'>
+                        About your app!
+                      </span>
+                    </div>
+                    <div class='progress-bar'></div>
+                    <div
+                      className={classNames({
+                        'step-done': getDepth(apps) > 1 && appLength > 1,
+                        'current-step': appLength == 1,
+                        'wizard-step': true,
+                      })}
+                    >
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 1 && appLength >= 1 ? '\u2713' : 2}
+                      </span>
+                      <span href='#' class='number'>
+                        &nbsp;{' '}
+                      </span>
+                      <span href='#' class='text'>
+                        {' '}
+                        First User Type{' '}
+                      </span>
+                    </div>
+                    <div class='progress-bar'></div>
+                    <div
+                      className={classNames({
+                        'step-done': getDepth(apps) > 3,
+                        'current-step': getDepth(apps) == 3 && appLength == 2,
+                        'wizard-step': true,
+                      })}
+                    >
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 3 ? '\u2713' : 3}
+                      </span>
+                      <span href='#' class='number'>
+                        &nbsp;
+                      </span>
+                      <span href='#' class='text'>
+                        First Screen
+                      </span>
+                    </div>
+                    <div class='progress-bar'></div>
+                    <div
+                      className={classNames({
+                        'step-done': getDepth(apps) > 6,
+                        'current-step': getDepth(apps) == 6,
+                        'wizard-step': true,
+                      })}
+                    >
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 6 ? '\u2713' : 4}
+                      </span>
+                      <span href='#' class='number'>
+                        &nbsp;{' '}
+                      </span>
+                      <span href='#' class='text'>
+                        {' '}
+                        First Info Type{' '}
+                      </span>
+                    </div>
+                    <div class='progress-bar'></div>
+                    <div
+                      className={classNames({
+                        'step-done': getDepth(apps) > 8,
+                        'current-step': getDepth(apps) >= 8,
+                        'wizard-step': true,
+                      })}
+                    >
+                      <span href='#' class='title-number grey--text'>
+                        {getDepth(apps) > 8 ? '\u2713' : 5}
+                      </span>
+                      <span href='#' class='number'>
+                        &nbsp;{' '}
+                      </span>
+                      <span href='#' class='text'>
+                        {' '}
+                        First Sub Info Type
+                      </span>
+                    </div>
+                  </div>
+                  {noApp ? (
+                    <FirstTimeAppCreationForm
+                      customerId={customerId}
+                      refetchQueries={refetchQueries}
+                      // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForCreationForm
+                      // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForCreationForm
+                    />
+                  ) : (
+                    <AppsStyleWrapper onClick={this.handleClick}>
+                      <Container maxWidth='sm'>
+                        {apps &&
+                          apps.map((app) => (
+                            <App
+                              key={v4()}
+                              parentId={customerId}
+                              app={app}
+                              selected={app.id === selectedAppId}
+                              refetchQueries={refetchQueries}
+                              // ns__custom_start unit: appSpec, comp: Apps, loc: addedPropsForChildren
+                              // ns__custom_end unit: appSpec, comp: Apps, loc: addedPropsForChildren
+                            />
+                          ))}
+                      </Container>
+                      {/* ns__start_section listElements */}
 
-                  </Container>
-                  {/* ns__start_section listElements */}
-                  
-                  {/* ns__end_section listElements */}
-                </AppsStyleWrapper>
-              )}
-
-              {/* ns__custom_start unit: appSpec, comp: Apps, loc: renderEnding */}
-              {/* ns__custom_end unit: appSpec, comp: Apps, loc: renderEnding */}
-
-            </Container>
-              
+                      {/* ns__end_section listElements */}
+                    </AppsStyleWrapper>
+                  )}
+                  {/* ns__custom_start unit: appSpec, comp: Apps, loc: renderEnding */}
+                  {/* ns__custom_end unit: appSpec, comp: Apps, loc: renderEnding */}
+                </Container>
+              </StepContext.Provider>
             </>
           );
         }}

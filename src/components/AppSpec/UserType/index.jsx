@@ -45,9 +45,7 @@ const UserTypeStyleWrapper = styled.div(
   
   border-radius: 10px;
   border: 1px solid black;
-  background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
-  };
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
   width: inherit; 
@@ -77,13 +75,14 @@ const Button = styled.button`
 // ns__custom_start unit: appSpec, comp: UserType, loc: beforeFunction
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 25px;
+  padding: 1.5rem;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -95,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
 UserTypeStyleWrapper.defaultProps = {
   'data-id': 'userType__wrapper',
+  class: 'userWrapper',
 };
 
 Button.defaultProps = {

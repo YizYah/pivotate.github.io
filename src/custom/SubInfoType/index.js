@@ -16,16 +16,18 @@ import {
 import EditInstanceForm from '../../components/EditInstanceForm';
 import DeleteInstanceMenu from '../../components/DeleteInstanceMenu';
 import { InputLabel, makeStyles } from '@material-ui/core';
+import Recursive from '../recursive';
 
 // ns__custom_start unit: appSpec, comp: SubInfoType, loc: addedImports
 import SubInfoChildTypes from '../SubInfoChildTypes';
+import CustomChildSub from '../CustomChildSub';
 // ns__custom_end unit: appSpec, comp: SubInfoType, loc: addedImports
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: InfoType, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 2rem;
+  margin: 2rem 0 .5rem 0rem;
   padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
@@ -43,7 +45,7 @@ const SubInfoTypeWrapper = styled.div(
     left: -2rem;
     border-left: 2px dashed #a2a5b5;
     width: 1px;
-    height: ${(selected && '116%') || '107%'}; 
+    height: ${(selected && '110%') || '146%'}; 
   }
 
  
@@ -51,14 +53,38 @@ const SubInfoTypeWrapper = styled.div(
     content: "";
     position: absolute;
     border-top: 2px dashed #a2a5b5;
-    top: ${(selected && '42px') || '37px'};
-    left: -30px;
-    width: ${(selected && '30px') || '29px'}; 
+    top: ${(selected && '42px') || '41px'};
+    left: -21px;
+    width: ${(selected && '21px') || '21px'}; 
   }
+  
+
+ 
 
   &:last-child:before {
     top: -32px ;
     height: ${(selected && '75px') || '75px'}; 
+    left: -21px;
+  }
+
+  @media (max-width: 600px) {
+
+    &:after {
+      content: "";
+      position: absolute;
+      border-top: 2px dashed #a2a5b5;
+      top: ${(selected && '41px') || '41px'};
+      left: -9px;
+      width: ${(selected && '9px') || '9px'}; 
+    }
+    &:last-child:before {
+      top: -32px ;
+      height: ${(selected && '75px') || '75px'}; 
+      position: absolute;
+      left: -10px;
+    }
+
+
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
@@ -87,7 +113,6 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
-
 const useStyles = makeStyles(() => ({
   titleLabel: {
     fontSize: '.8rem',
@@ -107,21 +132,33 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
+  // console.log(
+  //   'subinfotype----',
+  //   updateInstance,
+  //   childState,
+  //   parentId,
+  //   infoType,
+  //   infoType.parentId
+  // );
+  // console.log('subinpe----', infoType);
   const [infoTypeValue, setSubInfoTypeValue] = useState(infoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const styles = useStyles();
-
   const infoTypeData =
     infoType.children &&
     infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
+
+  console.log('chi@@', infoTypeData);
   const infoTypes = infoTypeData ? infoTypeData.instances : [];
+
+  console.log('cnfoTypesinfoTypes', infoTypes[0].id);
 
   if (!selected) {
     return (
-      <SubInfoTypeWrapper onClick={() => onSelect(infoTypeId.id)}>
+      <SubInfoTypeWrapper onClick={() => onSelect(infoType.id)}>
         {infoTypeValue}
       </SubInfoTypeWrapper>
     );
@@ -130,6 +167,9 @@ const SubInfoType = ({
   const handleSubInfoTypeValueChange = (e) => {
     setSubInfoTypeValue(e.target.value);
   };
+
+  const ob = { ...childState };
+  console.log('papapa', ob);
 
   const handleSubInfoInfoTypeValueSave = async () => {
     setIsSaving(true);
@@ -157,8 +197,8 @@ const SubInfoType = ({
     return (
       <SubInfoTypeWrapper>
         <EditInstanceForm
-          id={infoTypeId}
-          label='Sub Info Type'
+          id={infoType.id}
+          label='Sub Info Typsdde'
           value={infoTypeValue}
           onChange={handleSubInfoTypeValueChange}
           onSave={handleSubInfoTypeValueChange}
@@ -178,7 +218,7 @@ const SubInfoType = ({
           actionId: DELETE_INFO_TYPE_FOR_APP_SPEC_ACTION_ID,
           executionParameters: JSON.stringify({
             parentInstanceId: parentId,
-            instanceId: infoTypeId,
+            instanceId: infoType.id,
           }),
         },
         refetchQueries,
@@ -207,7 +247,7 @@ const SubInfoType = ({
 
   return (
     <SubInfoTypeWrapper selected={selected}>
-      <InputLabel className={styles.titleLabel}>Sub Info Type</InputLabel>
+      <InputLabel className={styles.titleLabel}>Sub Infoasdas Type</InputLabel>
       <TitleWrapper>
         {infoTypeValue}
         <div>
@@ -219,13 +259,24 @@ const SubInfoType = ({
           </Button>
         </div>
       </TitleWrapper>
+      {/* 
+      <Recursive
+              subinfoTypeData={childState}
+              refetchQueries={refetchQueries}
+              childState={childState}
+              parentId={parentId}
+      
+      
+      
+      /> */}
 
-      {/* <SubInfoChildTypes
-        subInfoId={infoTypeId}
+      <SubInfoChildTypes
+        subInfoTypes={infoType._children}
+        subInfoId={infoType.id}
         refetchQueries={refetchQueries}
         childState={childState}
-        parentId={parentId}
-      /> */}
+        parentId={infoType.parentId}
+      />
     </SubInfoTypeWrapper>
   );
 };
@@ -234,3 +285,16 @@ export default compose(
   graphql(EXECUTE, { name: 'updateInstance' }),
   graphql(EXECUTE, { name: 'deleteInstance' })
 )(SubInfoType);
+
+SubInfoType.propTypes = {
+  parentId: PropTypes.string,
+  selected: PropTypes.bool,
+  updateInstance: PropTypes.func,
+  deleteInstance: PropTypes.func,
+  refetchQueries: PropTypes.array,
+  onSelect: PropTypes.func,
+  childState: PropTypes.shape({
+    children: PropTypes.array,
+    id: PropTypes.string,
+  }),
+};

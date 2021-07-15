@@ -40,7 +40,7 @@ const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
-  margin: 2rem 0 .5rem 1rem;
+  margin: 2rem 0 .5rem 0.5rem;
   padding: ${selected ? '0' : '1.5rem'};
   
   border-radius: 10px;
@@ -74,7 +74,7 @@ const ScreenStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -33px ;
-    height: ${(selected && '120%') || '150%'}; 
+    height: ${(selected && '109%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: Screen, loc: styling
 `
@@ -102,7 +102,8 @@ const Button = styled.button`
 
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 25px;
+  padding: 1.5rem;
+  align-items: center;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
@@ -281,6 +282,7 @@ function Screen({
         screenId={screen.id}
         label={screenValue}
         refetchQueries={refetchQueries}
+        parentId={parentId}
       />
 
       {/* ns__end_replacement childrenList */}

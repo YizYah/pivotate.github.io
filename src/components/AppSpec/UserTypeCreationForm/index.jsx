@@ -9,7 +9,7 @@
 // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { CREATE_USER_TYPE_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import { keyframes } from 'styled-components';
 import { makeStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -42,7 +43,6 @@ const Form = styled.div`
   // ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: styling
 `;
 // ns__end_section  stylingSection
-
 
 // ns__start_replacement button
 // ns__end_replacement button
@@ -83,7 +83,6 @@ const UserTypeStyleWrapper = styled.div(
   // ns__custom_end unit: appSpec, comp: UserType, loc: styling
 `
 );
-
 
 const CalloutBox = styled.div`
   padding: 1rem;
@@ -159,7 +158,11 @@ function UserTypeCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: UserTypeCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 1 ? true : false
+  );
+
   let callOutText = '';
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
@@ -266,12 +269,18 @@ function UserTypeCreationForm({
           }}
         />
       </UserTypeStyleWrapper>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout ? (
+              <CalloutBox>
+                {callOutText}
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
       {/* ns__custom_end unit: appSpec, comp: UserTypeCreationForm, loc: insideReturn */}
     </Container>
   );

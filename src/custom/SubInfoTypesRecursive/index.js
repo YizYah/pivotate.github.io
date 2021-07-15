@@ -20,12 +20,15 @@ import {
 } from '../../config';
 
 import SubInfoTypeCreationForm from '../SubInfoTypeCreationForm';
+import SubChildInfoTypeCreationForm from '../SubChildInfoTypeCreationForm';
 
 const SubInfoTypeWrapper = styled.div(
   ({ selected, isDeleting }) => `
     margin: .5rem 0 .5rem 2.5rem;
     padding: .5em;
     position: relative;
+    padding: ${selected ? '0' : '1.5rem'};
+
     
     border-radius: 10px;
     
@@ -68,10 +71,15 @@ const Button = styled.button`
 
 const InfoTypesStyleWrapper = styled.div(
   ({ selected }) => `
-  
-  margin: 15px 0 0 7%;
-  position: relative;
 
+  margin: 10px 0 0 11%;
+  position: relative;
+  @media (max-width: 600px) {
+    margin: 16px 0 0 18%;
+
+
+
+  }
 
   &:before {
     content: "";
@@ -96,14 +104,15 @@ const InfoTypesStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -11px ;
-    height: ${(selected && '133px') || '55px'}; 
+    height: ${(selected && '133px') || '113%'}; 
   }
 `
 );
 
 const TitleWrapper = styled.div`
   background: #d2ecef;
-  padding: 25px;
+  padding: 1.5rem;
+  align-items: center;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
@@ -122,6 +131,7 @@ const useStyles = makeStyles(() => ({
 const SubInfoComponent = ({
   infoType,
   instanceId,
+  childState,
   parentId,
   refetchQueries,
   updateInstance,
@@ -143,6 +153,8 @@ const SubInfoComponent = ({
   const [labelParent, setLabel] = useState(label);
   const wrapperRef = createRef();
 
+  // console.log('child data', labelParent);
+  console.log(updateInstance);
   const styles = useStyles();
 
   useEffect(() => {
@@ -246,82 +258,84 @@ const SubInfoComponent = ({
   return (
     <>
       <div ref={wrapperRef} key={v4()}>
-        {infoType.map((instance) => {
-          if (instanceId === instance.parentId) {
-            return (
-              <InfoTypesStyleWrapper key={v4()}>
-                <div
-                  role='presentation'
-                  onClick={() => {
-                    checkID(instance.id, instance._children);
-                    setselectedInfoTypeId(instance.id);
-                    setCurrentId(instance.id);
-                  }}
-                  onChange={() => handleSubInfoTypeValueChange}
-                >
-                  <InputLabel className={styles.titleLabel}>
-                    Sub Info Type
-                  </InputLabel>
-                  <TitleWrapper>
-                    {' '}
-                    {instance.value}
-                    <div>
-                      <Button
-                        type='button'
-                        onClick={() => {
-                          setIsEditMode(true);
-                          setCurrentId(instance.id);
-                          setSubInfoTypeValue(instance.value);
-                        }}
-                      >
-                        &#9998;
-                      </Button>
-                      <Button
-                        type='button'
-                        onClick={() => {
-                          setIsDeleteMode(true);
-                          setCurrentId(instance.id);
-                          setSubInfoTypeValue(instance.value);
-                        }}
-                      >
-                        &#128465;
-                      </Button>
-                    </div>
-                  </TitleWrapper>
-                </div>
-                <Child
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...instance}
-                  show={show}
-                  parentId={parentId}
-                  instanceId={instance.id}
-                  selected={instance.id === currentId}
-                  // eslint-disable-next-line react/jsx-no-duplicate-props
-                  instanceId={instanceId}
-                  refetchQueries={refetchQueries}
-                  updateInstance={updateInstance}
-                  deleteInstance={deleteInstance}
-                  onClick={onClick}
-                  currentId={currentId}
-                  setParentLabel={setParentLabel}
-                  parentLabel={parentLabel}
-                />
-                {instance._children.length ? (
-                  <SubInfoComponent
-                    data={instance._children}
-                    key={v4()}
+        {childState &&
+          childState.map((instance) => {
+            console.log('recursive', instance, instanceId);
+            if (instanceId === instance.parentId) {
+              return (
+                <InfoTypesStyleWrapper key={v4()}>
+                  <div
+                    role='presentation'
+                    onClick={() => {
+                      checkID(instance.id, instance._children);
+                      setselectedInfoTypeId(instance.id);
+                      setCurrentId(instance.id);
+                    }}
+                    onChange={() => handleSubInfoTypeValueChange}
+                  >
+                    <InputLabel className={styles.titleLabel}>
+                      Sub Info Type
+                    </InputLabel>
+                    <TitleWrapper>
+                      {' '}
+                      {instance.value}
+                      <div onClick={instance.id}>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setIsEditMode(true);
+                            // setCurrentId(instance.id);
+                            // setSubInfoTypeValue(instance.value);
+                          }}
+                        >
+                          &#9998;
+                        </Button>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setIsDeleteMode(true);
+                            setCurrentId(instance.id);
+                            setSubInfoTypeValue(instance.value);
+                          }}
+                        >
+                          &#128465;
+                        </Button>
+                      </div>
+                    </TitleWrapper>
+                  </div>
+                  <Child
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...instance}
+                    show={show}
+                    parentId={parentId}
+                    instanceId={instance.id}
+                    selected={instance.id === currentId}
+                    // eslint-disable-next-line react/jsx-no-duplicate-props
+                    instanceId={instanceId}
                     refetchQueries={refetchQueries}
                     updateInstance={updateInstance}
                     deleteInstance={deleteInstance}
-                    onClick={(id) => setCurrentId(id)}
-                    selected={currentId === selectedInfoTypeId}
-                    setLabel={() => setLabel(instance.value)}
+                    onClick={onClick}
+                    currentId={currentId}
+                    setParentLabel={setParentLabel}
+                    parentLabel={instance.value}
                   />
-                ) : null}
-              </InfoTypesStyleWrapper>
-            );
-          }
-        })}
+                  {instance._children.length ? (
+                    <SubInfoComponent
+                      data={instance._children}
+                      key={v4()}
+                      refetchQueries={refetchQueries}
+                      updateInstance={updateInstance}
+                      deleteInstance={deleteInstance}
+                      onClick={(id) => setCurrentId(id)}
+                      selected={currentId === selectedInfoTypeId}
+                      setLabel={() => setLabel(instance.value)}
+                    />
+                  ) : null}
+                </InfoTypesStyleWrapper>
+              );
+            }
+          })}
       </div>
       <SubInfoTypeCreationForm
         key={v4()}
@@ -349,6 +363,7 @@ const Child = ({
   selected,
   label,
   parentLabel,
+  setParentLabel,
 }) => {
   const [currentChildId, setChildCurrentId] = useState(null);
   const [showChild, setshowChild] = useState(!show);
@@ -359,6 +374,7 @@ const Child = ({
   const [isChildEditMode, setIsChildEditMode] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [labelValue, setLabelValue] = useState(parentLabel);
+  const styles = useStyles();
 
   useEffect(() => {
     setChildState(_children);
@@ -366,6 +382,14 @@ const Child = ({
       setChildCurrentId(instanceId);
     }
   }, [isEditMode, isChildEditMode, currentId]);
+
+  // if (!selected) {
+  //   return (
+  //     <SubInfoTypeWrapper onClick={() => onSelect(infoType.id)}>
+  //       {infoTypeValue}
+  //     </SubInfoTypeWrapper>
+  //   );
+  // }
 
   async function handleInfoTypeValueSave() {
     setIsSaving(true);
@@ -447,75 +471,87 @@ const Child = ({
 
   return (
     <>
-      {childState.map((instance) => {
-        return (
-          <React.Fragment key={v4()}>
-            {selected && show ? (
-              <SubInfoTypeWrapper key={v4()}>
-                <div
-                  role='presentation'
-                  onClick={() => {
-                    setChildCurrentId(instance.id);
-                    setLabelValue(instance.value);
-                    if (!last) {
-                      return null;
-                    }
-                    onClick();
-                  }}
-                  onChange={handleSubInfoTypeValueChange}
-                  key={v4()}
-                >
-                  <TitleWrapper>
-                    {' '}
-                    {instance.value}
-                    <div>
-                      <Button
-                        type='button'
-                        onClick={() => {
-                          setIsChildEditMode(true);
-                          setChildCurrentId(instance.id);
-                          setChildSubInfoTypeValue(instance.value);
-                        }}
-                      >
-                        &#9998;
-                      </Button>
-                      <Button
-                        type='button'
-                        onClick={() => {
-                          setIsDeleteMode(true);
-                          setChildCurrentId(instance.id);
-                          setChildSubInfoTypeValue(instance.value);
-                        }}
-                      >
-                        &#128465;
-                      </Button>
-                    </div>
-                  </TitleWrapper>
-                </div>
+      {childState &&
+        childState.map((instance) => {
+          return (
+            <React.Fragment key={v4()}>
+              {selected && show ? (
+                <InfoTypesStyleWrapper key={v4()}>
+                  <div
+                    role='presentation'
+                    onClick={() => {
+                      setChildCurrentId(instance.id);
+                      setLabelValue(instance.value);
+                      // if (!last) {
+                      //   return null;
+                      // }
+                      // onClick();
+                    }}
+                    onChange={handleSubInfoTypeValueChange}
+                    key={v4()}
+                  >
+                    <TitleWrapper>
+                      <InputLabel className={styles.titleLabel}>
+                        Sub Info Type for {parentLabel}
+                      </InputLabel>
+                      {instance.value}
+                      <div>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setIsChildEditMode(true);
+                            setChildCurrentId(instance.id);
+                            setChildSubInfoTypeValue(instance.value);
+                          }}
+                        >
+                          &#9998;
+                        </Button>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setIsDeleteMode(true);
+                            setChildCurrentId(instance.id);
+                            setChildSubInfoTypeValue(instance.value);
+                          }}
+                        >
+                          &#128465;
+                        </Button>
+                      </div>
+                    </TitleWrapper>
+                  </div>
 
-                <Child
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...instance}
-                  show={showChild}
-                  last
-                  instanceId={instance.id}
-                  refetchQueries={refetchQueries}
-                  updateInstance={() => updateInstance}
-                  deleteInstance={() => deleteInstance}
-                  onClick={!last ? onClick : null}
-                  currentId={currentId}
-                  selected={selected}
-                  label={label}
-                />
-              </SubInfoTypeWrapper>
-            ) : null}
-          </React.Fragment>
-        );
-      })}
+                  <Child
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...instance}
+                    show={showChild}
+                    last
+                    instanceId={instance.id}
+                    refetchQueries={refetchQueries}
+                    updateInstance={() => updateInstance}
+                    deleteInstance={() => deleteInstance}
+                    onClick={!last ? onClick : null}
+                    currentId={currentId}
+                    selected={selected}
+                    label={label}
+                  />
+                </InfoTypesStyleWrapper>
+              ) : null}
+            </React.Fragment>
+          );
+        })}
+
+      {/* <SubInfoTypeCreationForm
+        key={v4()}
+        parentId={parentId}
+        childId={currentId}
+        refetchQueries={refetchQueries}
+        label={labelValue}
+      /> */}
       {selected && !last ? (
         <SubInfoTypeCreationForm
+          key={v4()}
           parentId={parentId}
-          childId={instanceId}
+          childId={currentId}
           refetchQueries={refetchQueries}
           label={labelValue}
         />

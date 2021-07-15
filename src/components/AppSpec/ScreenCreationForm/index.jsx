@@ -9,7 +9,7 @@
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeImports
 
 // ns__start_section imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import styled from 'styled-components';
 import { EXECUTE } from '@nostack/no-stack';
@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { CREATE_SCREEN_FOR_APP_SPEC_ACTION_ID } from '../../../config';
 // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: addedImports
 // <!-- prettier-ignore-start -->
+import StepContext from '../../../StepContext';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
@@ -33,7 +34,7 @@ const ScreenStyleWrapper = styled.div(
   ({ selected, isDeleting }) => `
   // ns__custom_start unit: appSpec, comp: Screen, loc: styling
   // add styling here
-  margin: 2rem 0 .2rem 2.9rem;
+  margin: 2rem 0 .2rem 2rem;
   @media (max-width: 480px) {
     margin: 2rem 0 .2rem 2rem;
 
@@ -43,9 +44,7 @@ const ScreenStyleWrapper = styled.div(
   
   border-radius: 10px;
   
-  background-color: ${
-    (isDeleting && 'tomato') || (selected && 'white') || ''
-  };
+  background-color: ${(isDeleting && 'tomato') || (selected && 'white') || ''};
   cursor: ${selected ? 'auto' : 'pointer'};
   position: relative;
 
@@ -162,8 +161,6 @@ const CalloutBox = styled.div`
   }
 `;
 
-
-
 const useStyles = makeStyles({
   button: {
     minWidth: 0,
@@ -184,7 +181,6 @@ const useStyles = makeStyles({
   textField: {
     width: '100%',
   },
- 
 });
 // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeFunction
 
@@ -207,17 +203,26 @@ function ScreenCreationForm({
   const [loading, updateLoading] = useState(false);
   // ns__custom_start unit: appSpec, comp: ScreenCreationForm, loc: beginning
   const styles = useStyles();
-  const [callout, setCallout] = useState(false);
+  const [callout, setCallout] = useState(
+    useContext(StepContext) == 3 ? true : false
+  );
   const showCalloutBox = callout || validateScreens === 0;
   let callOutText = '';
 
+  // if (useContext(StepContext) == 6) {
+  //   setCallout(true);
+  // }
   if (userTypeCreationCount < 5) {
     callOutText = textLabel;
   } else {
     callOutText = `What is the Screen name ${
-      screenValue ? `for ${screenValue} ?` : ''
+      label ? `for ${screenValue} ?` : ''
     }`;
   }
+
+  // useEffect(() => {
+  //   setCallout(true);
+  // }, [callout]);
 
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beginning
 
@@ -305,12 +310,19 @@ function ScreenCreationForm({
           }}
         />
       </Label>
-      {callout ? (
-        <CalloutBox>
-          {callOutText}
-          <CloseIcon className={styles.closeIcon} onClick={showCallout} />
-        </CalloutBox>
-      ) : null}
+      <StepContext.Consumer>
+        {(value) => (
+          <div>
+            {callout ? (
+              <CalloutBox>
+                {callOutText}
+
+                <CloseIcon className={styles.closeIcon} onClick={showCallout} />
+              </CalloutBox>
+            ) : null}
+          </div>
+        )}
+      </StepContext.Consumer>
     </ScreenStyleWrapper>
   );
   // ns__custom_end unit: appSpec, comp: ScreenCreationForm, loc: beforeReturn

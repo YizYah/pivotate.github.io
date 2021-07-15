@@ -35,6 +35,7 @@ import getChildData from '../../../custom/getChildData';
 import SubInfoComponent from '../../../custom/SubInfoTypesRecursive';
 import SubInfoType from '../../../custom/SubInfoType';
 import SubInfoTypes from '../../../custom/SubInfoTypes';
+import Test from '../../../custom/recursive';
 // <!-- prettier-ignore-end -->
 // ns__custom_end unit: appSpec, comp: InfoType, loc: addedImports
 // ns__end_section imports
@@ -77,7 +78,7 @@ const InfoTypeStyleWrapper = styled.div(
 
   &:last-child:before {
     top: -32px ;
-    height: ${(selected && '120%') || '150%'}; 
+    height: ${(selected && '112%') || '150%'}; 
   }
   // ns__custom_end unit: appSpec, comp: InfoType, loc: styling
 `
@@ -105,12 +106,13 @@ const Button = styled.button`
 const TitleWrapper = styled.div`
   margin-top: 8px;
   background: #d2ecef;
-  padding: 25px;
+  padding: 1.5rem;
   border-radius: 10px;
   text-align: initial;
   text-transfor: capitalize;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const useStyles = makeStyles(() => ({
@@ -140,18 +142,19 @@ function InfoType({
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
   // ns__custom_start unit: appSpec, comp: InfoType, loc: beginning
-  const [parentState, setParentState] = useState([]);
+  const [parentState, setParentState] = useState([infoType]);
   const [selectSubInfoId, setSubInfoId] = useState(null);
   // useEffect(() => {
   //   const [parentData] = getChildData(childState);
   //   setParentState(parentData);
   // }, [infoType]);
-  const infoTypeData =
-  infoType.children &&
-  infoType.children.find((child) => child.typeId === TYPE_INFO_TYPE_ID);
-const infoTypes = infoTypeData ? infoTypeData.instances : [];
 
-   
+  const infoTypeData =
+    infoType._children &&
+    infoType._children.find((child) => child.parentId === TYPE_INFO_TYPE_ID);
+
+  const infoTypes = infoTypeData ? infoTypeData.instances : [];
+
   const handleSelect = (id) => setSubInfoId(id);
   const styles = useStyles();
   // ns__custom_end unit: appSpec, comp: InfoType, loc: beginning
@@ -263,23 +266,34 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
   // ns__end_section isDelete
 
   // ns__start_section functionReturn
+
   return (
     <InfoTypeStyleWrapper selected={selected}>
       {/* ns__start_replacement instanceValue */}
 
       <InputLabel className={styles.titleLabel}>Info Type</InputLabel>
       <TitleWrapper>
-      
         {infoTypeValue}
         <div>
-          {/* <Button type='button' onClick={() => updateIsEditMode(true)}>
+          <Button type='button' onClick={() => updateIsEditMode(true)}>
             &#9998;
-          </Button> */}
+          </Button>
           <Button type='button' onClick={() => updateIsDeleteMode(true)}>
             &#128465;
           </Button>
         </div>
       </TitleWrapper>
+      {/* 
+      <Test
+        infoType={infoType._children}
+        instanceId={infoType.id}
+        parentId={parentId}
+        refetchQueries={refetchQueries}
+        onSelect={handleSelect}
+        selectSubInfoId={selectSubInfoId}
+        label={infoTypeValue}
+        childState={childState}
+      /> */}
 
       {/* ns__end_replacement instanceValue */}
 
@@ -288,8 +302,19 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
       {/* ns__end_section childrenList */}
 
       {/* ns__custom_start unit: appSpec, comp: InfoType, loc: renderEnding */}
-      {/* <SubInfoComponent
-        infoType={parentState}
+      <SubInfoComponent
+        infoType={infoType._children}
+        instanceId={infoType.id}
+        parentId={parentId}
+        refetchQueries={refetchQueries}
+        onSelect={handleSelect}
+        selectSubInfoId={selectSubInfoId}
+        label={infoTypeValue}
+        childState={childState}
+      />
+
+      {/* <SubInfoTypes
+        infoType={infoTypes}
         instanceId={infoType.id}
         parentId={parentId}
         refetchQueries={refetchQueries}
@@ -299,25 +324,13 @@ const infoTypes = infoTypeData ? infoTypeData.instances : [];
       /> */}
 
       {/* <SubInfoTypes
-          infoType={infoTypes}
-          instanceId={infoType.id}
-          parentId={parentId}
-          refetchQueries={refetchQueries}
-          onSelect={handleSelect}
-          selectSubInfoId={selectSubInfoId}
-          label={infoTypeValue}
-
-      
-      /> */}
-
-       <SubInfoTypes
         subInfoTypes={infoType._children}
         infoTypeId={infoType.id}
         refetchQueries={refetchQueries}
-        // hasParentId={hasParentId}
+        hasParentId={hasParentId}
         parentId={parentId}
         childState={childState}
-      /> 
+      /> */}
 
       {/* ns__custom_end unit: appSpec, comp: InfoType, loc: renderEnding */}
     </InfoTypeStyleWrapper>
