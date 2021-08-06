@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm component AND  user is provided OR it is loading SHOULD NOT render login 1`] = `""`;
+
+exports[`LoginForm component AND NO user provided and NOT loading SHOULD render login 1`] = `
+<TransitionsModal
+  onClose={[MockFunction]}
+  open={true}
+>
+  <div>
+    <styled.div>
+      <a
+        href="/"
+      >
+        <img
+          alt="Pivotate Logo"
+          src="https://pivotatestaticassets.com/images/Pivotate Logo.svg"
+          width="170"
+        />
+      </a>
+    </styled.div>
+    <WithStyles(ForwardRef(InputLabel))
+      className="makeStyles-inputLabel-3"
+    >
+      Login
+    </WithStyles(ForwardRef(InputLabel))>
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <styled.div>
+      <label
+        htmlFor="nostack-username"
+      >
+        <WithStyles(ForwardRef(TextField))
+          className="makeStyles-textField-1"
+          disabled={false}
+          id="nostack-username"
+          label="Username"
+          name="username"
+          onChange={[Function]}
+          type="text"
+          value=""
+          variant="outlined"
+        />
+      </label>
+    </styled.div>
+    <styled.div>
+      <label
+        htmlFor="nostack-password"
+      >
+        <WithStyles(ForwardRef(TextField))
+          className="makeStyles-textField-1"
+          disabled={false}
+          id="nostack-password"
+          label="Password"
+          name="password"
+          onChange={[Function]}
+          type="password"
+          value=""
+          variant="outlined"
+        />
+      </label>
+    </styled.div>
+    <styled.div>
+      <WithStyles(ForwardRef(Button))
+        className="makeStyles-button-2"
+        color="primary"
+        disabled={true}
+        type="submit"
+        variant="contained"
+      >
+        Log In
+      </WithStyles(ForwardRef(Button))>
+    </styled.div>
+  </form>
+  <styled.div>
+    <Component />
+  </styled.div>
+</TransitionsModal>
+`;

@@ -105,7 +105,6 @@ class Screens extends Component {
       <>
         <ScreensStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
           {screens.map((screen) => {
-            console.log('screen id', screen);
             return (
               <Screen
                 key={v4()}
@@ -131,7 +130,7 @@ class Screens extends Component {
           /* ns__custom_end unit: appSpec, comp: Screens, loc: addedProps */
         />
 
-        {screens.lenght > 0 ? (
+        {screens.length > 0 ? (
           <InfoTypeCreationForm
             disabled
             validateInfoTypes={0}

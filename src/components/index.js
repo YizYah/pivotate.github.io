@@ -52,7 +52,6 @@ const initialValues = {
 };
 
 const RegistrationForm = (props, { userClassId, onSuccess }) => {
-  console.log('propssssssssssssss', props);
   const [register] = useMutation(REGISTER_USER);
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -81,8 +80,6 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
     setFormError('');
     // setUsername(values);
 
-    // console.log(app);
-    // console.log(description);
     setFirstName(values.firstName);
     setPassword(values.password);
     setLastName(values.lastName);

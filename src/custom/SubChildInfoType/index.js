@@ -106,7 +106,6 @@ const SubInfoType = ({
   onSelect,
   childState,
 }) => {
-  console.log('=>>>>>>>>>>.', subChildInfoType, parentId, infoTypeId);
   const [infoTypeValue, setSubInfoTypeValue] = useState(subChildInfoType.value);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

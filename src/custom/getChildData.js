@@ -1,21 +1,14 @@
 import _ from 'lodash';
 
 export default (data) => {
- 
-
   let parentData = data.map((instance) => ({
     ...instance,
     parentId: instance.children[0].instances[0]
       ? instance.children[0].instances[0].id
       : null,
-
-      
   }));
 
-  console.log('parentdata', parentData);
-
   const hasParentId = _.groupBy(parentData, 'parentId');
-  console.log('hass', hasParentId)
 
   parentData = parentData.map((instance) => ({
     ...instance,
@@ -50,7 +43,7 @@ export default (data) => {
   for (const id in prData) {
     if (prData[id]) {
       parentData.map((instance) => {
-        console.log('innderloop', instance)
+        console.log('innderloop', instance);
         if (instance.parentId && prData[id] === instance.parentId) {
           childData.push(instance);
         }
@@ -59,10 +52,8 @@ export default (data) => {
     }
   }
   // treeData(data)
-  console.log('treeeee111',parentData)
+  console.log('treeeee111', parentData);
 
-
-  
   return [parentData, childData];
 
   // return [treeData, tree];

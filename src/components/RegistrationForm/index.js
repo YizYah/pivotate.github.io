@@ -80,8 +80,6 @@ const RegistrationForm = (props, { userClassId, onSuccess }) => {
     setFormError('');
     // setUsername(values);
 
-    // console.log(app);
-    // console.log(description);
     setFirstName(values.firstName);
     setPassword(values.password);
     setLastName(values.lastName);

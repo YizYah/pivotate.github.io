@@ -22,7 +22,6 @@ const SendCodeForm = ({ onSubmit, onCancel, error, disabled }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(error);
     onSubmit(email);
     if (error.length > 0) {
       alert(error);
