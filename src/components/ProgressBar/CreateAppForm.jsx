@@ -95,7 +95,7 @@ function getSteps() {
     'Job Seeker title',
     'Profile details',
     'Type info',
-    'Review your changes'
+    'Review your changes',
   ];
 }
 
@@ -148,8 +148,6 @@ const CreateForm = ({
     refetchQueries,
     onSelect,
   };
-
-  console.log(values);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -14,7 +14,6 @@ const authReducer = (state, actions) => {
 const loginUser = (dispatch) => (userFlag) => {
   let userLoggedin = true;
   if (userFlag < 0) userLoggedin = false;
-  console.log(userLoggedin);
   localStorage.setItem('userFlag', true);
   dispatch({ type: 'login', payload: true });
 };

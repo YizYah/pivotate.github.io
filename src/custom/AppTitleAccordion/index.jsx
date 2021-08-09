@@ -57,12 +57,10 @@ function AppTitleAccordion({
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    console.log('stepppp', setActiveStep);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    console.log('stepppp', setActiveStep);
   };
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
@@ -101,29 +99,25 @@ function AppTitleAccordion({
               content={
                 ' This is semi-automated, but you have to enter your credit card details and talk to an account manager to start. '
               }
-              buttonLabel={"NEXT"}
+              buttonLabel={'NEXT'}
               buttonBack={'Go Back'}
               handleButton={handleNext}
               handleBack={handleBack}
               handleClose={handleClose}
-
             />
           </>
         );
-        default:
+      default:
         return (
           <>
             <CongratulationsModal
               open={openEdit}
-              title={"CONGRATULATIONS!"}
-              content={
-                'To proceed further now you have to do these things.'
-              }
+              title={'CONGRATULATIONS!'}
+              content={'To proceed further now you have to do these things.'}
               buttonLabel={'SCHEDULE A MEETING'}
               handleButton={handleNext}
               handleBack={handleBack}
               handleClose={handleClose}
-
             />
           </>
         );

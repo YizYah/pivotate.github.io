@@ -66,7 +66,6 @@ class CustomChildSub extends Component {
     if (!childState1.length || !parentState.length) {
       const [parentData, childData] = getChildData(childState);
 
-
       this.setState({
         childState1: childData,
         parentState: parentData,
@@ -109,15 +108,14 @@ class CustomChildSub extends Component {
 
   // ns__start_section render
   render() {
-    const { subInfoId,childState, subInfoTypes, refetchQueries, onUpdate,parentId } = this.props;
-    // console.log('screeen id->>>..', subInfoTypes,childState);
-    console.log('inner screen id child', subInfoId);
-    console.log('inner pcreen id child', parentId)
-console.log('sunonfo', subInfoTypes);    
-
-
-
-
+    const {
+      subInfoId,
+      childState,
+      subInfoTypes,
+      refetchQueries,
+      onUpdate,
+      parentId,
+    } = this.props;
 
     const { selectedInfoTypeId } = this.state;
 
@@ -130,58 +128,40 @@ console.log('sunonfo', subInfoTypes);
 
     // ns__start_replacement renderReturn
 
-    console.log('parnmmm', parentState);
-
     return (
       <>
         <InfoTypesStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-          {parentState && parentState.map((infoType) => {
-                        console.log('---------', infoType._children );
+          {parentState &&
+            parentState.map((infoType) => {
+              return (
+                // eslint-disable-next-line consistent-return
 
-                        console.log('=======',infoType );
+                <SubChildInfoType
+                  key={v4()}
+                  subChildInfoType={infoType}
+                  infoTypeId={infoType.id}
+                  selected={infoType.id === selectedInfoTypeId}
+                  parentId={parentId}
+                  refetchQueries={refetchQueries}
+                  onSelect={this.handleSelect}
+                  // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+                  hasParentId={infoType.parentId}
+                  onChange={this.onChangeHelper}
+                  childState={childState}
+                  // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
+                />
+              );
+            })}
 
-
-
-return (
-         // eslint-disable-next-line consistent-return
-         
-         <SubChildInfoType
-         key={v4()}
-         subChildInfoType={infoType}
-         infoTypeId={infoType.id}
-         selected={infoType.id === selectedInfoTypeId}
-         parentId={parentId}
-         refetchQueries={refetchQueries}
-         onSelect={this.handleSelect}
-         // ns__custom_start unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-         hasParentId={infoType.parentId}
-         onChange={this.onChangeHelper}
-         childState={childState}
-         // ns__custom_end unit: appSpec, comp: InfoTypes, loc: addedPropsForChildren
-       />
-
-
-)
-
-     
-  })}
-
-               <SubChildInfoTypeCreationForm 
-               refetchQueries={refetchQueries}
-               childId={subInfoId}
-               parentId={parentId}
-               />
-
-         
-
-
-          
-          
+          <SubChildInfoTypeCreationForm
+            refetchQueries={refetchQueries}
+            childId={subInfoId}
+            parentId={parentId}
+          />
 
           {/* ns__custom_start unit: appSpec, comp: InfoTypes, loc: renderEnding */}
           {/* ns__custom_end unit: appSpec, comp: InfoTypes, loc: renderEnding */}
         </InfoTypesStyleWrapper>
-
       </>
     );
 

@@ -129,7 +129,13 @@ class Apps extends Component {
             return `Error: ${error.graphQLErrors}`;
           }
 
-          const apps = data.unitData.map((el) => flattenData(el));
+          const apps = data.unitData.reduce((acc, el) => {
+            if (el) {
+              acc.push(flattenData(el));
+            }
+            return acc;
+          }, []);
+
           function getDepth(obj) {
             let res = JSON.stringify(obj).replace(/[^{|^}]/g, '');
             while (/}{/g.test(res)) {

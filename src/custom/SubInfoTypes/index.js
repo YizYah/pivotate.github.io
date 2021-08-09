@@ -45,8 +45,6 @@ const SubInfoTypes = ({
     subInfoTypeData,
     subInfoTypes
   );
-  console.log('dataaaaaaaaaaaaa', subInfoTypeData);
-  console.log('subinfo hasparent id', hasParentId);
   const handleClick = (e) => {
     const node = wrapperRef.current;
 
@@ -59,7 +57,6 @@ const SubInfoTypes = ({
     console.log('sub hand', id);
     setSubInfoTypeID(id);
   };
-  console.log('sub  selected id', subInfoTypeID);
 
   // const checkSubInfo =
   //   subInfoTypeData.length === 0 ||

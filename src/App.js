@@ -30,7 +30,6 @@ const Schedule = React.lazy(() => import('./components/Pages/Schedule'));
 
 const App = () => {
   const childRef = useRef();
-  console.log(childRef);
   return (
     <React.Suspense
       path='/'

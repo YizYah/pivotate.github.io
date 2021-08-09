@@ -68,8 +68,6 @@ function InfoType({
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
 
-  console.log(`infoTypeId`, infoTypeId);
-  console.log(`parentIdparentId, `, parentId);
   // if (!selected) {
   //   return (
   //     <InfoTypeStyleWrapper onClick={() => onSelect(infoType.id)}>
@@ -171,7 +169,6 @@ function InfoType({
         refetchQueries,
       });
     } catch (e) {
-      console.log(e);
       updateIsDeleting(false);
     }
   }
@@ -214,9 +211,7 @@ function InfoType({
 
         <label htmlFor={value.id}>
           {' '}
-          <small className='grey--text'> Sub Info Type: </small> 
-{' '}
-{value.value}{' '}
+          <small className='grey--text'> Sub Info Type: </small> {value.value}{' '}
         </label>
         <span>
           <a
