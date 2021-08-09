@@ -1,2 +1,0 @@
-(this["webpackJsonpno-stack-base"]=this["webpackJsonpno-stack-base"]||[]).push([[16],{654:function(t,e,n){"use strict";n.r(e);var a=n(634),c=n(635),r=n(637),s=n(636),i=n(0),o=n.n(i),u=n(668),b=function(t){Object(r.a)(n,t);var e=Object(s.a)(n);function n(){return Object(a.a)(this,n),e.apply(this,arguments)}return Object(c.a)(n,[{key:"render",value:function(){return o.a.createElement(u.a,{width:"100%",height:"485",video:"413548140"}," ")}}]),n}(i.Component);e.default=b}}]);
-//# sourceMappingURL=16.1182ac01.chunk.js.map
