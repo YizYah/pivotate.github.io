@@ -13,7 +13,7 @@ const AppFooter = (props) => {
   return (
     <footer className='footer'>
       {!displaySignUp ? (
-        <div className='footer__sign-up  '>
+        <div className='footer__sign-up'>
           <div className='container triangle--white triangle'>
             <div className='flex'>
               <div className='grow-6'>

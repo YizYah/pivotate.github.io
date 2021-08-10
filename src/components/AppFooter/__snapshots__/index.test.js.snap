@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component AND there is no accessToken set SHOULD render the footer with signup node 1`] = `
+<footer
+  className="footer"
+>
+  <div
+    className="footer__sign-up"
+  >
+    <div
+      className="container triangle--white triangle"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="grow-6"
+        >
+          <h2>
+            <div>
+              Don't settle for
+            </div>
+            <div>
+              templates or freelancers!
+            </div>
+          </h2>
+        </div>
+        <div
+          className="grow-6 text-center"
+        >
+          <button
+            className="button button--large button--teal"
+            href="#"
+            type="button"
+          >
+            SIGN UP 
+            <span
+              className="chevron right"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="footer__content"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className=" grow-6"
+        >
+          <div>
+            <img
+              alt="Pivotate Logo"
+              height="70"
+              src="https://pivotatestaticassets.com/images/Pivotate Logo_White.svg"
+            />
+          </div>
+          <div>
+            <HashLink
+              to="/contact?s=footer"
+            >
+              Contact
+            </HashLink>
+          </div>
+          <div
+            className="powered-by"
+          >
+            <span
+              className="grey--text"
+            >
+              Powered By
+            </span>
+            <strong
+              className="teal--text"
+              href="#"
+            >
+               
+              NoStack
+            </strong>
+          </div>
+        </div>
+        <div
+          className="grow-6 "
+        >
+          <div
+            className="flex footer__group-links"
+          >
+            <div
+              className="grow-4"
+            />
+            <div
+              className="grow-4"
+            >
+              <div
+                className="footer__title"
+              >
+                About
+              </div>
+              <ul
+                className="footer__links"
+              >
+                <li>
+                  <HashLink
+                    to="/#about-us"
+                  >
+                     About Us
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink
+                    to="/#how-it-works"
+                  >
+                     How it Works
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink
+                    to="/pricing"
+                  >
+                     Pricing
+                  </HashLink>
+                </li>
+                <li>
+                  <strong
+                    aria-hidden="true"
+                    className="teal--text"
+                    href="#"
+                    role="button"
+                    style={
+                      Object {
+                        "cursor": "pointer",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Sign Up Now
+                  </strong>
+                </li>
+              </ul>
+            </div>
+            <div
+              className="grow-4"
+            >
+              <div
+                className="footer__title"
+              >
+                Terms
+              </div>
+              <ul
+                className="footer__links"
+              >
+                <li>
+                   
+                  <HashLink
+                    to="/terms-and-conditions"
+                  >
+                    Terms of Use
+                  </HashLink>
+                </li>
+                <li>
+                   
+                  <HashLink
+                    to="/privacy-policy"
+                  >
+                    Privacy
+                  </HashLink>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="text-center copyright"
+      >
+        Copyright © 2020 Pivotate
+      </div>
+    </div>
+  </div>
+</footer>
+`;

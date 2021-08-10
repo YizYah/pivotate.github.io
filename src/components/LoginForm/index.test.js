@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
 import 'whatwg-fetch';
 import React from 'react';
-import WrappedLoginForm from '.';
-// const LoginForm = unwrapComponent(WrappedLoginForm);
 import LoginForm from '.';
 jest.mock('@nostack/no-stack', () => ({
   withNoStack: (el) => el,

@@ -114,6 +114,7 @@ class NavBar extends Component {
           <div className='grow-12 text-right hide-tablet'>
             <NoStackConsumer>
               {({ loading, currentUser }) => {
+                console.log({ loading, currentUser });
                 if (loading) return null;
                 if (!currentUser) {
                   return (

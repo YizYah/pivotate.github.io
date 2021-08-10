@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given AppHeader component SHOULD render the Navbar 1`] = `
+<header
+  className="container header flex items-center"
+>
+  <div
+    className="header__logo"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="Pivotate Logo"
+        src="https://pivotatestaticassets.com/images/Pivotate Logo.svg"
+        width="170"
+      />
+    </a>
+  </div>
+  <nav
+    className="hide-tablet"
+  >
+    <ul
+      className="flex header__nav"
+    >
+      <li>
+        <HashLink
+          to="/pricing?=initial"
+        >
+             PRICING 
+        </HashLink>
+      </li>
+      <li>
+        <HashLink
+          to="/#how-it-works"
+        >
+           HOW IT WORKS 
+        </HashLink>
+      </li>
+      <li>
+        <HashLink
+          to="/#about-us"
+        >
+           ABOUT US 
+        </HashLink>
+      </li>
+      <li>
+        <HashLink
+          to="/contact"
+        >
+           CONTACT 
+        </HashLink>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="grow-12 text-right hide-tablet"
+  >
+    <mockConstructor>
+      <Component />
+    </mockConstructor>
+  </div>
+  <div
+    className="show-tablet"
+  >
+    <div
+      id="amp-burger"
+      onClick={[Function]}
+      role="presentation"
+    >
+      <div
+        className="lines"
+      >
+        <input
+          className="checkbox"
+          id="checkbox"
+          type="checkbox"
+        />
+        <div
+          className="lines-icon"
+          data-menu=""
+        >
+          <div
+            className="icon-left"
+          />
+          <div
+            className="icon-right"
+          />
+        </div>
+        <div
+          className="mobile-menu__wrapper"
+        >
+          <ul>
+            <li>
+              <HashLink
+                to="/pricing?inital"
+              >
+                PRICING
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                onClick={[Function]}
+                to="/#how-it-works"
+              >
+                HOW IT WORKS
+                 
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                onClick={[Function]}
+                to="/#about-us"
+              >
+                ABOUT US
+                 
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                onClick={[Function]}
+                to="/contact"
+              >
+                CONTACT
+              </HashLink>
+            </li>
+            <li>
+              <span
+                onClick={[Function]}
+                role="presentation"
+              >
+                LOGIN
+              </span>
+            </li>
+            <li>
+              <span
+                className="button button--yellow button__sign-up"
+                onClick={[Function]}
+                role="presentation"
+              >
+                FREE CONSULTATION
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+`;
