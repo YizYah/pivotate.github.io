@@ -70,8 +70,8 @@ export const LoginForm = ({
   onClose,
 }) => {
   // ns__custom_end unit: general, comp: LoginForm, loc: addedProps
-  const [username, setUsername] = useState('Demo');
-  const [password, setPassword] = useState('Test@1234');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
